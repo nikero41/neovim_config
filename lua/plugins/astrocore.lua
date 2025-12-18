@@ -42,7 +42,7 @@ return {
 							name = "LSP",
 							commands = {
 								{ "Restart tsserver", ":VtsExec restart_tsserver" },
-								{ "Restart eslint", ":LspRestart eslint" },
+								{ "Restart eslint_d", ":! eslint_d restart" },
 								{ "Restart prettierd", ":!prettierd restart" },
 								{ "Restart lua-ls", ":LspRestart lua-ls" },
 							},
