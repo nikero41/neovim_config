@@ -12,7 +12,7 @@ return {
 		},
 		formatting = {
 			format_on_save = { enabled = false },
-			timeout_ms = 1000,
+			timeout_ms = 2000,
 			filter = function(client)
 				local formatters_per_filetype = {
 					sh = "bashls",
