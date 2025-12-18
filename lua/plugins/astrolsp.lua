@@ -53,6 +53,13 @@ return {
 					},
 				},
 			},
+			gopls = {
+				settings = {
+					gopls = {
+						analyses = { ST1000 = false },
+					},
+				},
+			},
 			vtsls = {
 				settings = {
 					typescript = {
