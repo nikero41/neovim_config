@@ -101,6 +101,7 @@ return {
 			extension = {
 				env = "dotenv",
 				podspec = "ruby",
+				tmux = "tmux",
 			},
 			filename = {
 				[".env"] = "dotenv",
