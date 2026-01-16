@@ -71,6 +71,9 @@ return {
 							functionLikeReturnTypes = { enabled = true },
 							enumMemberValues = { enabled = false },
 						},
+						experimental = {
+							useTsgo = true,
+						},
 					},
 					javascript = {
 						inlayHints = {
