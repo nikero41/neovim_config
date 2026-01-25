@@ -37,7 +37,7 @@ return {
 					if has_project_config then return nil end
 					return {
 						"--config",
-						vim.fs.joinath(vim.fn.stdpath("config"), "config_files", ".selene.toml"),
+						vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".selene.toml"),
 					}
 				end,
 			}), -- Linter for Lua
