@@ -32,6 +32,14 @@ return {
 			g = {
 				loaded_perl_provider = 0,
 				enable_golines = true,
+				---@module "opencode"
+				---@type opencode.Opts
+				opencode_opts = {
+					provider = {
+						enabled = "tmux",
+						tmux = {},
+					},
+				},
 			},
 		},
 		commands = {
