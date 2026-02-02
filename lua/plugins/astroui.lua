@@ -22,6 +22,7 @@ return {
 					fg = require("utils.helpers"):blend(colors.mauve, "#000000", 0.7),
 				},
 				BlinkCmpMenu = { bg = colors.base },
+				FloatBorder = { fg = colors.mauve },
 			},
 			onedark_vivid = {
 				["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },

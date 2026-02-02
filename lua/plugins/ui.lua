@@ -1,6 +1,12 @@
 ---@type LazySpec
 return {
 	{
+		"akinsho/toggleterm.nvim",
+		opts = {
+			float_opts = { border = "rounded" },
+		},
+	},
+	{
 		"FabijanZulj/blame.nvim",
 		opts = { date_format = "%d/%m/%Y" },
 	},
