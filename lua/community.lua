@@ -1,6 +1,8 @@
 ---@type LazySpec
 return {
 	"AstroNvim/astrocommunity",
+	{ import = "astrocommunity.ai.opencode-nvim" },
+
 	{ import = "astrocommunity.color.tint-nvim" }, -- Dim inactive windows
 
 	{ import = "astrocommunity.colorscheme.catppuccin" },
