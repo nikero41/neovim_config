@@ -110,6 +110,7 @@ return {
 				env = "dotenv",
 				podspec = "ruby",
 				tmux = "tmux",
+				gitconfig = "gitconfig",
 			},
 			filename = {
 				[".env"] = "dotenv",
