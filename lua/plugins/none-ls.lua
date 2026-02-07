@@ -26,7 +26,6 @@ return {
 			require("none-ls.diagnostics.eslint_d"),
 			none_ls.builtins.diagnostics.hadolint, -- Linter for Docker
 			none_ls.builtins.diagnostics.ktlint, -- Linter for Kotlin
-			none_ls.builtins.diagnostics.hadolint, -- Linter for docker
 			none_ls.builtins.diagnostics.markdownlint,
 			none_ls.builtins.diagnostics.npm_groovy_lint,
 			none_ls.builtins.diagnostics.mypy,
