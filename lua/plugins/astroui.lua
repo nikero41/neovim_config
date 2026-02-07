@@ -1,4 +1,4 @@
-local ok, colors = pcall(require("catppuccin.palettes").get_palette("mocha"))
+local ok, colors = pcall(function() return require("catppuccin.palettes").get_palette("mocha") end)
 if not ok then error("catppuccin.nvim not found") end
 local cursor_line_bg = require("utils.helpers"):blend(colors.mauve, "#000000", 0.28)
 
