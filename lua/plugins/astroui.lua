@@ -1,4 +1,5 @@
-local colors = require("catppuccin.palettes").get_palette("mocha")
+local ok, colors = pcall(require("catppuccin.palettes").get_palette("mocha"))
+if not ok then error("catppuccin.nvim not found") end
 local cursor_line_bg = require("utils.helpers"):blend(colors.mauve, "#000000", 0.28)
 
 ---@type LazySpec
