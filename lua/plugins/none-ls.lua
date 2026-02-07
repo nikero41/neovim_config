@@ -1,17 +1,13 @@
 ---@type LazySpec
 return {
 	"nvimtools/none-ls.nvim",
-	dependencies = {
-		"nvimtools/none-ls-extras.nvim",
-		"davidmh/cspell.nvim",
-	},
+	dependencies = { "nvimtools/none-ls-extras.nvim" },
 	opts = function(_, opts)
 		local none_ls = require("null-ls")
 		local utils = require("null-ls.utils").make_conditional_utils()
 
 		opts.sources = require("astrocore").extend_tbl(opts.sources, {
 			-- Code Actions
-			require("cspell").code_actions,
 			require("none-ls.code_actions.eslint_d"),
 			none_ls.builtins.code_actions.refactoring.with({
 				extra_filetypes = require("utils.constants").filetype.typescript,
@@ -19,9 +15,6 @@ return {
 
 			-- Diagnostics
 			none_ls.builtins.diagnostics.checkmake,
-			require("cspell").diagnostics.with({
-				disabled_filetypes = { "dotenv" },
-			}),
 			none_ls.builtins.diagnostics.dotenv_linter.with({ filetype = { "dotenv" } }),
 			require("none-ls.diagnostics.eslint_d"),
 			none_ls.builtins.diagnostics.hadolint, -- Linter for Docker
