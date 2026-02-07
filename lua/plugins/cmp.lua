@@ -20,7 +20,6 @@ return {
 				opts = {},
 			},
 			{ "Saghen/blink.compat", version = "*", opts = {} },
-			{ "hrsh7th/cmp-nvim-lua" },
 		},
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
