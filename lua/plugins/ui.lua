@@ -66,6 +66,7 @@ return {
 						bottom_search = false,
 						command_palette = false,
 						inc_rename = false,
+						long_message_to_split = true,
 					},
 				}
 			)
