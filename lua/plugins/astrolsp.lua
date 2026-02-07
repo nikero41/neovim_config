@@ -19,7 +19,6 @@ return {
 					zsh = "bashls",
 					toml = "taplo",
 					go = { "gopls", "null-ls" },
-					cs = "csharp_ls",
 					json = "null-ls",
 					jsonc = "null-ls",
 				}
