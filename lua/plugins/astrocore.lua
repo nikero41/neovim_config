@@ -73,7 +73,7 @@ return {
 								{ "Zen mode", function() Snacks.zen() end },
 								{ "Check health", ":checkhealth" },
 								{
-									"Change colorshceme",
+									"Change colorscheme",
 									function() Snacks.picker.colorschemes() end,
 								},
 								{ "Commands", function() Snacks.picker.commands() end },
