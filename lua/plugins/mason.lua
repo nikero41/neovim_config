@@ -15,12 +15,12 @@ return {
 				-- language servers
 				"gradle-language-server",
 				"graphql-language-service-cli",
+				"typos-lsp",
 				"rust-analyzer",
 
 				-- none-ls
 				"checkmake",
 				"clang-format",
-				"cspell",
 				"eslint_d",
 				"golines",
 				"markdownlint",
