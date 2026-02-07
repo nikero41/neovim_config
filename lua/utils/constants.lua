@@ -7,6 +7,7 @@ return {
 			"javascript",
 			"javascriptreact",
 			"javascript.jsx",
+			"jsx",
 		},
 	},
 }
