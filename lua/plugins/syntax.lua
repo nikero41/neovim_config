@@ -41,13 +41,6 @@ return {
 	},
 	{
 		"HiPhish/rainbow-delimiters.nvim",
-		keys = {
-			{
-				"<leader>up",
-				function() require("rainbow-delimiters").toggle(0) end,
-				desc = "Toggle rainbow-delimiters",
-			},
-		},
 		---@param opts rainbow_delimiters.config
 		opts = function(_, opts)
 			local js_query = "rainbow-parens"
