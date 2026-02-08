@@ -127,7 +127,7 @@ return {
 		autocmds = { eslint_fix_on_save = false },
 		mappings = {
 			n = {
-				["<Leader>uY"] = false, -- toggle LSP symantic highlighting
+				["<Leader>uY"] = false, -- toggle LSP semantic highlighting
 				["<Leader>lG"] = false, -- search workspace symbols
 				["<Leader>lR"] = false, -- search references
 				["<Leader>uf"] = false, -- toggle buffer autoformatting
@@ -145,7 +145,7 @@ return {
 				["grr"] = false, -- gr search references
 			},
 			v = {
-				["<leader>uY"] = false, -- toggle LSP symantic highlighting
+				["<leader>uY"] = false, -- toggle LSP semantic highlighting
 			},
 		},
 	},

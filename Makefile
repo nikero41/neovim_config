@@ -5,7 +5,7 @@ lint:
 	@selene .
 
 check-format:
-	@echo "Check if code needs formating..."
+	@echo "Check if code needs formatting..."
 	@stylua --check .
 
 format:

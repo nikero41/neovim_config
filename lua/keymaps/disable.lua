@@ -35,7 +35,7 @@ local DisableKeymaps = {
 		{ mode = "n", lhs = "<Leader>fs" }, -- snacks smart
 		{ mode = "n", lhs = "<Leader>fl" }, -- snacks find line
 		{ mode = "n", lhs = "<Leader>us" }, -- toggle spellcheck
-		{ mode = "n", lhs = "<Leader>ub" }, -- toggle backround
+		{ mode = "n", lhs = "<Leader>ub" }, -- toggle background
 		{ mode = "n", lhs = "<Leader>uR" }, -- snacks find line
 		{ mode = "n", lhs = "<Leader>uv" }, -- toggle virtual text
 		{ mode = "n", lhs = "<Leader>uV" }, -- toggle virtual lines

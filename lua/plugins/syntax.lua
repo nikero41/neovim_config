@@ -87,9 +87,9 @@ return {
 		---@module "tailwind-tools"
 		---@type fun(plugin: any, opts: TailwindTools.Option): TailwindTools.Option
 		opts = function(_, opts)
-			local paterns = {}
+			local patterns = {}
 			for _, language in pairs(require("utils.constants").filetype.javascript) do
-				paterns[language] = {
+				patterns[language] = {
 					"clsx%(([^)]+)%)",
 					"cn%(([^)]+)%)",
 				}
@@ -97,7 +97,7 @@ return {
 
 			return require("astrocore").extend_tbl(opts, {
 				keymaps = { smart_increment = { enabled = true } },
-				extension = { patterns = paterns },
+				extension = { patterns = patterns },
 			})
 		end,
 	},
