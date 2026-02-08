@@ -75,6 +75,7 @@ return {
 	{
 		"OlegGulevskyy/better-ts-errors.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
+		ft = require("utils.constants").filetype.javascript,
 		opts = { keymaps = { toggle = "gL" } },
 	},
 }
