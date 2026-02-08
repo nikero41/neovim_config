@@ -1,24 +1,3 @@
-local h = require("null-ls.helpers")
-local methods = require("null-ls.methods")
-
-local FORMATTING = methods.internal.FORMATTING
-
-local nginx_formatter = h.make_builtin({
-	name = "nginx-config-formatter",
-	meta = {
-		url = "https://github.com/slomkowski/nginx-config-formatter",
-		description = "nginx config file formatter/beautifier written in Python with no additional dependencies.",
-	},
-	method = FORMATTING,
-	filetypes = { "nginx" },
-	generator_opts = {
-		command = "nginxfmt",
-		args = { "--pipe" },
-		to_stdin = true,
-	},
-	factory = h.formatter_factory,
-})
-
 ---@type LazySpec
 return {
 	"nvimtools/none-ls.nvim",
@@ -117,6 +96,7 @@ return {
 			none_ls.builtins.formatting.ktlint, -- Formatter for Kotlin
 			none_ls.builtins.formatting.markdownlint,
 			nginx_formatter,
+			require("none-ls.formatting.nginx_config_formatter"),
 			none_ls.builtins.formatting.npm_groovy_lint, -- Formatter for Groovy/Gradle
 			none_ls.builtins.formatting.prettierd.with({
 				env = {
