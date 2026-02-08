@@ -95,7 +95,6 @@ return {
 			none_ls.builtins.formatting.isort, -- Sort Python imports
 			none_ls.builtins.formatting.ktlint, -- Formatter for Kotlin
 			none_ls.builtins.formatting.markdownlint,
-			nginx_formatter,
 			require("none-ls.formatting.nginx_config_formatter"),
 			none_ls.builtins.formatting.npm_groovy_lint, -- Formatter for Groovy/Gradle
 			none_ls.builtins.formatting.prettierd.with({
