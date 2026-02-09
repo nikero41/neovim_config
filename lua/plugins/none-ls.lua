@@ -52,7 +52,7 @@ return {
 					if has_project_config then return nil end
 					return {
 						"--config",
-						vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".stylelintrc.json"),
+						vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", "stylelint.config.js"),
 					}
 				end,
 			}),
