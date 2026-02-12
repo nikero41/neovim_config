@@ -22,7 +22,7 @@ return {
 	},
 	{
 		"ghostty",
-		dir = vim.fs.joinpath(vim.env.GHOSTTY_RESOURCES_DIR, "..", "nvim", "site"),
+		dir = vim.env.GHOSTTY_RESOURCES_DIR and vim.fs.joinpath(vim.env.GHOSTTY_RESOURCES_DIR, "..", "nvim", "site") or nil,
 		lazy = false,
 		cond = vim.env.GHOSTTY_RESOURCES_DIR ~= nil,
 	},
