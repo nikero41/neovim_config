@@ -11,14 +11,17 @@ return {
 			{ "<leader>cb", function() require("chainsaw").emojiLog() end, desc = "Log beep" },
 			{ "<leader>cr", function() require("chainsaw").removeLogs() end, desc = "Clear logs" },
 		},
-		opts = function(_, opts)
-			for _, language in pairs(require("utils.constants").filetype.javascript) do
-				if opts.logStatements == nil then opts.logStatements = { objectLog = {} } end
-				opts.logStatements.objectLog[language] =
-					'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));'
-			end
-			return opts
-		end,
+		opts = {
+			logStatements = {
+				objectLog = {
+					go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' },
+					javascript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
+				},
+				variableLog = { go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' } },
+				messageLog = { go = { 'slog.Debug("{{marker}} {{insert}}")' } },
+				emojiLog = { go = { 'slog.Debug("{{marker}} {{emoji}}")' } },
+			},
+		},
 	},
 	{
 		"ghostty",
