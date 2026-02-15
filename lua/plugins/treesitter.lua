@@ -8,6 +8,7 @@ return {
 			"regex",
 			"scss",
 			"tmux",
+			"vhs",
 		},
 	},
 	config = function(plugin, opts)
