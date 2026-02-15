@@ -7,6 +7,18 @@ return {
 		{ "<leader>ua", function() Snacks.dashboard.open() end, desc = "Toggle home screen" },
 		{ "<leader>gL", function() Snacks.git.blame_line() end, desc = "View full Git blame" },
 		{ "<leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find todo comments" },
+		{
+			"[[",
+			function() Snacks.words.jump(-vim.v.count1) end,
+			desc = "Prev Reference",
+			mode = { "n", "t" },
+		},
+		{
+			"]]",
+			function() Snacks.words.jump(vim.v.count1) end,
+			desc = "Next Reference",
+			mode = { "n", "t" },
+		},
 	},
 	---@module "snacks"
 	---@type snacks.Config
@@ -170,6 +182,7 @@ return {
 				},
 			},
 		},
+		words = { enabled = true },
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
