@@ -10,6 +10,21 @@ return {
 			{ "<leader>cm", function() require("chainsaw").messageLog() end, desc = "Log" },
 			{ "<leader>cb", function() require("chainsaw").emojiLog() end, desc = "Log beep" },
 			{ "<leader>cr", function() require("chainsaw").removeLogs() end, desc = "Clear logs" },
+			{
+				"<leader>cf",
+				function()
+					local marker = require("chainsaw.config.config").config.marker
+					require("snacks").picker.grep_word({
+						title = marker .. " log statements",
+						cmd = "rg",
+						args = { "--trim" },
+						search = marker,
+						regex = false,
+						live = false,
+					})
+				end,
+				desc = "Clear logs",
+			},
 		},
 		opts = {
 			logStatements = {
