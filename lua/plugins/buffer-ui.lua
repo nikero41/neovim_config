@@ -103,10 +103,4 @@ return {
 			return opts
 		end,
 	},
-	{
-		"blazejkustra/react-compiler-marker",
-		ft = require("utils.constants").filetype.javascript,
-		build = "./scripts/build-nvim.sh",
-		opts = {},
-	},
 }

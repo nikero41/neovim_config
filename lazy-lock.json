@@ -91,7 +91,6 @@
   "package-info.nvim": { "branch": "master", "commit": "52e407af634cd5d3add0dc916c517865850113a4" },
   "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
   "qmk.nvim": { "branch": "main", "commit": "3c804c1480991e4837514900b22b9358cfd64fa1" },
-  "react-compiler-marker": { "branch": "main", "commit": "7ec6604ccb01cb40d2a21c10e3d768c129b68c2b" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "e2858c43caafec291f915ef25fbed27bbe78abbd" },
   "refactoring.nvim": { "branch": "master", "commit": "6784b54587e6d8a6b9ea199318512170ffb9e418" },
   "render-markdown.nvim": { "branch": "main", "commit": "48b4175dbca8439d30c1f52231cbe5a712c8f9d9" },
