@@ -4,6 +4,7 @@ return {
 	dependencies = { "davidosomething/format-ts-errors.nvim" },
 	---@type AstroLSPOpts
 	opts = {
+		native_lsp_config = true,
 		features = {
 			codelens = true,
 			inlay_hints = true,
