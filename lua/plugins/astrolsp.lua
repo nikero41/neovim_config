@@ -38,6 +38,12 @@ return {
 				return true
 			end,
 		},
+		capabilities = {
+			workspace = {
+				didChangeConfiguration = { dynamicRegistration = true },
+				didChangeWorkspaceFolders = { dynamicRegistration = true },
+			},
+		},
 		---@diagnostic disable: missing-fields
 		config = {
 			lua_ls = { settings = { Lua = { hint = { enable = true } } } },
