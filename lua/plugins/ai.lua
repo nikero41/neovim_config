@@ -2,11 +2,7 @@
 return {
 	{
 		"supermaven-inc/supermaven-nvim",
-		opts = {
-			keymaps = {
-				clear_suggestion = "<M-r>",
-			},
-		},
+		opts = { keymaps = { clear_suggestion = "<M-r>" } },
 		specs = {
 			{
 				"AstroNvim/astrocore",
