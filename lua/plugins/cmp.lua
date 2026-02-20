@@ -79,6 +79,8 @@ return {
 					},
 				},
 				trigger = {
+					show_on_backspace = true,
+					show_in_snippet = true,
 					show_on_keyword = true,
 					show_on_trigger_character = true,
 					show_on_accept_on_trigger_character = true,
