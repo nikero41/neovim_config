@@ -57,7 +57,7 @@ return {
 				menu = {
 					scrolloff = 1,
 					max_height = 20,
-					border = "rounded",
+					border = require("utils.constants").border_type,
 					scrollbar = true,
 					winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
 					draw = {
@@ -71,7 +71,7 @@ return {
 				documentation = {
 					auto_show = true,
 					window = {
-						border = "rounded",
+						border = require("utils.constants").border_type,
 						winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
 					},
 				},
