@@ -7,11 +7,11 @@ function UiKeymaps:configure(maps)
 		function() Snacks.picker.lsp_references() end,
 		desc = "Go to reference",
 	})
-	maps:add("n", "<Leader>tt", {
-		function() require("astrocore").toggle_term_cmd({ cmd = "btop ", direction = "float" }) end,
-		desc = "ToggleTerm btop",
-	})
 	maps:add("n", "<Leader>P", { "<CMD>CommandPalette<CR>", desc = "Command Palette" })
+	maps:add("n", "<Leader>gg", {
+		function() Snacks.lazygit() end,
+		desc = "Command Palette",
+	})
 end
 
 return UiKeymaps

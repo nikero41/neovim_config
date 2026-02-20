@@ -4,6 +4,7 @@
 ---@field configure fun(self: DisableKeymaps, maps: Keymaps, options: table<KeymapsPackage, boolean>): nil
 local DisableKeymaps = {
 	astronvim = {
+		{ mode = "n", lhs = "<Leader>R" }, -- rename file
 		{ mode = "n", lhs = "<Leader>fa" }, -- auto-save.nvim
 		{ mode = "n", lhs = "<Leader>fh" }, -- find help
 		{ mode = "n", lhs = "<Leader>uu" }, -- undotree.vim
@@ -25,7 +26,16 @@ local DisableKeymaps = {
 		{ mode = "n", lhs = "<Leader>C" }, -- force close buffer
 		{ mode = "n", lhs = "<Leader>c" }, -- close buffer
 		{ mode = "n", lhs = "<Leader>h" }, -- home screen
+		{ mode = "n", lhs = "<Leader>t" }, -- disable togglterm
 		{ mode = "n", lhs = "<Leader>tl" }, -- duplicate lazygit
+		{ mode = "n", lhs = "<Leader>td" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>th" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tn" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tu" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tv" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tf" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tp" }, -- disable togglterm
+		{ mode = "n", lhs = "<Leader>tt" }, -- disable togglterm
 		{ mode = "n", lhs = "<Leader>lG" }, -- search workspace symbol
 		{ mode = "n", lhs = "<Leader>lR" }, -- search references
 		{ mode = { "n", "o", "x" }, lhs = "<Leader>w" }, -- nvim-spider
@@ -43,6 +53,7 @@ local DisableKeymaps = {
 		{ mode = "n", lhs = "<Leader>u|" }, -- toggle indent lines
 	},
 	packages = {
+		{ mode = "n", lhs = "<Leader>p" },
 		{ mode = "n", lhs = "<Leader>pa" },
 		{ mode = "n", lhs = "<Leader>pi" },
 		{ mode = "n", lhs = "<Leader>pm" },
