@@ -22,6 +22,7 @@ return {
 					bg = colors.base,
 					fg = require("utils.helpers"):blend(colors.mauve, "#000000", 0.7),
 				},
+				NeoTreeRootName = { fg = colors.mauve },
 				BlinkCmpMenu = { bg = colors.base },
 				FloatBorder = { fg = colors.mauve },
 			},
