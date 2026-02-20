@@ -68,6 +68,11 @@ return {
 			overrides = {
 				buftype = {
 					nofile = {
+						heading = {
+							border = false,
+							backgrounds = { "Title" },
+							foregrounds = { "Title" },
+						},
 						code = {
 							left_pad = 0,
 							language_icon = false,
