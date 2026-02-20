@@ -48,6 +48,7 @@ return {
 	},
 	{
 		"codethread/qmk.nvim",
+		ft = "dts",
 		opts = {
 			name = "corne",
 			variant = "zmk",
