@@ -10,16 +10,19 @@ return {
 		end,
 	},
 	{
+		"David-Kunz/cmp-npm",
+		ft = "json",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "Saghen/blink.compat", version = "*", opts = {} },
+		},
+		opts = {},
+	},
+	{
 		"Saghen/blink.cmp",
 		dependencies = {
 			{ "disrupted/blink-cmp-conventional-commits" },
 			{ "Kaiser-Yang/blink-cmp-git", dependencies = { "nvim-lua/plenary.nvim" } },
-			{
-				"David-Kunz/cmp-npm",
-				dependencies = { "nvim-lua/plenary.nvim" },
-				opts = {},
-			},
-			{ "Saghen/blink.compat", version = "*", opts = {} },
 		},
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
