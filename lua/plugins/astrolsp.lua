@@ -71,7 +71,7 @@ return {
 					},
 				},
 			},
-			vtsls = {
+			tsgo = {
 				settings = {
 					typescript = {
 						inlayHints = {
@@ -93,45 +93,40 @@ return {
 							enumMemberValues = { enabled = false },
 						},
 					},
-					vtsls = {
-						autoUseWorkspaceTsdk = true,
-						experimental = {
-							enableProjectDiagnostics = true,
-							maxInlayHintLength = 30,
-						},
-					},
+					-- NOTE: this is not working with tsgo yet
+					-- experimental = {
+					-- 	enableProjectDiagnostics = true,
+					-- 	maxInlayHintLength = 30,
+					-- },
 				},
 				handlers = {
-					---@diagnostic disable-next-line: redundant-parameter
-					["textDocument/publishDiagnostics"] = function(_, result, ctx)
-						if result.diagnostics == nil then return end
+					["textDocument/inlayHint"] = function(_, result, ctx)
+						require("utils.lsp.inlay_hints"):truncate(result)
+						vim.lsp.inlay_hint.on_inlayhint(_, result, ctx)
+					end,
+					-- NOTE: `textDocument/publishDiagnostics` is not supported by tsgo
+					["textDocument/diagnostic"] = function(error, result, ctx)
+						local diagnostics = require("utils.lsp.tsgo"):format_errors(result.items)
+						if diagnostics ~= nil then result.diagnostics = diagnostics end
 
-						-- ignore some tsserver diagnostics
-						local idx = 1
-						while idx <= #result.diagnostics do
-							local entry = result.diagnostics[idx]
-
-							local formatter = require("format-ts-errors")[entry.code]
-							entry.message = formatter and formatter(entry.message) or entry.message
-
-							-- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
-							if entry.code == 80001 then
-								-- { message = "File is a CommonJS module; it may be converted to an ES module.", }
-								table.remove(result.diagnostics, idx)
-							else
-								idx = idx + 1
-							end
-						end
-
-						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
+						vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
 					end,
 				},
 				on_attach = function(client, bufnr)
-					require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+					-- NOTE: will be natively supported in v0.12
+					-- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 					require("twoslash-queries").attach(client, bufnr)
 				end,
 			},
 		},
+		handlers = {
+			vtsls = false,
+			tsgo = function(server, opts)
+				require("utils.lsp.tsgo"):setup(opts)
+				vim.lsp.enable(server)
+			end,
+		},
+		servers = { "tsgo" },
 		autocmds = { eslint_fix_on_save = false },
 		mappings = {
 			n = {

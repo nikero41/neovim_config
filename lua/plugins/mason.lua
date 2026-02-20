@@ -2,8 +2,8 @@
 return {
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		opts = {
-			ensure_installed = {
+		opts = function(_, opts)
+			opts.ensure_installed = require("astrocore").extend_tbl(opts.ensure_installed, {
 				-- language servers
 				"gradle-language-server",
 				"graphql-language-service-cli",
@@ -15,19 +15,24 @@ return {
 				"clang-format",
 				"eslint_d",
 				"golines",
+				"golangci-lint-langserver",
 				"markdownlint",
 				"mypy",
 				"npm-groovy-lint",
 				"pylint",
 				"stylelint",
 				"sql-formatter",
+				"tsgo",
 				"yamllint",
 
 				-- install any other package
 				"tree-sitter-cli",
-			},
-			auto_update = true,
-		},
+			})
+
+			require("utils.helpers"):remove_list_value(opts.ensure_installed, "vtsls")
+
+			return opts
+		end,
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
