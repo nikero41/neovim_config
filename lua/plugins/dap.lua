@@ -23,7 +23,6 @@ return {
 			},
 			{
 				"mxsdev/nvim-dap-vscode-js",
-				lazy = false,
 				config = function()
 					---@diagnostic disable-next-line: missing-fields
 					require("dap-vscode-js").setup({
