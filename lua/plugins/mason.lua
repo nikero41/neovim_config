@@ -14,6 +14,7 @@ return {
 				"checkmake",
 				"clang-format",
 				"eslint_d",
+				"emmet-language-server",
 				"golines",
 				"golangci-lint-langserver",
 				"markdownlint",
@@ -30,6 +31,7 @@ return {
 			})
 
 			require("utils.helpers"):remove_list_value(opts.ensure_installed, "vtsls")
+			require("utils.helpers"):remove_list_value(opts.ensure_installed, "emmet-ls")
 
 			return opts
 		end,

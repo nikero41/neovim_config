@@ -47,19 +47,21 @@ return {
 			workspace = {
 				didChangeConfiguration = { dynamicRegistration = true },
 				didChangeWorkspaceFolders = { dynamicRegistration = true },
+				diagnostics = { refreshSupport = true },
 			},
 		},
 		---@diagnostic disable: missing-fields
 		config = {
 			lua_ls = { settings = { Lua = { hint = { enable = true } } } },
-			emmet_ls = {
+			emmet_language_server = {
 				init_options = {
-					jsx = {
-						options = {
-							["jsx.enabled"] = true,
-							["output.selfClosingStyle"] = "xhtml",
-							["bem.enabled"] = true,
-						},
+					preferences = { ["bem.enabled"] = true },
+					--- @type boolean Defaults to `true`
+					showAbbreviationSuggestions = true,
+					showSuggestionsAsSnippets = false,
+					syntaxProfiles = {
+						-- html = "xhtml",
+						html = { self_closing_style = "xhtml" },
 					},
 				},
 			},
