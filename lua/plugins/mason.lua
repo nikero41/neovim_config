@@ -1,14 +1,6 @@
 ---@type LazySpec
 return {
 	{
-		"mason-org/mason.nvim",
-		---@module "mason"
-		---@type MasonSettings
-		opts = {
-			ui = { border = "rounded" },
-		},
-	},
-	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
 			ensure_installed = {

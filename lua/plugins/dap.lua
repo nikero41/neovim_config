@@ -9,6 +9,9 @@ return {
 				desc = "Resize debugger buffers",
 			},
 		},
+		opts = {
+			floating = { border = require("utils.constants").border_type },
+		},
 	},
 	{
 		"mfussenegger/nvim-dap",

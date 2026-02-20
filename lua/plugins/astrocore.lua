@@ -16,6 +16,7 @@ return {
 			underline = true,
 			severity_sort = true,
 			signs = true,
+			float = { border = require("utils.constants").border_type },
 		},
 		signs = {
 			DiagnosticSignError = { text = "", texthl = "DiagnosticSignError" },
@@ -28,6 +29,7 @@ return {
 				clipboard = "",
 				scrolloff = 5,
 				swapfile = false,
+				winborder = require("utils.constants").border_type,
 			},
 			g = {
 				loaded_perl_provider = 0,

@@ -11,6 +11,10 @@ return {
 			semantic_tokens = true,
 			signature_help = false,
 		},
+		defaults = {
+			hover = { border = require("utils.constants").border_type },
+			signature_help = { border = require("utils.constants").border_type },
+		},
 		formatting = {
 			format_on_save = { enabled = false },
 			timeout_ms = 2000,
