@@ -1,6 +1,16 @@
 ---@type LazySpec
 return {
 	{
+		"folke/which-key.nvim",
+		---@module "which-key"
+		---@type wk.Opts
+		opts = {
+			preset = "modern",
+			---@type wk.Win.opts
+			win = { border = "none" },
+		},
+	},
+	{
 		"akinsho/toggleterm.nvim",
 		opts = {
 			float_opts = { border = require("utils.constants").border_type },
