@@ -17,7 +17,10 @@ require("lazy").setup({
 } --[[@as LazySpec]], {
 	-- Configure any other `lazy.nvim` configuration options here
 	install = { colorscheme = { require("colorscheme"), "astrotheme", "habamax" } }, -- spell-checker:disable-line
-	ui = { backdrop = 100 },
+	ui = {
+		backdrop = 100,
+		border = require("utils.constants").border_type,
+	},
 	concurrency = 20,
 	performance = {
 		rtp = {
