@@ -45,7 +45,7 @@ return {
 						".stylelintrc.json",
 						".stylelintrc.yml",
 						".stylelintrc.yaml",
-					}) or require("utils.helpers"):check_json_key_exists(
+					}) or require("nikero.utils"):check_json_key_exists(
 						vim.fs.joinpath(vim.uv.cwd(), "package.json"),
 						"stylelint"
 					)

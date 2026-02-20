@@ -1,10 +1,14 @@
-local M = {
+---@class Tsgo
+---@field ignore_codes table<number,string>
+---@field setup fun(self: Tsgo, opts: vim.lsp.Config)
+---@field format_errors fun(self: Tsgo, diagnostics: table): table
+local Tsgo = {
 	ignore_codes = {
 		[80001] = "File is a CommonJS module; it may be converted to an ES module.",
 	},
 }
 
-function M:setup(opts)
+function Tsgo:setup(opts)
 	vim.lsp.config(
 		"tsgo",
 		require("astrocore").extend_tbl(opts, {
@@ -32,8 +36,7 @@ function M:setup(opts)
 	)
 end
 
-function M:format_errors(diagnostics)
-	-- ignore some diagnostics
+function Tsgo:format_errors(diagnostics)
 	local idx = 1
 	while idx <= #diagnostics do
 		local entry = diagnostics[idx]
@@ -48,7 +51,8 @@ function M:format_errors(diagnostics)
 			idx = idx + 1
 		end
 	end
+
 	return diagnostics
 end
 
-return M
+return Tsgo

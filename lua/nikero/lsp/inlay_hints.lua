@@ -1,6 +1,8 @@
-local M = {}
+---@class InlayHints
+---@field truncate fun(self: InlayHints, hints: table): string|nil
+local InlayHints = {}
 
-function M:truncate(hints)
+function InlayHints:truncate(hints)
 	local max_len = 30 -- Set your desired character limit
 
 	for _, hint in ipairs(hints) do
@@ -33,4 +35,4 @@ function M:truncate(hints)
 	end
 end
 
-return M
+return InlayHints

@@ -30,8 +30,8 @@ return {
 				"tree-sitter-cli",
 			})
 
-			require("utils.helpers"):remove_list_value(opts.ensure_installed, "vtsls")
-			require("utils.helpers"):remove_list_value(opts.ensure_installed, "emmet-ls")
+			require("nikero.utils"):remove_list_value(opts.ensure_installed, "vtsls")
+			require("nikero.utils"):remove_list_value(opts.ensure_installed, "emmet-ls")
 
 			return opts
 		end,

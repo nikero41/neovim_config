@@ -103,12 +103,12 @@ return {
 				},
 				handlers = {
 					["textDocument/inlayHint"] = function(_, result, ctx)
-						require("utils.lsp.inlay_hints"):truncate(result)
+						require("nikero.lsp.inlay_hints"):truncate(result)
 						vim.lsp.inlay_hint.on_inlayhint(_, result, ctx)
 					end,
 					-- NOTE: `textDocument/publishDiagnostics` is not supported by tsgo
 					["textDocument/diagnostic"] = function(error, result, ctx)
-						local diagnostics = require("utils.lsp.tsgo"):format_errors(result.items)
+						local diagnostics = require("nikero.lsp.tsgo"):format_errors(result.items)
 						if diagnostics ~= nil then result.diagnostics = diagnostics end
 
 						vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
@@ -124,7 +124,7 @@ return {
 		handlers = {
 			vtsls = false,
 			tsgo = function(server, opts)
-				require("utils.lsp.tsgo"):setup(opts)
+				require("nikero.lsp.tsgo"):setup(opts)
 				vim.lsp.enable(server)
 			end,
 		},
