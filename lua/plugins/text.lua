@@ -40,12 +40,6 @@ return {
 		},
 	},
 	{
-		"windwp/nvim-ts-autotag",
-		opts = {
-			opts = { enable_close_on_slash = true },
-		},
-	},
-	{
 		"ThePrimeagen/refactoring.nvim",
 		event = "User AstroFile",
 		dependencies = {
