@@ -1,5 +1,5 @@
 ---@type Keymaps
-local maps = require("classes.Keymaps"):new()
+local maps = require("nikero.keymaps"):new()
 
 require("keymaps.disable"):configure(maps, { astronvim = true, packages = true, tabline = true })
 require("keymaps.editing"):configure(maps)
