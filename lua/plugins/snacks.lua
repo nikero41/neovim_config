@@ -156,6 +156,12 @@ return {
 				col = -5,
 			},
 		},
+		notifier = {
+			filter = function(notification)
+				local pattern_to_hide = "[suppermaven-nvim] File is too large to send"
+				return string.match(notification.msg, pattern_to_hide) == nil
+			end,
+		},
 		picker = {
 			matcher = {
 				cwd_bonus = true,
