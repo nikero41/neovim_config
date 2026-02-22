@@ -89,7 +89,6 @@ return {
 	},
 	{
 		"ray-x/sad.nvim",
-		cmd = { "SearchAndReplace" },
 		specs = {
 			{
 				"AstroNvim/astrocore",
