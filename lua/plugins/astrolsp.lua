@@ -112,7 +112,6 @@ return {
 					["textDocument/diagnostic"] = function(error, result, ctx)
 						local diagnostics = require("nikero.lsp.tsgo"):format_errors(result.items)
 						if diagnostics ~= nil then result.diagnostics = diagnostics end
-
 						vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
 					end,
 				},
@@ -129,6 +128,7 @@ return {
 				require("nikero.lsp.tsgo"):setup(opts)
 				vim.lsp.enable(server)
 			end,
+			graphql = false,
 		},
 		servers = { "tsgo" },
 		autocmds = { eslint_fix_on_save = false },
