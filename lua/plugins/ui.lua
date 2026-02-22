@@ -59,6 +59,9 @@ return {
 						hover = { enabled = false },
 						signature = { enabled = false },
 					},
+					routes = {
+						{ view = "notify", filter = { event = "msg_showmode" } },
+					},
 					views = {
 						cmdline_popup = {
 							border = Snacks.util.is_transparent() and {}
