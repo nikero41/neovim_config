@@ -74,9 +74,9 @@ return {
 							foregrounds = { "Title" },
 						},
 						code = {
+							style = "normal",
+							disable_background = true,
 							left_pad = 0,
-							language_icon = false,
-							language_name = false,
 						},
 					},
 				},
