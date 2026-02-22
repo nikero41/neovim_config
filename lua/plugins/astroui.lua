@@ -25,6 +25,10 @@ return {
 				NeoTreeRootName = { fg = colors.mauve },
 				BlinkCmpMenu = { bg = colors.base },
 				FloatBorder = { fg = colors.mauve },
+				HlSearchLensNear = {
+					bg = require("nikero.utils"):blend(colors.mauve, "#000000", 0.85),
+					fg = colors.surface2,
+				},
 			},
 			onedark_vivid = {
 				["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },

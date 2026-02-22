@@ -53,6 +53,7 @@ return {
 				---@module "noice"
 				---@type NoiceConfig
 				{
+					messages = { view_search = false },
 					notify = { enabled = false },
 					lsp = {
 						signature = { enabled = true },

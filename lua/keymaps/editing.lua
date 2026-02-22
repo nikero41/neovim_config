@@ -3,8 +3,20 @@
 local EditingKeymaps = {}
 
 function EditingKeymaps:configure(maps)
-	maps:add("n", "n", { "nzz", desc = "Next result" })
-	maps:add("n", "N", { "Nzz", desc = "Previous result" })
+	maps:add("n", "n", {
+		function()
+			vim.cmd("normal! nzz")
+			require("hlslens").start()
+		end,
+		desc = "Next result",
+	})
+	maps:add("n", "N", {
+		function()
+			vim.cmd("normal! Nzz")
+			require("hlslens").start()
+		end,
+		desc = "Previous result",
+	})
 	maps:add("x", "<Leader>p", { '"_dP', desc = "Paste without coping" })
 	maps:add("n", "<Leader>y", { '"+y', desc = "Yank to clipboard" })
 	maps:add("x", "<Leader>y", { '"+y', desc = "Yank to clipboard" })

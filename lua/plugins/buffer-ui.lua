@@ -108,4 +108,16 @@ return {
 			return opts
 		end,
 	},
+	{
+		"kevinhwang91/nvim-hlslens",
+		dependencies = {
+			"AstroNvim/astrocore",
+			opts = { on_keys = { auto_hlsearch = false } },
+		},
+		opts = {
+			auto_enable = true,
+			calm_down = true,
+			nearest_only = true,
+		},
+	},
 }
