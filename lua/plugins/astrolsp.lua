@@ -12,7 +12,10 @@ return {
 			signature_help = false,
 		},
 		defaults = {
-			hover = { border = require("utils.constants").border_type },
+			hover = {
+				border = require("utils.constants").border_type,
+				max_width = 100,
+			},
 			signature_help = { border = require("utils.constants").border_type },
 		},
 		formatting = {
