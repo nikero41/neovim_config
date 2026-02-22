@@ -11,7 +11,7 @@ return {
 	},
 	{
 		"David-Kunz/cmp-npm",
-		ft = "json",
+		event = "BufRead package.json",
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "Saghen/blink.compat", version = "*", opts = {} },

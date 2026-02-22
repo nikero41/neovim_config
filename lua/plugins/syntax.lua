@@ -48,7 +48,7 @@ return {
 	},
 	{
 		"codethread/qmk.nvim",
-		ft = "dts",
+		event = "BufRead *.keymap",
 		opts = {
 			name = "corne",
 			variant = "zmk",
