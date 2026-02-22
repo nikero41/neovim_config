@@ -60,7 +60,6 @@ return {
 					showAbbreviationSuggestions = true,
 					showSuggestionsAsSnippets = false,
 					syntaxProfiles = {
-						-- html = "xhtml",
 						html = { self_closing_style = "xhtml" },
 					},
 				},
@@ -102,9 +101,9 @@ return {
 					-- },
 				},
 				handlers = {
-					["textDocument/inlayHint"] = function(_, result, ctx)
+					["textDocument/inlayHint"] = function(error, result, ctx)
 						require("nikero.lsp.inlay_hints"):truncate(result)
-						vim.lsp.inlay_hint.on_inlayhint(_, result, ctx)
+						vim.lsp.inlay_hint.on_inlayhint(error, result, ctx)
 					end,
 					-- NOTE: `textDocument/publishDiagnostics` is not supported by tsgo
 					["textDocument/diagnostic"] = function(error, result, ctx)

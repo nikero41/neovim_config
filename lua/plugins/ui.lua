@@ -65,10 +65,8 @@ return {
 					},
 					views = {
 						cmdline_popup = {
-							border = Snacks.util.is_transparent() and {} or {
-								style = "none",
-								padding = { 1, 2 },
-							},
+							border = Snacks.util.is_transparent() and {}
+								or { style = "none", padding = { 1, 2 } },
 						},
 					},
 					---@type NoicePresets

@@ -24,7 +24,7 @@ return {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		---@module 'render-markdown'
+		---@module "render-markdown"
 		---@type render.md.UserConfig
 		opts = {
 			completions = { blink = { enabled = true } },
