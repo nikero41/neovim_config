@@ -77,8 +77,37 @@ return {
 								{ "Inspect types", ":InspectTwoslashQueries" },
 								{ "Toggle inline folds", ":InlineFoldToggle" },
 								{ "Search and Replace", ":SearchAndReplace" },
-								{ "View on GitHub", function() Snacks.gitbrowse() end },
 								{ "Toggle env variables", "CloakToggle" },
+							},
+						},
+						{
+							name = "Git",
+							commands = {
+								{ "View on GitHub", function() Snacks.gitbrowse() end },
+								{
+									"View PR Diff",
+									function()
+										vim.ui.input(
+											{ prompt = "PR number: " },
+											function(input) Snacks.picker.gh_diff({ pr = input }) end
+										)
+									end,
+								},
+								{
+									"Open PR/Issue in browser",
+									function()
+										vim.ui.select({ "PR", "Issue" }, function(input)
+											vim.ui.input(
+												{ prompt = input .. " number: " },
+												function(number)
+													Snacks.picker.gh_diff({
+														pr = input,
+													})
+												end
+											)
+										end)
+									end,
+								},
 							},
 						},
 						{
