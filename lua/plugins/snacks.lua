@@ -2,11 +2,46 @@
 return {
 	"folke/snacks.nvim",
 	keys = {
-		{ "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-		{ "<leader>fS", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-		{ "<leader>ua", function() Snacks.dashboard.open() end, desc = "Toggle home screen" },
-		{ "<leader>gL", function() Snacks.git.blame_line() end, desc = "View full Git blame" },
-		{ "<leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find todo comments" },
+		{
+			"<leader>gi",
+			function() Snacks.picker.gh_issue() end,
+			desc = "GitHub Issues (open)",
+		},
+		{
+			"<leader>gI",
+			function() Snacks.picker.gh_issue({ state = "all" }) end,
+			desc = "GitHub Issues (all)",
+		},
+		{
+			"<leader>gP",
+			function() Snacks.picker.gh_pr() end,
+			desc = "GitHub Pull Requests (open)",
+		},
+		{
+			"<leader>.",
+			function() Snacks.scratch() end,
+			desc = "Toggle Scratch Buffer",
+		},
+		{
+			"<leader>fS",
+			function() Snacks.scratch.select() end,
+			desc = "Select Scratch Buffer",
+		},
+		{
+			"<leader>ua",
+			function() Snacks.dashboard.open() end,
+			desc = "Toggle home screen",
+		},
+		{
+			"<leader>gL",
+			function() Snacks.git.blame_line() end,
+			desc = "View full Git blame",
+		},
+		{
+			"<leader>ft",
+			function() Snacks.picker.todo_comments() end,
+			desc = "Find todo comments",
+		},
 		{
 			"[[",
 			function() Snacks.words.jump(-vim.v.count1) end,
