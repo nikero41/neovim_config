@@ -8,10 +8,6 @@ function UiKeymaps:configure(maps)
 		desc = "Go to reference",
 	})
 	maps:add("n", "<Leader>P", { "<CMD>CommandPalette<CR>", desc = "Command Palette" })
-	maps:add("n", "<Leader>gg", {
-		function() Snacks.lazygit() end,
-		desc = "Command Palette",
-	})
 end
 
 return UiKeymaps

@@ -28,6 +28,11 @@ return {
 			desc = "Select Scratch Buffer",
 		},
 		{
+			"<leader>gg",
+			function() Snacks.lazygit() end,
+			desc = "Lazygit",
+		},
+		{
 			"<leader>ua",
 			function() Snacks.dashboard.open() end,
 			desc = "Toggle home screen",
