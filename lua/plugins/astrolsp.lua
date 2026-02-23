@@ -125,6 +125,14 @@ return {
 		handlers = {
 			vtsls = false,
 			tsgo = function(server, opts)
+				local orig = vim.lsp.util.convert_input_to_markdown_lines
+				vim.lsp.util.convert_input_to_markdown_lines = function(...)
+					local lines = orig(...)
+					if lines[1] == "```tsx" then
+						lines[2] = require("nikero.lsp.tsgo"):format_hover(lines[2])
+					end
+					return lines
+				end
 				require("nikero.lsp.tsgo"):setup(opts)
 				vim.lsp.enable(server)
 			end,

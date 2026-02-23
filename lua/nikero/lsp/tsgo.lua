@@ -2,6 +2,7 @@
 ---@field ignore_codes table<number,string>
 ---@field setup fun(self: Tsgo, opts: vim.lsp.Config)
 ---@field format_errors fun(self: Tsgo, diagnostics: table): table
+---@field format_hover fun(self: Tsgo, input: string): string
 local Tsgo = {
 	ignore_codes = {
 		[80001] = "File is a CommonJS module; it may be converted to an ES module.",
@@ -53,6 +54,29 @@ function Tsgo:format_errors(diagnostics)
 	end
 
 	return diagnostics
+end
+
+local WIDTH = 30
+function Tsgo:format_hover(input)
+	local tag, code = string.match(input, "^(%(%a*%) )(.*)")
+	if not code then code = input end
+
+	local command = string.format(
+		'(out=$(echo "%s" | prettierd --parser=typescript --no-config --cache --print-width=%s file) && printf \'%%s\' "$out")',
+		string.gsub(code, '"', '\\"'),
+		WIDTH
+	)
+
+	local handle, err = io.popen(command, "r")
+	if not handle then return input end
+
+	local result = handle:read("*a")
+	handle:close()
+	if #result == 0 or err then return input end
+
+	if tag then result = tag .. result end
+
+	return result
 end
 
 return Tsgo
