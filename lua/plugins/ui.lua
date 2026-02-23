@@ -58,6 +58,10 @@ return {
 					lsp = {
 						hover = { enabled = false },
 						signature = { enabled = false },
+						override = {
+							["vim.lsp.buf.hover"] = false,
+							["vim.lsp.buf.signature_help"] = false,
+						},
 					},
 					routes = {
 						{ view = "notify", filter = { event = "msg_showmode" } },
