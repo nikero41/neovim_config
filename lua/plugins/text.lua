@@ -1,6 +1,5 @@
 ---@type LazySpec
 return {
-
 	{
 		"axelvc/template-string.nvim",
 		ft = require("utils.constants").filetype.javascript,
