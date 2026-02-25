@@ -10,5 +10,4 @@ return {
 			"jsx",
 		},
 	},
-	border_type = "rounded",
 }
