@@ -8,9 +8,8 @@
 ---@field o table
 ---@field c table
 ---@field new fun(self: Keymaps, o?: Keymaps): Keymaps
----@field add fun(self: Keymaps, mode: KeymapModes | KeymapModes[], lhs: string, value: table|false): nil
----@field create fun(self: Keymaps): table
-local Keymaps = { n = {}, i = {}, v = {}, x = {}, o = {}, c = {} }
+---@field add fun(self: Keymaps, modes: KeymapModes|KeymapModes[], lhs: string, action: string|fun(), opts?: vim.keymap.set.Opts)
+local Keymaps = { keymaps = { n = {}, i = {}, v = {}, x = {}, o = {}, c = {} } }
 
 function Keymaps:new(o)
 	local k = o or {}
@@ -19,18 +18,23 @@ function Keymaps:new(o)
 	return k
 end
 
-function Keymaps:add(modes, lhs, value)
+function Keymaps:add(modes, lhs, value, opts)
+	opts = opts or {}
 	if type(modes) == "table" then
 		for _, mode in ipairs(modes) do
-			self[mode][lhs] = value
+			self.keymaps[mode][lhs] = { value, opts }
 		end
 	else
-		self[modes][lhs] = value
+		self.keymaps[modes][lhs] = { value, opts }
 	end
 end
 
-function Keymaps:create()
-	return { n = self.n, i = self.i, v = self.v, x = self.x, o = self.o, c = self.c }
+function Keymaps:setup()
+	for mode, lhss in pairs(self.keymaps) do
+		for lhs, value in pairs(lhss) do
+			vim.keymap.set(mode, lhs, value[1], value[2])
+		end
+	end
 end
 
 return Keymaps
