@@ -2,65 +2,8 @@
 return {
 	"folke/snacks.nvim",
 	keys = {
-		{
-			"<leader>gi",
-			function() Snacks.picker.gh_issue() end,
-			desc = "GitHub Issues (open)",
-		},
-		{
-			"<leader>gI",
-			function() Snacks.picker.gh_issue({ state = "all" }) end,
-			desc = "GitHub Issues (all)",
-		},
-		{
-			"<leader>gP",
-			function() Snacks.picker.gh_pr() end,
-			desc = "GitHub Pull Requests (open)",
-		},
-		{
-			"<leader>.",
-			function() Snacks.scratch() end,
-			desc = "Toggle Scratch Buffer",
-		},
-		{
-			"<leader>fS",
-			function() Snacks.scratch.select() end,
-			desc = "Select Scratch Buffer",
-		},
-		{
-			"<leader>gg",
-			function() Snacks.lazygit() end,
-			desc = "Lazygit",
-		},
-		{
-			"<leader>ua",
-			function() Snacks.dashboard.open() end,
-			desc = "Toggle home screen",
-		},
-		{
-			"<leader>gL",
-			function() Snacks.git.blame_line() end,
-			desc = "View full Git blame",
-		},
-		{
-			"<leader>ft",
-			function() Snacks.picker.todo_comments() end,
-			desc = "Find todo comments",
-		},
-		{
-			"[[",
-			function() Snacks.words.jump(-vim.v.count1) end,
-			desc = "Prev Reference",
-			mode = { "n", "t" },
-		},
-		{
-			"]]",
-			function() Snacks.words.jump(vim.v.count1) end,
-			desc = "Next Reference",
-			mode = { "n", "t" },
-		},
+		{ "<leader>ua", function() Snacks.dashboard.open() end, desc = "Toggle home screen" },
 	},
-	---@module "snacks"
 	---@type snacks.Config
 	opts = {
 		dashboard = {
@@ -91,7 +34,7 @@ return {
 						desc = "Lazygit",
 						action = function() Snacks.lazygit() end,
 					},
-					{ icon = " ", key = "p", desc = "Select project", action = "<CMD>ProjectMgr<CR>" },
+					{ icon = " ", key = "p", desc = "Select project", action = vim.cmd.ProjectMgr },
 					{
 						icon = " ",
 						key = "s",
@@ -181,63 +124,5 @@ return {
 				{ section = "startup" },
 			},
 		},
-		image = { enabled = true },
-		quickfile = { enabled = true },
-		scroll = { enabled = true },
-		statuscolumn = {
-			right = { "git", "fold" },
-			folds = { open = true },
-		},
-		input = {
-			win = {
-				relative = "cursor",
-				title_pos = "left",
-				row = -3,
-				col = -5,
-			},
-		},
-		notifier = {
-			filter = function(notification)
-				local pattern_to_hide = "%[supermaven%-nvim%] File is too large to send"
-				return string.match(notification.msg, pattern_to_hide) == nil
-			end,
-		},
-		picker = {
-			matcher = {
-				cwd_bonus = true,
-				frecency = true,
-			},
-			previewers = { git = { native = true } },
-			win = {
-				input = {
-					keys = {
-						["<C-w>"] = { "cycle_win", mode = { "i", "n" } },
-						["<C-x>"] = { "edit_split", mode = { "i", "n" } },
-					},
-				},
-				list = {
-					keys = {
-						["<C-w>"] = "cycle_win",
-						["<C-x>"] = "edit_split",
-					},
-				},
-				preview = {
-					keys = {
-						["<C-w>"] = "cycle_win",
-					},
-				},
-			},
-		},
-		words = { enabled = true },
 	},
-	init = function()
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "VeryLazy",
-			callback = function()
-				_G.dd = function(...) Snacks.debug.inspect(...) end
-				_G.bt = function() Snacks.debug.backtrace() end
-				vim.print = _G.dd
-			end,
-		})
-	end,
 }

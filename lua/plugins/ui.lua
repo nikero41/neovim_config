@@ -1,92 +1,158 @@
 ---@type LazySpec
 return {
 	{
-		"folke/which-key.nvim",
-		---@module "which-key"
-		---@type wk.Opts
+		"nvim-mini/mini.icons",
 		opts = {
-			preset = "modern",
-			---@type wk.Win.opts
-			win = { border = "none" },
-		},
-	},
-	{
-		"akinsho/toggleterm.nvim",
-		opts = {
-			float_opts = { border = require("utils.constants").border_type },
-		},
-	},
-	{
-		"FabijanZulj/blame.nvim",
-		opts = { date_format = "%d/%m/%Y" },
-	},
-	{
-		"mbbill/undotree",
-		keys = {
-			{
-				"<leader>uu",
-				"<CMD>UndotreeToggle<CR><CMD>UndotreeFocus<CR>",
-				desc = "Toggle undotree",
+			file = {
+				[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+				["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+			},
+			filetype = {
+				dotenv = { glyph = "", hl = "MiniIconsYellow" },
 			},
 		},
-		init = function() vim.g.undotree_WindowLayout = 2 end,
-	},
-	{
-		"sindrets/diffview.nvim",
-		opts = { view = { merge_tool = { layout = "diff4_mixed" } } },
-	},
-	{
-		"kevinhwang91/nvim-bqf",
-		dependencies = { "folke/snacks.nvim" },
-		opts = function(_, opts)
-			if not opts.preview then opts.preview = {} end
-			if Snacks.util.is_transparent() then opts.preview.winblend = 0 end
-			return opts
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
 		end,
+		specs = {
+			{
+				"saghen/blink.cmp",
+				opts = {
+					completion = {
+						menu = {
+							draw = {
+								components = {
+									kind_icon = {
+										text = function(ctx)
+											local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+											return kind_icon
+										end,
+										highlight = function(ctx)
+											local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+											return hl
+										end,
+									},
+									kind = {
+										highlight = function(ctx)
+											local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+											return hl
+										end,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>?",
+				function() require("which-key").show({ global = false }) end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+		---@type WhichKeyConfig
+		opts = {
+			preset = "modern",
+			icons = {
+				group = "",
+				rules = false,
+			},
+			win = {
+				no_overlap = false,
+			},
+		},
 	},
 	{
 		"folke/noice.nvim",
-		dependencies = { "folke/snacks.nvim" },
-		opts = function(_, opts)
-			return require("astrocore").extend_tbl(
-				opts,
-				---@module "noice"
-				---@type NoiceConfig
-				{
-					messages = { view_search = false },
-					notify = { enabled = false },
-					lsp = {
-						hover = { enabled = false },
-						signature = { enabled = false },
-						override = {
-							["vim.lsp.buf.hover"] = false,
-							["vim.lsp.buf.signature_help"] = false,
-						},
-					},
-					routes = {
-						{ view = "notify", filter = { event = "msg_showmode" } },
-					},
-					views = {
-						cmdline_popup = {
-							border = Snacks.util.is_transparent() and {}
-								or { style = "none", padding = { 1, 2 } },
-						},
-					},
-					---@type NoicePresets
-					presets = {
-						bottom_search = false,
-						command_palette = false,
-						inc_rename = false,
-						long_message_to_split = true,
-					},
-				}
-			)
-		end,
+		dependencies = { "folke/snacks.nvim", "MunifTanjim/nui.nvim" },
+		event = "VeryLazy",
+		---@module "noice"
+		---@type NoiceConfig
+		opts = {
+			messages = { view_search = false },
+			notify = { enabled = false },
+			lsp = {
+				progress = { enabled = true },
+				hover = { enabled = false },
+				signature = { enabled = false },
+				-- override = {
+				-- 	["vim.lsp.buf.hover"] = false,
+				-- 	["vim.lsp.buf.signature_help"] = false,
+				-- },
+			},
+			routes = {
+				{ view = "notify", filter = { event = "msg_showmode" } },
+			},
+			---@type NoicePresets
+			presets = {
+				bottom_search = false,
+				command_palette = false,
+				inc_rename = false,
+				long_message_to_split = true,
+			},
+		},
 	},
 	{
-		"OlegGulevskyy/better-ts-errors.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		ft = require("utils.constants").filetype.javascript,
-		opts = { keymaps = { toggle = "gL" } },
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		-- TODO:
+		-- dependencies = {
+		-- 	"AstroNvim/astrocore",
+		-- 	---@param opts AstroCoreOpts
+		-- 	opts = function(_, opts)
+		-- 		if not opts.signs then opts.signs = {} end
+		-- 		opts.signs.BqfSign = { text = " " .. require("astroui").get_icon("Selected"), texthl = "BqfSign" }
+		-- 	end,
+		-- },
+		opts = {},
+	},
+	{
+		"petertriho/nvim-scrollbar",
+		opts = {
+			excluded_buftypes = { "nofile" },
+			excluded_filetypes = {
+				"prompt",
+				"neo-tree",
+				"blink-cmp-menu",
+				"blink-cmp-documentation",
+				"blink-cmp-signature",
+			},
+			handlers = {
+				gitsigns = true,
+				search = true,
+			},
+		},
+	},
+	{
+		"levouh/tint.nvim",
+		event = "User AstroFile",
+		opts = {
+			highlight_ignore_patterns = { "WinSeparator", "NeoTree", "Status.*" },
+			tint = -45,
+			saturation = 0.6,
+		},
+	},
+	{
+		"gbprod/yanky.nvim",
+		dependencies = { "folke/snacks.nvim" },
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>fy",
+				function() Snacks.picker.yanky() end,
+				mode = { "n", "x" },
+				desc = "Open Yank History",
+			},
+		},
+		opts = {},
 	},
 }

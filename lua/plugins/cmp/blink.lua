@@ -2,6 +2,8 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		build = "make install_jsregexp",
 		config = function(_, opts)
 			require("luasnip").setup(opts)
 			require("luasnip.loaders.from_vscode").lazy_load({
@@ -18,12 +20,13 @@ return {
 		},
 		opts = {},
 	},
+	{ "disrupted/blink-cmp-conventional-commits", ft = "gitcommit" },
+	{ "Kaiser-Yang/blink-cmp-git", ft = "gitcommit", dependencies = { "nvim-lua/plenary.nvim" } },
 	{
-		"Saghen/blink.cmp",
-		dependencies = {
-			{ "disrupted/blink-cmp-conventional-commits" },
-			{ "Kaiser-Yang/blink-cmp-git", dependencies = { "nvim-lua/plenary.nvim" } },
-		},
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		event = { "InsertEnter", "CmdlineEnter" },
+		build = "cargo build --release",
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
@@ -31,12 +34,35 @@ return {
 				preset = "enter",
 				["<C-e>"] = { "fallback" },
 				["<C-space>"] = { "show", "hide" },
+				["<Up>"] = { "select_prev", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
+				["<C-N>"] = { "select_next", "show" },
+				["<C-P>"] = { "select_prev", "show" },
+				["<C-J>"] = { "select_next", "fallback" },
+				["<C-K>"] = { "select_prev", "fallback" },
+				["<C-U>"] = { "scroll_documentation_up", "fallback" },
+				["<C-D>"] = { "scroll_documentation_down", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<Tab>"] = {
+					"snippet_forward",
+					function()
+						if vim.g.ai_accept then return vim.g.ai_accept() end
+					end,
+					"fallback",
+				},
+				["<S-Tab>"] = {
+					"snippet_backward",
+					function(cmp)
+						if vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
+					end,
+					"fallback",
+				},
 			},
-			signature = { enabled = false },
 			sources = {
 				default = { "lsp", "path", "snippets", "npm", "buffer" },
 				per_filetype = {
 					gitcommit = { "conventional_commits", "git", "npm", "path", "buffer" },
+					-- lua = {},
 				},
 				providers = {
 					git = {
@@ -52,6 +78,11 @@ return {
 						module = "blink.compat.source",
 						enabled = function() return vim.fn.expand("%:t") == "package.json" end,
 					},
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
+					},
 				},
 			},
 			completion = {
@@ -60,10 +91,12 @@ return {
 				menu = {
 					scrolloff = 1,
 					max_height = 20,
-					border = require("utils.constants").border_type,
+					-- border = vim.opt.winborder,
 					scrollbar = true,
 					winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
+					-- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					draw = {
+						treesitter = { "lsp" },
 						padding = 1,
 						columns = {
 							{ "kind_icon", "label", "label_description", gap = 1 },
@@ -73,9 +106,11 @@ return {
 				},
 				documentation = {
 					auto_show = true,
+					auto_show_delay_ms = 0,
 					window = {
-						border = require("utils.constants").border_type,
+						-- border = vim.opt.winborder,
 						winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
+						-- winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					},
 				},
 				trigger = {
@@ -87,12 +122,21 @@ return {
 					show_on_insert_on_trigger_character = true,
 				},
 			},
+			signature = {
+				enabled = false,
+				window = {
+					border = vim.opt.winborder,
+					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+				},
+			},
 			cmdline = {
 				completion = { ghost_text = { enabled = true } },
+				keymap = {
+					["<End>"] = { "hide", "fallback" },
+				},
 			},
-			fuzzy = {
-				sorts = { "exact", "score", "sort_text" },
-			},
+			appearance = { nerd_font_variant = "mono" },
+			fuzzy = { sorts = { "exact", "score", "sort_text" } },
 		},
 	},
 }
