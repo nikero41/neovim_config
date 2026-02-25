@@ -1,22 +1,22 @@
--- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
--- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
-local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
-  -- stylua: ignore
-  vim.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
-    lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
+require("options")
+require("keymaps")
 
--- validate that lazy is available
-if not pcall(require, "lazy") then
-  -- stylua: ignore
-  vim.api.nvim_echo(
-  { { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } },
-    true, {})
-	vim.fn.getchar()
-	vim.cmd.quit()
-end
 
-require("lazy_setup")
-require("polish")
+require("init_new")
+require("highlights")
+
+vim.diagnostic.config({
+	update_in_insert = false,
+	severity_sort = true,
+	float = { border = vim.o.winborder, source = "if_many" },
+	underline = true,
+	signs = {},
+	-- Can switch between these as you prefer
+	virtual_text = true, -- Text shows up at the end of the line
+	virtual_lines = false, -- Test shows up underneath the line, with virtual lines
+	-- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+	jump = { float = true },
+})
+
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
