@@ -84,18 +84,8 @@ return {
 				--  },
 				--},
 				indent = {
-					indent_size = 2,
-					padding = 1,
-					-- indent guides
+					padding = 0,
 					with_markers = true,
-					indent_marker = "│",
-					last_indent_marker = "└",
-					highlight = "NeoTreeIndentMarker",
-					-- expander config, needed for nesting files
-					with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-					expander_collapsed = "",
-					expander_expanded = "",
-					expander_highlight = "NeoTreeExpander",
 				},
 				icon = {
 					folder_closed = "",
@@ -106,7 +96,6 @@ return {
 					-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
 					-- then these will never be used.
 					default = "*",
-					highlight = "NeoTreeFileIcon",
 					provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
 						local text, hl
 						local mini_icons = require("mini.icons")
