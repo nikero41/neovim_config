@@ -165,4 +165,14 @@ return {
 		},
 		opts = {},
 	},
+	{
+		"OXY2DEV/helpview.nvim",
+		lazy = false,
+		---@module "relpview"
+		---@type helpview.config
+		---@diagnostic disable-next-line: missing-fields
+		opts = {
+			icon_provider = "mini",
+		},
+	},
 }
