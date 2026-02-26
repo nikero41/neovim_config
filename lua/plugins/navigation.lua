@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-	{ "nvim-mini/mini.ai", event = "User AstroFile", opts = {} },
+	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
 	{ "nmac427/guess-indent.nvim", opts = {} },
 	{
 		"nvim-mini/mini.move",
