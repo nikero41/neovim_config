@@ -10,26 +10,15 @@ return {
 				accept_word = "<C-w>",
 			},
 		},
-		specs = {
-			{
-				"saghen/blink.cmp",
-				opts = {
-					keymap = {
-						["<Tab>"] = {
-							"snippet_forward",
-							function()
-								local suggestion = require("supermaven-nvim.completion_preview")
-								if suggestion.has_suggestion() then
-									vim.schedule(function() suggestion.on_accept_suggestion() end)
-									return true
-								end
-							end,
-							"fallback",
-						},
-					},
-				},
-			},
-		},
+		init = function()
+			vim.g.ai_accept = function()
+				local suggestion = require("supermaven-nvim.completion_preview")
+				if suggestion.has_suggestion() then
+					vim.schedule(function() suggestion.on_accept_suggestion() end)
+					return true
+				end
+			end
+		end,
 	},
 	{
 		"NickvanDyke/opencode.nvim",
