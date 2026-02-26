@@ -1,39 +1,40 @@
 ---@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c",
+---@alias Keymap { modes: KeymapModes | KeymapModes[], lhs: string, rhs: string|fun(), opts?: vim.keymap.set.Opts }
 
 ---@class Keymaps
----@field n table
----@field i table
----@field v table
----@field x table
----@field o table
----@field c table
----@field new fun(self: Keymaps, o?: Keymaps): Keymaps
----@field add fun(self: Keymaps, modes: KeymapModes|KeymapModes[], lhs: string, action: string|fun(), opts?: vim.keymap.set.Opts)
-local Keymaps = { keymaps = { n = {}, i = {}, v = {}, x = {}, o = {}, c = {} } }
+---@field keymaps Keymap[]
+---@field opts vim.keymap.set.Opts
+---@field new fun(self: Keymaps, keymaps?: Keymap[]): Keymaps
+---@field add fun(self: Keymaps, keymaps: Keymap )
+---@field add_multiple fun(self: Keymaps, keymaps: Keymap[] )
+---@field set_opts fun(self: Keymaps, opts: vim.keymap.set.Opts)
+---@field setup fun(self: Keymaps)
+local Keymaps = { keymaps = {}, opts = {} }
 
-function Keymaps:new(o)
-	local k = o or {}
-	setmetatable(k, self)
+function Keymaps:new(keymaps)
+	local k = { keymaps = {}, opts = {} }
+	setmetatable(k, { __index = self })
 	self.__index = self
+
+	if keymaps ~= nil then k:add_multiple(keymaps) end
+
 	return k
 end
 
-function Keymaps:add(modes, lhs, value, opts)
-	opts = opts or {}
-	if type(modes) == "table" then
-		for _, mode in ipairs(modes) do
-			self.keymaps[mode][lhs] = { value, opts }
-		end
-	else
-		self.keymaps[modes][lhs] = { value, opts }
+function Keymaps:add(keymap) table.insert(self.keymaps, keymap) end
+function Keymaps:add_multiple(keymaps)
+	for _, keymap in pairs(keymaps) do
+		self:add(keymap)
 	end
 end
 
+function Keymaps:set_opts(opts) self.opts = opts end
+
 function Keymaps:setup()
-	for mode, lhss in pairs(self.keymaps) do
-		for lhs, value in pairs(lhss) do
-			vim.keymap.set(mode, lhs, value[1], value[2])
-		end
+	for _, keymap in ipairs(self.keymaps) do
+		local mode, lhs, rhs, opts = unpack(keymap)
+		opts = vim.tbl_deep_extend("force", self.opts, opts or {})
+		vim.keymap.set(mode, lhs, rhs, opts)
 	end
 end
 
