@@ -2,7 +2,7 @@
 return {
 	{
 		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
+		dependencies = { "mason-org/mason.nvim" },
 		cmd = { "ConformInfo" },
 		keys = {
 			{ "<leader>lf", function() require("conform").format({ async = true }) end, desc = "Format file" },
