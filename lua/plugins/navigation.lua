@@ -71,6 +71,22 @@ return {
 		},
 	},
 	{
+		"chrisgrieser/nvim-various-textobjs",
+		opts = { keymaps = { useDefaults = false } },
+		keys = {
+			{
+				"a<leader>w",
+				function() require("various-textobjs").subword("outer") end,
+				mode = { "o", "x" },
+			},
+			{
+				"i<leader>w",
+				function() require("various-textobjs").subword("inner") end,
+				mode = { "o", "x" },
+			},
+		},
+	},
+	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
 		event = "User AstroFile",
