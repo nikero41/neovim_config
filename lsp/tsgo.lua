@@ -6,7 +6,7 @@ return {
 		if local_cmd and vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
 		return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
 	end,
-	filetypes = require("utils.constants").filetype.javascript,
+	filetypes = require("filetypes").javascript,
 	root_dir = function(bufnr, on_dir)
 		local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
 		root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }

@@ -90,7 +90,7 @@ return {
 				{ pattern = 'src="(.-)"' },
 			})
 
-			for _, language in ipairs(require("utils.constants").filetype.javascript) do
+			for _, language in ipairs(require("filetypes").javascript) do
 				opts.queries[language] = {
 					{ pattern = 'className="([^"]*)"' },
 					{ pattern = 'href="(.-)"' },

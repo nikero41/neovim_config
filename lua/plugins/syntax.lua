@@ -74,7 +74,7 @@ return {
 		opts = function(_, opts)
 			local js_query = "rainbow-parens"
 			if opts.query == nil then opts.query = {} end
-			for _, language in pairs(require("utils.constants").filetype.javascript) do
+			for _, language in pairs(require("filetypes").javascript) do
 				opts.query[language] = js_query
 			end
 			opts.query.tsx = js_query

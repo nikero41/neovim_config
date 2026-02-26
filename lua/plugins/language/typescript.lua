@@ -3,7 +3,7 @@ return {
 	{
 		"axelvc/template-string.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		ft = require("utils.constants").filetype.javascript,
+		ft = require("filetypes").javascript,
 		opts = {
 			jsx_brackets = true,
 			remove_template_strings = true,
@@ -13,7 +13,7 @@ return {
 	{
 		-- TODO:
 		"marilari88/twoslash-queries.nvim",
-		ft = require("utils.constants").filetype.javascript,
+		ft = require("filetypes").javascript,
 		opts = { multi_line = true },
 	},
 	{
@@ -42,7 +42,7 @@ return {
 		---@type fun(plugin: any, opts: TailwindTools.Option): TailwindTools.Option
 		opts = function()
 			local patterns = {}
-			for _, language in pairs(require("utils.constants").filetype.javascript) do
+			for _, language in pairs(require("filetypes").javascript) do
 				patterns[language] = {
 					"clsx%(([^)]+)%)",
 					"cn%(([^)]+)%)",
@@ -58,7 +58,7 @@ return {
 	{
 		"OlegGulevskyy/better-ts-errors.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
-		ft = require("utils.constants").filetype.javascript,
+		ft = require("filetypes").javascript,
 		opts = { keymaps = { toggle = "gL" } },
 	},
 }
