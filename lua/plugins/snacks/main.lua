@@ -5,21 +5,6 @@ return {
 	priority = 1000,
 	keys = {
 		{
-			"<leader>gi",
-			function() Snacks.picker.gh_issue() end,
-			desc = "GitHub Issues (open)",
-		},
-		{
-			"<leader>gI",
-			function() Snacks.picker.gh_issue({ state = "all" }) end,
-			desc = "GitHub Issues (all)",
-		},
-		{
-			"<leader>gP",
-			function() Snacks.picker.gh_pr() end,
-			desc = "GitHub Pull Requests (open)",
-		},
-		{
 			"<leader>.",
 			function() Snacks.scratch() end,
 			desc = "Toggle Scratch Buffer",
@@ -28,16 +13,6 @@ return {
 			"<leader>fS",
 			function() Snacks.scratch.select() end,
 			desc = "Select Scratch Buffer",
-		},
-		{
-			"<leader>gL",
-			function() Snacks.git.blame_line() end,
-			desc = "View full Git blame",
-		},
-		{
-			"<leader>gg",
-			function() Snacks.lazygit() end,
-			desc = "Open Lazygit",
 		},
 		{ "<leader>uD", function() require("snacks.notifier").hide() end, desc = "Dismiss notifications" },
 		{
