@@ -61,6 +61,16 @@ return {
 		},
 		---@type WhichKeyConfig
 		opts = {
+			---@type wk.Spec
+			spec = {
+				{ "<leader>f", desc = require("icons").Search .. " Find" },
+				{ "<leader>g", desc = require("icons").Git .. " Git" },
+				{ "<leader>l", desc = require("icons").ActiveLSP .. " LSP" },
+				{ "<leader>u", desc = require("icons").Window .. " UI" },
+				{ "<leader>c", desc = require("icons").Git .. " Logs" },
+				{ "<leader>h", desc = require("icons").Harpoon .. " Harpoon" },
+				{ "<leader>O", desc = require("icons").OpenCode .. " Opencode" },
+			},
 			preset = "modern",
 			icons = {
 				group = "",
