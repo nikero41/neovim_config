@@ -22,7 +22,7 @@ return {
 				opts = {
 					sources = {
 						per_filetype = {
-							lua = { "lazydev", inherit_default = true },
+							lua = { "lazydev", inherit_defaults = true },
 						},
 						providers = {
 							lazydev = {
