@@ -94,10 +94,10 @@ return {
 				progress = { enabled = true },
 				hover = { enabled = false },
 				signature = { enabled = false },
-				-- override = {
-				-- 	["vim.lsp.buf.hover"] = false,
-				-- 	["vim.lsp.buf.signature_help"] = false,
-				-- },
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+					["vim.lsp.util.stylize_markdown"] = false,
+				},
 			},
 			routes = {
 				{ view = "notify", filter = { event = "msg_showmode" } },
