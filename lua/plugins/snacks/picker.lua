@@ -49,6 +49,7 @@ return {
 			desc = "Find words in all files",
 		},
 		{ "<Leader>fu", function() require("snacks").picker.undo() end, desc = "Find undo history" },
+		{ "<Leader>lD", function() require("snacks").picker.diagnostics() end, desc = "Search diagnostics" },
 	},
 	---@type snacks.Config
 	opts = {
