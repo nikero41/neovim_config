@@ -84,6 +84,13 @@ return {
 			},
 		},
 		notifier = {
+			icons = {
+				debug = require("icons").Debugger,
+				error = require("icons").DiagnosticError,
+				info = require("icons").DiagnosticInfo,
+				trace = require("icons").DiagnosticHint,
+				warn = require("icons").DiagnosticWarn,
+			},
 			filter = function(notification)
 				local pattern_to_hide = "%[supermaven%-nvim%] File is too large to send"
 				return string.match(notification.msg, pattern_to_hide) == nil
