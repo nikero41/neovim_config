@@ -11,10 +11,16 @@ return {
 		},
 	},
 	{
-		-- TODO:
 		"marilari88/twoslash-queries.nvim",
 		ft = require("filetypes").javascript,
+		cmd = { "TwoSlashQueriesEnable", "TwoSlashQueriesDisable", "TwoSlashQueriesInspect", "TwoSlashQueriesRemove" },
 		opts = { multi_line = true },
+		config = function(_, opts)
+			require("twoslash-queries").setup(opts)
+			vim.lsp.config("tsgo", {
+				on_attach = function(client, buffer) require("twoslash-queries").attach(client, buffer) end,
+			})
+		end,
 	},
 	{
 		-- TODO:
