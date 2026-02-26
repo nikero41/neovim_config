@@ -2,7 +2,23 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
+		lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
+		event = "VeryLazy",
+		cmd = {
+			"TSBufDisable",
+			"TSBufEnable",
+			"TSBufToggle",
+			"TSDisable",
+			"TSEnable",
+			"TSToggle",
+			"TSInstall",
+			"TSInstallInfo",
+			"TSInstallSync",
+			"TSModuleInfo",
+			"TSUninstall",
+			"TSUpdate",
+			"TSUpdateSync",
+		},
 		build = ":TSUpdate",
 		opts = {
 			install_dir = vim.fn.stdpath("data") .. "/site",
