@@ -13,20 +13,6 @@ return {
 		opts = {},
 	},
 	{
-		"numToStr/Comment.nvim",
-		enabled = true,
-		dependencies = {
-			{
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				enabled = true,
-				opts = { enable_autocmd = false },
-			},
-		},
-		opts = {
-			pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-		},
-	},
-	{
 		"codethread/qmk.nvim",
 		event = "BufRead *.keymap",
 		opts = {
@@ -37,22 +23,6 @@ return {
 				"x x x x x x _ x x x x x x",
 				"x x x x x x _ x x x x x x",
 				"_ _ _ x x x _ x x x _ _ _",
-			},
-		},
-	},
-	{
-		"chrisgrieser/nvim-various-textobjs",
-		opts = { useDefaultKeymaps = false },
-		keys = {
-			{
-				"a<leader>w",
-				function() require("various-textobjs").subword("outer") end,
-				mode = { "o", "x" },
-			},
-			{
-				"i<leader>w",
-				function() require("various-textobjs").subword("inner") end,
-				mode = { "o", "x" },
 			},
 		},
 	},
