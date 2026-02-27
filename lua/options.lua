@@ -33,7 +33,6 @@ vim.o.incsearch = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.schedule(function() vim.opt.clipboard = "unnamedplus" end)
 
 vim.opt.swapfile = false
 vim.opt.backup = false
