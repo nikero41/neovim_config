@@ -97,14 +97,13 @@ return {
 									"Open PR/Issue in browser",
 									function()
 										vim.ui.select({ "PR", "Issue" }, function(input)
-											vim.ui.input(
-												{ prompt = input .. " number: " },
-												function(number)
-													Snacks.picker.gh_diff({
-														pr = input,
-													})
+											vim.ui.input({ prompt = input .. " number: " }, function(number)
+												if input == "PR" then
+													Snacks.picker.gh_diff({ pr = number })
+												else
+													Snacks.picker.gh_diff({ issue = number })
 												end
-											)
+											end)
 										end)
 									end,
 								},
