@@ -66,14 +66,17 @@ return {
 		dependencies = { "MunifTanjim/nui.nvim" },
 		ft = require("filetypes").javascript,
 		opts = { keymaps = { toggle = "gL" } },
-		config = function(_, opts)
-			require("better-ts-errors").setup(opts)
+	},
+	{
+		"davidosomething/format-ts-errors.nvim",
+		config = function()
 			vim.lsp.config("tsgo", {
 				handlers = {
 					["textDocument/diagnostic"] = function(error, result, ctx)
+						vim.notify(vim.inspect(result), nil, { title = "🪚 result", ft = "lua" })
 						local idx = 1
-						while idx <= #result.diagnostics do
-							local entry = result.diagnostics[idx]
+						while idx <= #result.items do
+							local entry = result.items[idx]
 
 							local formatter = require("format-ts-errors")[entry.code]
 							entry.message = formatter and formatter(entry.message) or entry.message
@@ -84,14 +87,12 @@ return {
 
 							-- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
 							if ignore_codes[entry.code] then
-								table.remove(result.diagnostics, idx)
+								table.remove(result.items, idx)
 							else
 								idx = idx + 1
 							end
 						end
 
-						local diagnostics = require("nikero.lsp.tsgo"):format_errors(result.items)
-						if diagnostics ~= nil then result.diagnostics = diagnostics end
 						vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
 					end,
 				},
