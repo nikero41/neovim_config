@@ -34,7 +34,18 @@ function Keymaps:setup()
 	for _, keymap in ipairs(self.keymaps) do
 		local mode, lhs, rhs, opts = unpack(keymap)
 		opts = vim.tbl_deep_extend("force", self.opts, opts or {})
-		vim.keymap.set(mode, lhs, rhs, opts)
+		local ok, error = pcall(vim.keymap.set, mode, lhs, rhs, opts)
+		if not ok then
+			vim.schedule(
+				function()
+					vim.notify(
+						"Failed to set keymap:" .. error .. "\n\n" .. vim.inspect(keymap),
+						nil,
+						{ title = "Keymaps", ft = "lua", level = "error" }
+					)
+				end
+			)
+		end
 	end
 end
 
