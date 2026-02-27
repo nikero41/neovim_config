@@ -105,6 +105,8 @@ keymaps:add_multiple({
 	{ "n", "<Leader>D", '"_d', { desc = "Cut" } },
 })
 
+keymaps:add({ "n", "gl", function() vim.diagnostic.open_float() end, { desc = "Diagnostics popup" } })
+
 keymaps:add({
 	"n",
 	"<Leader>ltl",
