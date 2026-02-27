@@ -143,5 +143,9 @@ return {
 			appearance = { nerd_font_variant = "mono" },
 			fuzzy = { sorts = { "exact", "score", "sort_text" } },
 		},
+		config = function(_, opts)
+			require("blink.cmp").setup(opts)
+			vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities() })
+		end,
 	},
 }
