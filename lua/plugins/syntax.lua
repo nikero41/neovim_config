@@ -166,7 +166,7 @@ return {
 	},
 	{
 		"brenoprata10/nvim-highlight-colors",
-		event = { "User AstroFile", "InsertEnter" },
+		event = { "User NikeroFile", "InsertEnter" },
 		cmd = { "HighlightColors" },
 		opts = {
 			enable_named_colors = true,

@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
 	{ "kylechui/nvim-surround", event = "VeryLazy", opts = {} },
-	{ "nguyenvukhang/nvim-toggler", event = { "User AstroFile", "InsertEnter" }, opts = {} },
+	{ "nguyenvukhang/nvim-toggler", event = { "User NikeroFile", "InsertEnter" }, opts = {} },
 	{ "folke/ts-comments.nvim", event = "VeryLazy", opts = {} },
 	{
 		"windwp/nvim-autopairs",
@@ -10,7 +10,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		event = { "User AstroFile" },
+		event = { "User NikeroFile" },
 		opts = {},
 		config = function(_, opts)
 			require("nvim-ts-autotag").setup(opts)
@@ -28,7 +28,7 @@ return {
 	{
 		"ray-x/sad.nvim",
 		dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
-		event = "User AstroFile",
+		event = "User NikeroFile",
 		cmd = { "Sad" },
 		opts = {},
 		init = function()

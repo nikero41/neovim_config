@@ -144,7 +144,7 @@ return {
 	},
 	{
 		"levouh/tint.nvim",
-		event = "User AstroFile",
+		event = "User NikeroFile",
 		opts = {
 			highlight_ignore_patterns = { "WinSeparator", "NeoTree", "Status.*" },
 			tint = -45,

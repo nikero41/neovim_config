@@ -32,7 +32,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		event = "User AstroFile",
+		event = "User NikeroFile",
 		cmd = { "TSContext" },
 		opts = {
 			mode = "topline",
