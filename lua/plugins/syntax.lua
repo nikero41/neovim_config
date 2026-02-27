@@ -62,7 +62,7 @@ return {
 			vim.wo[0][0].foldmethod = "expr"
 			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end,
-		config = function(plugin, opts)
+		config = function(_, opts)
 			require("nvim-treesitter").install(opts.ensure_installed)
 
 			vim.treesitter.language.register("bash", "dotenv")
@@ -83,7 +83,7 @@ return {
 		"HiPhish/rainbow-delimiters.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		submodules = false,
-		event = "User AstroFile",
+		event = "User NikeroFile",
 		-- TODO:
 		-- main = "rainbow-delimiters.setup",
 		---@param opts rainbow_delimiters.config

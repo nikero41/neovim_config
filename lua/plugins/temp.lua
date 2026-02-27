@@ -5,7 +5,7 @@ if true then return {} end
 return {
 	{
 		"ThePrimeagen/refactoring.nvim",
-		event = "User AstroFile",
+		event = "User NikeroFile",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
