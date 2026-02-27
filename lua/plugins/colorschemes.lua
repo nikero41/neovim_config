@@ -80,6 +80,10 @@ return {
 		---@module "catppuccin"
 		---@type CatppuccinOptions
 		---@diagnostic disable: missing-fields
-		opts = { flavour = "mocha" },
+		opts = {
+			flavour = "mocha",
+			auto_integrations = true,
+			transparent_background = true,
+		},
 	},
 }

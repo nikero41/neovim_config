@@ -97,7 +97,7 @@ return {
 	},
 	{
 		"hasansujon786/nvim-navbuddy",
-		dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
+		dependencies = { { "SmiteshP/nvim-navic", otps = { highlight = true } }, "MunifTanjim/nui.nvim" },
 		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
 		keys = {
 			{ "<leader>fs", function() require("nvim-navbuddy").open() end, desc = "Breadcrumb search" },
