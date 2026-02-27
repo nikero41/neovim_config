@@ -24,5 +24,12 @@ return {
 			},
 			default_format_opts = { lsp_format = "fallback" },
 		},
+		init = function()
+			vim.api.nvim_create_user_command(
+				"Format",
+				function() require("conform").format({ async = true }) end,
+				{ desc = "Format" }
+			)
+		end,
 	},
 }
