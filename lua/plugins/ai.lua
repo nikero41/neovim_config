@@ -23,9 +23,6 @@ return {
 	{
 		"NickvanDyke/opencode.nvim",
 		keys = {
-			-- TODO:
-			-- { "AstroNvim/astroui", opts = { icons = { OpenCode = "" } } },
-			-- { "<leader>O", desc = require("astroui").get_icon("OpenCode", 1, true) .. "OpenCode" },
 			{ "<leader>Ot", function() require("opencode").toggle() end, desc = "Toggle embedded" },
 			{
 				"<leader>Oa",

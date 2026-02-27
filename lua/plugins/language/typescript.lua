@@ -73,7 +73,6 @@ return {
 			vim.lsp.config("tsgo", {
 				handlers = {
 					["textDocument/diagnostic"] = function(error, result, ctx)
-						vim.notify(vim.inspect(result), nil, { title = "🪚 result", ft = "lua" })
 						local idx = 1
 						while idx <= #result.items do
 							local entry = result.items[idx]
