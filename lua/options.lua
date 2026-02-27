@@ -48,6 +48,9 @@ vim.o.undofile = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 400
 
+-- Preview substitutions live, as you type!
+vim.o.inccommand = "split"
+
 -- Disable netrw
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
