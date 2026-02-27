@@ -42,8 +42,7 @@ return {
 			},
 		},
 		statuscolumn = {
-			right = { "git", "fold" },
-			folds = { open = true },
+			folds = { open = true, git_hl = true },
 		},
 		indent = {
 			indent = { char = "▏" },
