@@ -82,8 +82,7 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		submodules = false,
 		event = "User NikeroFile",
-		-- TODO:
-		-- main = "rainbow-delimiters.setup",
+		main = "rainbow-delimiters.setup",
 		---@param opts rainbow_delimiters.config
 		opts = function(_, opts)
 			local js_query = "rainbow-parens"
