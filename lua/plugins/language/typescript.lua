@@ -69,6 +69,7 @@ return {
 	},
 	{
 		"davidosomething/format-ts-errors.nvim",
+		ft = require("filetypes").javascript,
 		config = function()
 			vim.lsp.config("tsgo", {
 				handlers = {
