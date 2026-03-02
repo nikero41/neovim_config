@@ -19,6 +19,7 @@ vim.g.have_nerd_font = true
 
 -- Indentation
 vim.o.tabstop = 2
+vim.o.shiftwidth = 0
 -- vim.o.showfulltag = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
