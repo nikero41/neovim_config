@@ -31,6 +31,7 @@ return {
 	},
 	---@type snacks.Config
 	opts = {
+		bigfile = { enabled = true },
 		image = { enabled = true },
 		quickfile = { enabled = true },
 		scroll = { enabled = false },
@@ -43,6 +44,7 @@ return {
 			animate = { enabled = false },
 		},
 		input = {
+			enabled = true,
 			win = {
 				relative = "cursor",
 				title_pos = "left",
@@ -63,6 +65,7 @@ return {
 				return string.match(notification.msg, pattern_to_hide) == nil
 			end,
 		},
+		scope = { enabled = true },
 		words = { enabled = true },
 	},
 	init = function()
