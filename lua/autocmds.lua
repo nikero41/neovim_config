@@ -9,8 +9,8 @@ function Autocmds:setup()
 		callback = function() vim.hl.on_yank() end,
 	})
 
-	-- use LSP folding if available
 	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+		desc = "Use LSP folding if available",
 		callback = function(args)
 			if vim.wo.foldexpr == "v:lua.vim.lsp.foldexpr()" then return end
 
@@ -24,8 +24,8 @@ function Autocmds:setup()
 		end,
 	})
 
-	-- resize splits if window got resized
 	vim.api.nvim_create_autocmd("VimResized", {
+		desc = "Resize splits if window got resized",
 		-- group = augroup("resize_splits"),
 		callback = function()
 			local current_tab = vim.fn.tabpagenr()
@@ -34,8 +34,8 @@ function Autocmds:setup()
 		end,
 	})
 
-	-- TODO: go to last loc when opening a buffer
 	vim.api.nvim_create_autocmd("BufReadPost", {
+		desc = "Go to last loc when opening a buffer",
 		-- group = augroup("last_loc"),
 		callback = function(event)
 			local exclude = { "gitcommit" }
