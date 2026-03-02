@@ -34,10 +34,11 @@ vim.o.incsearch = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.writebackup = false
+-- Folding
+vim.o.foldenable = true
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
 
 vim.o.swapfile = false
 vim.o.backup = false
