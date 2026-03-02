@@ -11,10 +11,9 @@ return {
 			region_check_events = "CursorMoved",
 		},
 		config = function(_, opts)
-			-- require("luasnip").config.setup(opts)
 			require("luasnip").setup(opts)
 			require("luasnip.loaders.from_vscode").lazy_load({
-				paths = { vim.fn.stdpath("config") .. "/snippets" },
+				paths = { vim.fs.joinpath(vim.fn.stdpath("config"), "snippets") },
 			})
 		end,
 	},
