@@ -63,6 +63,7 @@ return {
 		opts = {
 			---@type wk.Spec
 			spec = {
+				-- Groups
 				{ "<leader>f", desc = require("icons").Search .. " Find" },
 				{ "<leader>g", desc = require("icons").Git .. " Git" },
 				{ "<leader>l", desc = require("icons").ActiveLSP .. " LSP" },
@@ -70,15 +71,18 @@ return {
 				{ "<leader>c", desc = require("icons").Git .. " Logs" },
 				{ "<leader>h", desc = require("icons").Harpoon .. " Harpoon" },
 				{ "<leader>O", desc = require("icons").OpenCode .. " Opencode" },
+
+				-- Naming
+				{ "gra", desc = "Code Actions", mode = { "n", "x" } },
+				{ "grn", desc = "Rename variable" },
+				{ "grr", desc = "LSP References" },
+				{ "gri", desc = "Go to implementation" },
+				{ "gO", desc = "LSP Outline" },
+				{ "<C-S>", desc = "LSP Signature Help", mode = { "i", "s" } },
 			},
 			preset = "modern",
-			icons = {
-				group = "",
-				rules = false,
-			},
-			win = {
-				no_overlap = false,
-			},
+			icons = { group = "", rules = false },
+			win = { no_overlap = false },
 		},
 	},
 	{
