@@ -87,7 +87,7 @@ keymaps:add_multiple({
 		"<Esc>",
 		function()
 			vim.cmd("noh")
-			-- LazyVim.cmp.actions.snippet_stop()
+			require("luasnip").unlink_current()
 			return "<Esc>"
 		end,
 		{ expr = true, desc = "Escape and Clear hlsearch" },
