@@ -33,14 +33,7 @@ return {
 	opts = {
 		image = { enabled = true },
 		quickfile = { enabled = true },
-		scroll = {
-			enabled = true,
-			animate_repeat = {
-				delay = 100, -- delay in ms before using the repeat animation
-				duration = { step = 5, total = 50 },
-				easing = "linear",
-			},
-		},
+		scroll = { enabled = false },
 		statuscolumn = {
 			folds = { open = true, git_hl = true },
 		},
