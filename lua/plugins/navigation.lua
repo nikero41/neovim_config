@@ -1,7 +1,27 @@
 ---@type LazySpec
 return {
 	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
-	{ "nmac427/guess-indent.nvim", opts = {} },
+	{
+		"nmac427/guess-indent.nvim",
+		opts = { auto_cmds = true },
+		init = function()
+			vim.api.nvim_create_autocmd("BufReadPost", {
+				desc = "Guess indentation when loading a file",
+				callback = function(args) require("guess-indent").set_from_buffer(args.buf, true, true) end,
+			})
+
+			vim.api.nvim_create_autocmd("BufNewFile", {
+				desc = "Guess indentation when saving a new file",
+				callback = function(args)
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						buffer = args.buf,
+						once = true,
+						callback = function(wargs) require("guess-indent").set_from_buffer(wargs.buf, true, true) end,
+					})
+				end,
+			})
+		end,
+	},
 	{
 		"nvim-mini/mini.move",
 		keys = function(plugin)
