@@ -49,7 +49,7 @@ return {
 				mode = { "n", "v" },
 			},
 		},
-		config = function(plugin)
+		init = function()
 			---@type opencode.Opts
 			vim.g.opencode_opts = {
 				provider = {
