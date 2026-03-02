@@ -21,7 +21,9 @@ return {
 		},
 		build = ":TSUpdate",
 		opts = {
-			install_dir = vim.fn.stdpath("data") .. "/site",
+			indent = { enable = true },
+			highlight = { enable = true },
+			folds = { enable = true },
 			ensure_installed = {
 				"astro",
 				"bash",
@@ -57,10 +59,6 @@ return {
 		init = function(plugin)
 			require("lazy.core.loader").add_to_rtp(plugin)
 			pcall(require, "nvim-treesitter.query_predicates")
-
-			vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-			vim.wo[0][0].foldmethod = "expr"
-			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end,
 		config = function(_, opts)
 			require("nvim-treesitter").install(opts.ensure_installed)
