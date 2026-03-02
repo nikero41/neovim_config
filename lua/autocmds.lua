@@ -50,6 +50,13 @@ function Autocmds:setup()
 		end,
 	})
 
+	vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+		desc = "Check if buffers changed on editor focus",
+		callback = function()
+			if vim.bo.buftype ~= "nofile" then vim.cmd.checktime() end
+		end,
+	})
+
 	-- vim.api.nvim_create_autocmd("LspProgress", {
 	-- 	callback = function(event)
 	-- 		local value = event.data.params.value or {}
