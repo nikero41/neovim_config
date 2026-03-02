@@ -23,45 +23,6 @@ return {
 		end,
 	},
 	{
-		-- TODO:
-		enabled = false,
-		"luckasRanarison/tailwind-tools.nvim",
-		name = "tailwind-tools",
-		build = ":UpdateRemotePlugins",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"neovim/nvim-lspconfig",
-		},
-		keys = {
-			{
-				"<leader>ut",
-				function()
-					vim.notify(require("tailwind-tools.state").conceal.enabled and "classes unfolded" or "classes folded", nil, {
-						title = "tailwind-tools",
-					})
-					require("tailwind-tools.conceal").toggle()
-				end,
-				desc = "Toggle tailwind classes",
-			},
-		},
-		---@module "tailwind-tools"
-		---@type fun(plugin: any, opts: TailwindTools.Option): TailwindTools.Option
-		opts = function()
-			local patterns = {}
-			for _, language in pairs(require("filetypes").javascript) do
-				patterns[language] = {
-					"clsx%(([^)]+)%)",
-					"cn%(([^)]+)%)",
-				}
-			end
-
-			return {
-				keymaps = { smart_increment = { enabled = true } },
-				extension = { patterns = patterns },
-			}
-		end,
-	},
-	{
 		"OlegGulevskyy/better-ts-errors.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		ft = require("filetypes").javascript,
@@ -98,5 +59,22 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"razak17/tailwind-fold.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		ft = vim.tbl_extend(
+			"force",
+			require("filetypes").javascript,
+			{ "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade" }
+		),
+		keys = {
+			{ "<leader>ut", vim.cmd.TailwindFoldToggle, desc = "Toggle tailwind classes" },
+		},
+		opts = {
+			enabled = false,
+			symbol = "󱏿",
+			highlight = { fg = "#38BDF8" },
+		},
 	},
 }
