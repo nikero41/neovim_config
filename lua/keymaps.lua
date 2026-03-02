@@ -121,4 +121,4 @@ keymaps:add({
 	{ desc = "Toggle golines" },
 })
 
-keymaps:setup()
+return keymaps

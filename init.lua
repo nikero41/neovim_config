@@ -1,6 +1,6 @@
 require("options")
-require("autocmds")
-require("keymaps")
+require("autocmds"):setup()
+require("keymaps"):setup()
 
 local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -86,7 +86,8 @@ require("lazy").setup({
 })
 
 vim.cmd.colorscheme(require("colorscheme"))
-require("highlights")
+require("highlights"):setup()
+require("filetypes"):setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
