@@ -21,6 +21,7 @@ function Highlights:setup()
 	hl(0, "HlSearchLensNear", { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 })
 
 	hl(0, "@markup.list.checked", { fg = "#d55fde", bg = "NONE" })
+	hl(0, "LspReferenceText", { underline = true })
 	-- DiagnosticUnderlineError = { undercurl = true, sp = "#ef596f" },
 	-- DiagnosticUnderlineHint = { undercurl = true, sp = "#2bbac5" },
 	-- DiagnosticUnderlineInfo = { undercurl = true, sp = "#61afef" },
