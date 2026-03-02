@@ -105,6 +105,26 @@ keymaps:add_multiple({
 	{ "n", "<Leader>D", '"_d', { desc = "Cut" } },
 })
 
+-- Diagnostics
+keymaps:add_multiple({
+	{ "n", "gl", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
+	{ "n", "<Leader>ld", function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+	{
+		"n",
+		"[e",
+		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "ERROR" }) end,
+		desc = "Previous error",
+	},
+	{ "n", "]e", function() vim.diagnostic.jump({ count = vim.v.count1, severity = "ERROR" }) end, desc = "Next error" },
+	{
+		"n",
+		"[w",
+		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "WARN" }) end,
+		desc = "Previous warning",
+	},
+	{ "n", "]w", function() vim.diagnostic.jump({ count = vim.v.count1, severity = "WARN" }) end, desc = "Next warning" },
+})
+
 keymaps:add({
 	"n",
 	"<Leader>ltl",
@@ -117,15 +137,6 @@ keymaps:add({
 		)
 	end,
 	{ desc = "Toggle golines" },
-})
-
-keymaps:add_multiple({
-	{ "n", "gl", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
-	{ "n", "<Leader>ld", function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-	{ "n", "[e", vim.diagnostic.jump({ jump = -vim.v.count1, severity = "ERROR" }), desc = "Previous error" },
-	{ "n", "]e", vim.diagnostic.jump({ jump = vim.v.count1, severity = "ERROR" }), desc = "Next error" },
-	{ "n", "[w", vim.diagnostic.jump({ jump = -vim.v.count1, severity = "WARN" }), desc = "Previous warning" },
-	{ "n", "]w", vim.diagnostic.jump({ jump = vim.v.count1, severity = "WARN" }), desc = "Next warning" },
 })
 
 return keymaps
