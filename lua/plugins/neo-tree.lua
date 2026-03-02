@@ -1,5 +1,15 @@
 return {
 	{
+		"s1n7ax/nvim-window-picker",
+		version = "2.*",
+		name = "window-picker",
+		opts = {
+			hint = "floating-big-letter",
+			picker_config = { handle_mouse_click = true },
+			show_prompt = false,
+		},
+	},
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		lazy = false,
 		dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
