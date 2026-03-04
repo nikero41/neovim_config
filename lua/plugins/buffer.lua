@@ -10,8 +10,7 @@ return {
 		opts = {
 			condition = function(buffer)
 				local ok, filetype = pcall(vim.api.nvim_get_option_value, "filetype", { buf = buffer })
-				if ok and vim.list_contains({ "harpoon" }, filetype) then return false end
-				return true
+				return not ok or not vim.list_contains({ "harpoon" }, filetype)
 			end,
 		},
 		init = function()

@@ -4,11 +4,6 @@ return {
 	keys = {
 		{ "<Leader>f<CR>", function() require("snacks").picker.resume() end, desc = "Resume previous search" },
 		{ "<Leader>f'", function() require("snacks").picker.marks() end, desc = "Find marks" },
-		{
-			"<Leader>fa",
-			function() require("snacks").picker.files({ dirs = { vim.fn.stdpath("config") }, desc = "Config Files" }) end,
-			desc = "Find AstroNvim config files",
-		},
 		{ "<Leader>fb", function() require("snacks").picker.buffers() end, desc = "Find buffers" },
 		{ "<Leader>fc", function() require("snacks").picker.grep_word() end, desc = "Find word under cursor" },
 		{ "<Leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
@@ -16,7 +11,7 @@ return {
 			"<Leader>ff",
 			function()
 				require("snacks").picker.files({
-					hidden = vim.tbl_get((vim.uv or vim.loop).fs_stat(".git") or {}, "type") == "directory",
+					hidden = vim.tbl_get(vim.uv.fs_stat(".git") or {}, "type") == "directory",
 				})
 			end,
 			desc = "Find files",

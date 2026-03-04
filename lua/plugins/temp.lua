@@ -35,7 +35,7 @@ return {
 			"fredrikaverpil/neotest-golang",
 		},
 		opts = function(_, opts)
-			return require("astrocore").extend_tbl(opts, {
+			return vim.tbl_extend("force", opts, {
 				adapters = {
 					require("neotest-jest")(),
 					require("neotest-vitest")(),

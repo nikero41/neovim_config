@@ -61,7 +61,7 @@ return {
 				{
 					event = "neo_tree_window_after_open",
 					handler = function()
-						vim.cmd("wincmd =")
+						vim.cmd.wincmd("=")
 						Snacks.dashboard.update()
 					end,
 				},
@@ -102,9 +102,7 @@ return {
 					folder_open = "",
 					folder_empty = "󰉖",
 					folder_empty_open = "󰷏",
-					use_filtered_colors = true, -- Whether to use a different highlight when the file is filtered (hidden, dotfile, etc.).
-					-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-					-- then these will never be used.
+					use_filtered_colors = true,
 					default = "*",
 					provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
 						local text, hl
@@ -400,20 +398,10 @@ return {
 						-- ["key"] = function(state, scroll_padding) ... end,
 					},
 				},
-				async_directory_scan = "auto", -- "auto"   means refreshes are async, but it's synchronous when called from the Neotree commands.
-				-- "always" means directory scans are always async.
-				-- "never"  means directory scans are never async.
-				scan_mode = "shallow", -- "shallow": Don't scan into directories to detect possible empty directory a priori
-				-- "deep": Scan into directories to detect empty or grouped empty directories a priori.
-				bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
 				cwd_target = {
 					sidebar = "tab", -- sidebar is when position = left or right
 					current = "window", -- current is when position = current
 				},
-				-- check gitignore status for files/directories when searching.
-				-- setting this to false will speed up searches, but gitignored
-				-- items won't be marked if they are visible.
-				check_gitignore_in_search = true,
 				filtered_items = {
 					visible = false, -- when true, they will just be displayed differently than normal items
 					force_visible_in_empty_folder = false, -- when true, hidden files will be shown if the root folder is otherwise empty
