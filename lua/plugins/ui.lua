@@ -73,6 +73,7 @@ return {
 				{ "<leader>c", desc = require("icons").Git .. " Logs" },
 				{ "<leader>h", desc = require("icons").Harpoon .. " Harpoon" },
 				{ "<leader>O", desc = require("icons").OpenCode .. " Opencode" },
+				{ "<leader>S", desc = require("icons").Session .. "Session" },
 
 				-- Naming
 				{ "gra", desc = "Code Actions", mode = { "n", "x" } },

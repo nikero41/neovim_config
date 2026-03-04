@@ -39,7 +39,7 @@ return {
 						icon = " ",
 						key = "s",
 						desc = "Restore Session",
-						action = function() require("resession").load("Last Session") end,
+						action = function() require("persistence").load({ last = true }) end,
 					},
 					{
 						icon = "󰒲 ",
