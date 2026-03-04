@@ -38,15 +38,12 @@ return {
 			add_blank_line_at_top = false,
 			close_if_last_window = true,
 			enable_cursor_hijack = true,
-			popup_border_style = "",
-			use_popups_for_input = true, -- If false, inputs will use vim.ui.input() instead of custom floats.
+			popup_border_style = vim.o.winborder,
+			use_popups_for_input = true,
 			use_default_mappings = true,
 
 			---@diagnostic disable-next-line: missing-fields
-			source_selector = {
-				winbar = false, -- toggle to show selector on winbar
-				statusline = false, -- toggle to show selector on statusline
-			},
+			source_selector = { winbar = false, statusline = false },
 
 			event_handlers = {
 				{
