@@ -123,9 +123,105 @@ keymaps:add_multiple({
 		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "WARN" }) end,
 		desc = "Previous warning",
 	},
-	{ "n", "]w", function() vim.diagnostic.jump({ count = vim.v.count1, severity = "WARN" }) end, desc = "Next warning" },
+	{
+		"n",
+		"]w",
+		function() vim.diagnostic.jump({ count = vim.v.count1, severity = "WARN" }) end,
+		desc = "Next warning",
+	},
 })
 
+-- LSP
+keymaps:add_multiple({
+	{
+		{ "n", "x" },
+		"<leader>la",
+		function() vim.lsp.buf.code_action() end,
+		desc = "LSP code action",
+		cond = "textDocument/codeAction",
+	},
+	{
+		"n",
+		"<leader>lA",
+		function() vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } }) end,
+		desc = "LSP source action",
+		cond = "textDocument/codeAction",
+	},
+
+	{
+		"n",
+		"<leader>ll",
+		function() vim.lsp.codelens.refresh() end,
+		desc = "LSP CodeLens refresh",
+		cond = "textDocument/codeLens",
+	},
+	{
+		"n",
+		"<leader>lL",
+		function() vim.lsp.codelens.run() end,
+		desc = "LSP CodeLens run",
+		cond = "textDocument/codeLens",
+	},
+	{
+		"n",
+		"<leader>lf",
+		function() vim.lsp.buf.format() end,
+		desc = "Format buffer",
+		cond = "textDocument/formatting",
+	},
+	{
+		"v",
+		"<leader>lf",
+		function() vim.lsp.buf.format() end,
+		desc = "Format buffer",
+		cond = "textDocument/rangeFormatting",
+		mode = "v",
+	},
+	{
+		"n",
+		"<leader>lR",
+		function() vim.lsp.buf.references() end,
+		desc = "Search references",
+		cond = "textDocument/references",
+	},
+	{
+		"n",
+		"<leader>lr",
+		function() vim.lsp.buf.rename() end,
+		desc = "Rename current symbol",
+		cond = "textDocument/rename",
+	},
+	{
+		"n",
+		"<leader>lh",
+		function() vim.lsp.buf.signature_help() end,
+		desc = "Signature help",
+		cond = "textDocument/signatureHelp",
+	},
+	{
+		"n",
+		"gK",
+		function() vim.lsp.buf.signature_help() end,
+		desc = "Signature help",
+		cond = "textDocument/signatureHelp",
+	},
+	{
+		"n",
+		"gy",
+		function() vim.lsp.buf.type_definition() end,
+		desc = "Definition of current type",
+		cond = "textDocument/typeDefinition",
+	},
+	{
+		"n",
+		"<leader>lG",
+		function() vim.lsp.buf.workspace_symbol() end,
+		desc = "Search workspace symbols",
+		cond = "workspace/symbol",
+	},
+})
+
+-- TODO:
 keymaps:add({
 	"n",
 	"<Leader>ltl",
