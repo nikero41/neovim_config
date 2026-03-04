@@ -288,6 +288,8 @@ return {
 					force_visible_in_empty_folder = false, -- when true, hidden files will be shown if the root folder is otherwise empty
 					children_inherit_highlights = true, -- whether children of filtered parents should inherit their parent's highlight group
 					show_hidden_count = true,
+					hide_by_name = { ".DS_Store", "thumbs.db", "node_modules" },
+					always_show_by_pattern = { ".env*" },
 				},
 				group_empty_dirs = false, -- when true, empty folders will be grouped together
 				follow_current_file = {
