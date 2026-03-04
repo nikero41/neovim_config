@@ -109,7 +109,7 @@ keymaps:add_multiple({
 -- Diagnostics
 keymaps:add_multiple({
 	{ "n", "gl", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
-	{ "n", "<Leader>ld", function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+	{ "n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
 	{
 		"n",
 		"[e",
