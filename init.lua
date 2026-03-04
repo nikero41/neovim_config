@@ -32,7 +32,7 @@ require("lazy").setup({
 		{ import = "plugins/language" },
 	},
 	defaults = { lazy = true },
-	install = { colorscheme = { require("colorscheme") } },
+	install = { colorscheme = { vim.g.colorscheme } },
 	checker = { enabled = true, notify = false },
 	performance = {
 		rtp = {
@@ -52,7 +52,6 @@ require("lazy").setup({
 	ui = { border = vim.o.winborder },
 })
 
-vim.cmd.colorscheme(require("colorscheme"))
 require("keymaps"):setup()
 require("highlights"):setup()
 require("filetypes"):setup()

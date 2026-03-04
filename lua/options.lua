@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+vim.g.colorscheme = require("colorscheme")
 
 -- Editing
 vim.o.number = true
