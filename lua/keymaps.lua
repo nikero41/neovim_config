@@ -23,6 +23,7 @@ keymaps:add_multiple({
 		end,
 		{ desc = "Close buffer" },
 	},
+	{ "n", "<leader>P", vim.cmd.CommandPalette, { desc = "Command Palette" } },
 })
 
 -- Buffers
