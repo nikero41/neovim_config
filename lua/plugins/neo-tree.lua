@@ -41,10 +41,8 @@ return {
 			popup_border_style = vim.o.winborder,
 			use_popups_for_input = true,
 			use_default_mappings = true,
-
 			---@diagnostic disable-next-line: missing-fields
 			source_selector = { winbar = false, statusline = false },
-
 			event_handlers = {
 				{
 					event = "neo_tree_buffer_enter",
