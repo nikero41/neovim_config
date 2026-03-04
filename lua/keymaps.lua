@@ -165,17 +165,16 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>lf",
-		function() vim.lsp.buf.format() end,
+		vim.cmd.Format,
 		desc = "Format buffer",
 		cond = "textDocument/formatting",
 	},
 	{
 		"v",
 		"<leader>lf",
-		function() vim.lsp.buf.format() end,
+		"<CMD>Format<CR>",
 		desc = "Format buffer",
 		cond = "textDocument/rangeFormatting",
-		mode = "v",
 	},
 	{
 		"n",
