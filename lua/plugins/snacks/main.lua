@@ -74,7 +74,7 @@ return {
 			callback = function()
 				_G.dd = function(...) Snacks.debug.inspect(...) end
 				_G.bt = function() Snacks.debug.backtrace() end
-				vim._print = function(_, ...) dd(...) end
+				vim._print = function(_, ...) Snacks.debug.inspect(...) end
 			end,
 		})
 	end,
