@@ -49,8 +49,8 @@ return {
 		{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition" },
 		{ "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "LSP Incoming Calls" },
 		{ "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "LSP Outgoing Calls" },
-		{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-		{ "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+		{ "<leader>ls", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+		{ "<leader>lS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
 	},
 	---@type snacks.Config
 	opts = {
