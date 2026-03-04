@@ -1,6 +1,5 @@
 require("options")
 require("autocmds"):setup()
-require("keymaps"):setup()
 
 local lazypath = vim.env.LAZY or vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -86,6 +85,7 @@ require("lazy").setup({
 })
 
 vim.cmd.colorscheme(require("colorscheme"))
+require("keymaps"):setup()
 require("highlights"):setup()
 require("filetypes"):setup()
 
