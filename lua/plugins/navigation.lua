@@ -128,7 +128,15 @@ return {
 	},
 	{
 		"alexghergh/nvim-tmux-navigation",
-		lazy = false,
+		keys = function(plugin)
+			local mappings = plugin.opts.keybindings
+			return {
+				{ mappings.left, desc = "Move focus to the left window/pane" },
+				{ mappings.right, desc = "Move focus to the right window/pane" },
+				{ mappings.down, desc = "Move focus to the down window/pane" },
+				{ mappings.up, desc = "Move focus to the up window/pane" },
+			}
+		end,
 		opts = {
 			disable_when_zoomed = true,
 			keybindings = {
