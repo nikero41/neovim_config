@@ -166,7 +166,7 @@ return {
 	},
 	{
 		"OXY2DEV/helpview.nvim",
-		lazy = false,
+		lazy = false, -- this plugin as it is already lazy-loaded
 		---@module "relpview"
 		---@type helpview.config
 		---@diagnostic disable-next-line: missing-fields
