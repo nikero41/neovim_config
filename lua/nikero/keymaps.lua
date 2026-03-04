@@ -1,13 +1,13 @@
 ---@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c",
----@alias Keymap { modes: KeymapModes | KeymapModes[], lhs: string, rhs: string|fun(), opts?: vim.keymap.set.Opts }
+---@alias Keymap { [1]: KeymapModes | KeymapModes[], [2]: string, rhs: string|fun(), opts?: snacks.keymap.set.Opts }
 
 ---@class Keymaps
----@field keymaps Keymap[]
----@field opts vim.keymap.set.Opts
+---@field protected keymaps Keymap[]
+---@field protected opts snacks.keymap.set.Opts
 ---@field new fun(self: Keymaps, keymaps?: Keymap[]): Keymaps
 ---@field add fun(self: Keymaps, keymaps: Keymap )
 ---@field add_multiple fun(self: Keymaps, keymaps: Keymap[] )
----@field set_opts fun(self: Keymaps, opts: vim.keymap.set.Opts)
+---@field set_opts fun(self: Keymaps, opts: snacks.keymap.set.Opts)
 ---@field setup fun(self: Keymaps)
 local Keymaps = { keymaps = {}, opts = {} }
 
@@ -33,19 +33,8 @@ function Keymaps:set_opts(opts) self.opts = opts end
 function Keymaps:setup()
 	for _, keymap in ipairs(self.keymaps) do
 		local mode, lhs, rhs, opts = unpack(keymap)
-		opts = vim.tbl_deep_extend("force", self.opts, opts or {})
-		local ok, error = pcall(vim.keymap.set, mode, lhs, rhs, opts)
-		if not ok then
-			vim.schedule(
-				function()
-					vim.notify(
-						"Failed to set keymap:" .. error .. "\n\n" .. vim.inspect(keymap),
-						nil,
-						{ title = "Keymaps", ft = "lua", level = "error" }
-					)
-				end
-			)
-		end
+		local ok = pcall(Snacks.keymap.set, mode, lhs, rhs, opts)
+		if not ok then vim.notify(vim.inspect(keymap), nil, { title = "Error setting keymaps" }) end
 	end
 end
 
