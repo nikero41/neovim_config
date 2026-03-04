@@ -87,6 +87,8 @@ return {
 				indent = {
 					padding = 0,
 					with_markers = true,
+					expander_collapsed = require("icons").FoldClosed,
+					expander_expanded = require("icons").FoldOpened,
 				},
 				icon = {
 					folder_closed = "",
@@ -114,10 +116,7 @@ return {
 						icon.text, icon.highlight = require("mini.icons").get("lsp", node.extra.kind.name)
 					end,
 				},
-				modified = {
-					symbol = "[+] ",
-					highlight = "NeoTreeModified",
-				},
+				modified = { symbol = require("icons").FileModified },
 				name = {
 					trailing_slash = false,
 					highlight_opened_files = false, -- Requires `enable_opened_markers = true`.
@@ -130,20 +129,16 @@ return {
 				},
 				git_status = {
 					symbols = {
-						-- Change type
-						added = "✚", -- NOTE: you can set any of these to an empty string to not show them
-						deleted = "✖",
-						modified = "",
-						renamed = "󰁕",
-						-- Status type
-						untracked = "",
-						ignored = "",
-						unstaged = "󰄱",
-						staged = "",
-						conflict = "",
+						added = require("icons").GitAdd,
+						deleted = require("icons").GitDelete,
+						modified = require("icons").GitChange,
+						renamed = require("icons").GitRenamed,
+						untracked = require("icons").GitUntracked,
+						ignored = require("icons").GitIgnored,
+						unstaged = require("icons").GitUnstaged,
+						staged = require("icons").GitStaged,
+						conflict = require("icons").GitConflict,
 					},
-					align = "right",
-				},
 				},
 			},
 			-- Global custom commands that will be available in all sources (if not overridden in `opts[source_name].commands`)
