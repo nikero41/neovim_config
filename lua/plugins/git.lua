@@ -62,4 +62,20 @@ return {
 		keys = { { "<Leader>gB", vim.cmd.BlameToggle, desc = "Toggle git blame" } },
 		opts = { date_format = "%d/%m/%Y" },
 	},
+	{
+		"akinsho/git-conflict.nvim",
+		version = "*",
+		cmd = {
+			"GitConflictChooseOurs",
+			"GitConflictChooseTheirs",
+			"GitConflictChooseBoth",
+			"GitConflictChooseNone",
+			"GitConflictNextConflict",
+			"GitConflictPrevConflict",
+			"GitConflictListQf",
+		},
+		opts = {
+			list_opener = "copen", -- TODO: use snacks.picker or trouble.nvim (?)
+		},
+	},
 }
