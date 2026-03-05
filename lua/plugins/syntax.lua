@@ -28,6 +28,17 @@ return {
 				"astro",
 				"bash",
 
+				-- C
+				"cpp",
+				"c",
+				"objc",
+				"cuda",
+				"proto",
+
+				"c_sharp",
+
+				"dockerfile",
+
 				-- go
 				"go",
 				"gomod",
@@ -43,15 +54,37 @@ return {
 
 				"hyprlang",
 				"json",
+				"just",
 
-				"c",
-				"diff",
-				"html",
+				-- Lua
 				"lua",
-				"luadoc",
+				"luap",
+
+				-- Markdown
 				"markdown",
 				"markdown_inline",
-				"query",
+
+				"nginx",
+				"prisma",
+				"python",
+				"rust",
+				"sql",
+				"swift",
+				"toml",
+
+				-- Javascript
+				"javascript",
+				"typescript",
+				"tsx",
+				"jsdoc",
+
+				"xml",
+				"yaml",
+
+				-- vim
+				-- "diff",
+				-- "luadoc",
+				-- "query",
 				"vim",
 				"vimdoc",
 			},
@@ -64,6 +97,8 @@ return {
 			require("nvim-treesitter").install(opts.ensure_installed)
 
 			vim.treesitter.language.register("bash", "dotenv")
+			vim.treesitter.language.register("scss", "less")
+			vim.treesitter.language.register("scss", "postcss")
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = opts.ensure_installed,
