@@ -46,6 +46,11 @@ return {
 
 				"clangd",
 
+				-- C#
+				"omnisharp",
+				"csharpier",
+				"netcoredbg",
+
 				-- Docker
 				"docker-language-server",
 				"hadolint",

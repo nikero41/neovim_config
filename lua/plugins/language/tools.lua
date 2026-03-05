@@ -51,6 +51,7 @@ return {
 				bash = { "shfmt", "shellcheck" },
 				sh = { "shfmt", "shellcheck" },
 				zsh = { "shfmt", "shellcheck" },
+				cs = { "csharpier" },
 				go = { "goimports", lsp_format = "last" },
 				lua = { "stylua" },
 				markdown = { "prettierd", "prettier", "markdownlint", stop_after_first = true },
