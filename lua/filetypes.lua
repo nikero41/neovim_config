@@ -11,6 +11,42 @@ local Filetypes = {
 		"javascript.jsx",
 		"jsx",
 	},
+	prettier_config = {
+		".prettierrc",
+		".prettierrc.cjs",
+		".prettierrc.cts",
+		".prettierrc.js",
+		".prettierrc.json",
+		".prettierrc.json5",
+		".prettierrc.mjs",
+		".prettierrc.mts",
+		".prettierrc.toml",
+		".prettierrc.ts",
+		".prettierrc.yaml",
+		".prettierrc.yml",
+		"prettier.config.cjs",
+		"prettier.config.js",
+		"prettier.config.mjs",
+		"prettier.config.mts",
+		"prettier.config.ts",
+	},
+	eslint_config = {
+		-- ESLint <=8 (Deprecated)
+		".eslintignore",
+		".eslintrc",
+		".eslintrc.cjs",
+		".eslintrc.js",
+		".eslintrc.json",
+		".eslintrc.yaml",
+		".eslintrc.yml",
+		-- ESLint >=9
+		"eslint.config.cjs",
+		"eslint.config.cts",
+		"eslint.config.js",
+		"eslint.config.mjs",
+		"eslint.config.mts",
+		"eslint.config.ts",
+	},
 }
 
 function Filetypes:setup()
@@ -19,6 +55,11 @@ function Filetypes:setup()
 			podspec = "ruby",
 			tmux = "tmux",
 			gitconfig = "gitconfig",
+			pcss = "postcss",
+			postcss = "postcss",
+			hl = "hyprlang",
+			just = "just",
+			pg = "sql",
 		},
 		filename = {
 			[".env"] = "dotenv",
@@ -31,6 +72,10 @@ function Filetypes:setup()
 		},
 		pattern = {
 			["%.env%.[%w_.-]+"] = "dotenv",
+			["docker-compose.ya?ml"] = "yaml.docker-compose",
+			[".*/hypr/.*.conf"] = "hyprlang",
+			["hypr.*.conf"] = "hyprlang",
+			[".?[jJ]ustfile"] = "just", -- TODO: should be a better pattern
 		},
 	})
 
