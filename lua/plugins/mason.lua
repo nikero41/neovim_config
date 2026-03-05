@@ -73,10 +73,11 @@ return {
 
 				"graphql-language-service-cli",
 
-				-- HTML
+				-- HTML - CSS
 				"html-lsp",
 				"css-lsp",
 				"emmet-language-server",
+				"stylelint",
 
 				-- hyprland
 				"hyprls",
