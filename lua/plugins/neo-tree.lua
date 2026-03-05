@@ -36,23 +36,27 @@ return {
 		---@type neotree.Config
 		opts = {
 			sources = { "filesystem" },
-			add_blank_line_at_top = false,
 			close_if_last_window = true,
 			enable_cursor_hijack = true,
-			popup_border_style = vim.o.winborder,
+			popup_border_style = "", -- "" to use 'winborder'
 			use_popups_for_input = true,
-			use_default_mappings = true,
-			---@diagnostic disable-next-line: missing-fields
-			source_selector = { winbar = false, statusline = false },
+			auto_clean_after_session_restore = true,
+			source_selector = {
+				winbar = true,
+				content_layout = "center",
+				show_scrolled_off_parent_node = true,
+				truncation_character = "…",
+			},
 			event_handlers = {
-				{
-					event = "neo_tree_buffer_enter",
-					handler = function() vim.cmd("highlight! Cursor blend=100") end,
-				},
-				{
-					event = "neo_tree_buffer_leave",
-					handler = function() vim.cmd("highlight! Cursor guibg=#5f87af blend=0") end,
-				},
+				-- TODO:
+				-- {
+				-- 	event = "neo_tree_buffer_enter",
+				-- 	handler = function() vim.cmd("highlight! Cursor blend=100") end,
+				-- },
+				-- {
+				-- 	event = "neo_tree_buffer_leave",
+				-- 	handler = function() vim.cmd("highlight! Cursor guibg=#5f87af blend=0") end,
+				-- },
 				{
 					event = "neo_tree_window_after_open",
 					handler = function()
@@ -67,22 +71,33 @@ return {
 						Snacks.dashboard.update()
 					end,
 				},
+				{
+					event = "neo_tree_buffer_enter",
+					handler = function() vim.opt_local.foldcolumn = "0" end,
+				},
 			},
 			default_component_configs = {
+				container = {
+					enable_character_fade = true,
+				},
 				indent = {
 					padding = 0,
 					with_markers = true,
+					with_expanders = true,
 					expander_collapsed = require("icons").FoldClosed,
 					expander_expanded = require("icons").FoldOpened,
 				},
 				icon = {
-					folder_closed = "",
-					folder_open = "",
+					folder_closed = require("icons").FolderClosed,
+					folder_open = require("icons").FolderOpen,
+					-- TODO:
+					-- folder_empty = require("icons").FolderEmpty,
+					-- folder_empty_open = require("icons").FolderEmptyOpen,
 					folder_empty = "󰉖",
 					folder_empty_open = "󰷏",
 					use_filtered_colors = true,
-					default = "*",
-					provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+					default = require("icons").DefaultFile,
+					provider = function(icon, node)
 						local text, hl
 						local mini_icons = require("mini.icons")
 						if node.type == "file" then
@@ -102,16 +117,6 @@ return {
 					end,
 				},
 				modified = { symbol = require("icons").FileModified },
-				name = {
-					trailing_slash = false,
-					highlight_opened_files = false, -- Requires `enable_opened_markers = true`.
-					-- Take values in { false (no highlight), true (only loaded),
-					-- "all" (both loaded and unloaded)}. For more information,
-					-- see the `show_unloaded` config of the `buffers` source.
-					use_filtered_colors = true, -- Whether to use a different highlight when the file is filtered (hidden, dotfile, etc.).
-					use_git_status_colors = true,
-					highlight = "NeoTreeFileName",
-				},
 				git_status = {
 					symbols = {
 						added = require("icons").GitAdd,
@@ -120,113 +125,115 @@ return {
 						renamed = require("icons").GitRenamed,
 						untracked = require("icons").GitUntracked,
 						ignored = require("icons").GitIgnored,
-						unstaged = require("icons").GitUnstaged,
+						unstaged = "", -- require("icons").GitUnstaged,
 						staged = require("icons").GitStaged,
 						conflict = require("icons").GitConflict,
 					},
 				},
 			},
-			-- Global custom commands that will be available in all sources (if not overridden in `opts[source_name].commands`)
-			--
-			-- You can then reference the custom command by adding a mapping to it:
-			--    globally    -> `opts.window.mappings`
-			--    locally     -> `opt[source_name].window.mappings` to make it source specific.
-			--
-			-- commands = {              |  window {                 |  filesystem {
-			--   hello = function()      |    mappings = {           |    commands = {
-			--     print("Hello world")  |      ["<C-c>"] = "hello"  |      hello = function()
-			--   end                     |    }                      |        print("Hello world in filesystem")
-			-- }                         |  }                        |      end
-			--
-			-- see `:h neo-tree-custom-commands-global`
-			commands = {}, -- A list of functions
+			commands = {
+				system_open = function(state) vim.ui.open(state.tree:get_node():get_id()) end,
+				parent_or_close = function(state)
+					local node = state.tree:get_node()
+					if node:has_children() and node:is_expanded() then
+						state.commands.toggle_node(state)
+					else
+						require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+					end
+				end,
+				child_or_open = function(state)
+					local node = state.tree:get_node()
+					if not node:has_children() then
+						state.commands.open(state)
+						return
+					end
 
-			window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-				insert_as = "child", -- Affects how nodes get inserted into the tree during creation/pasting/moving of files if the node under the cursor is a directory:
-				-- "child":   Insert nodes as children of the directory under cursor.
-				-- "sibling": Insert nodes  as siblings of the directory under cursor.
-				-- Mappings for tree window. See `:h neo-tree-mappings` for a list of built-in commands.
-				-- You can also create your own commands by providing a function instead of a string.
-				mapping_options = {
-					noremap = true,
-					nowait = true,
-				},
+					if not node:is_expanded() then
+						state.commands.toggle_node(state)
+						return
+					end
+
+					-- if expanded and has children, seleect the next child
+					if node.type == "file" then
+						state.commands.open(state)
+					else
+						require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+					end
+				end,
+				copy_selector = function(state)
+					local node = state.tree:get_node()
+					vim.notify(vim.inspect(node), nil, { title = "🪚 node", ft = "lua" })
+					local filepath = node:get_id()
+					local filename = node.name
+					local modify = vim.fn.fnamemodify
+
+					local vals = {
+						["BASENAME"] = modify(filename, ":r"),
+						["EXTENSION"] = modify(filename, ":e"),
+						["FILENAME"] = filename,
+						["PATH (CWD)"] = modify(filepath, ":."),
+						["PATH (HOME)"] = modify(filepath, ":~"),
+						["PATH"] = filepath,
+						["URI"] = vim.uri_from_fname(filepath),
+					}
+
+					local options = vim.tbl_filter(function(val) return vals[val] ~= "" end, vim.tbl_keys(vals))
+					if vim.tbl_isempty(options) then
+						vim.notify("No values to copy", vim.log.levels.WARN)
+						return
+					end
+					table.sort(options)
+					vim.ui.select(options, {
+						prompt = "Choose to copy to clipboard:",
+						format_item = function(item) return ("%s: %s"):format(item, vals[item]) end,
+					}, function(choice)
+						local result = vals[choice]
+						if result then
+							vim.notify(("Copied: `%s`"):format(result))
+							vim.fn.setreg("+", result)
+						end
+					end)
+				end,
+			},
+
+			window = {
+				popup = { title = function(state) return state.name:gsub("^%l", string.upper) end },
+				position = "float",
 				mappings = {
-					["<cr>"] = "open",
-					-- ["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
-					["S"] = "open_split",
-					-- ["S"] = "split_with_window_picker",
-					["s"] = "open_vsplit",
-					-- ["sr"] = "open_rightbelow_vs",
-					-- ["sl"] = "open_leftabove_vs",
-					-- ["s"] = "vsplit_with_window_picker",
-					-- ["<cr>"] = "open_drop",
-					-- ["t"] = "open_tab_drop",
-					["w"] = "open_with_window_picker",
-					["C"] = "close_node",
-					--["C"] = "close_all_subnodes",
-					["z"] = "close_all_nodes",
-					--["Z"] = "expand_all_nodes",
-					--["Z"] = "expand_all_subnodes",
-					["a"] = {
-						"add",
-						-- some commands may take optional config options, see `:h neo-tree-mappings` for details
-						config = {
-							show_path = "none", -- "none", "relative", "absolute"
-						},
-					},
-					["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
+					["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
+					["<S-CR>"] = "system_open",
+					["h"] = "parent_or_close",
+					["l"] = "child_or_open",
+					["L"] = "focus_preview",
+					["<C-x>"] = "open_split",
+					["<C-v>"] = "open_vsplit",
+					["<C-X>"] = "split_with_window_picker",
+					["<C-V>"] = "vsplit_with_window_picker",
+					["C"] = "close_all_subnodes",
+					["Z"] = "expand_all_subnodes",
+					["Y"] = "copy_selector",
+					["a"] = { "add", config = { show_path = "relative" } },
+					["A"] = { "add_directory", config = { show_path = "relative" } }, -- also accepts the config.show_path and config.insert_as options.
 				},
 			},
 			filesystem = {
 				window = {
 					mappings = {
-						["/"] = "fuzzy_finder",
-						--["/"] = {"fuzzy_finder", config = { keep_filter_on_submit = true }},
-						--["/"] = "filter_as_you_type", -- this was the default until v1.28
-						["D"] = "fuzzy_finder_directory",
-						-- ["D"] = "fuzzy_sorter_directory",
-						["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-						["f"] = "filter_on_submit",
-						["i"] = "show_file_details", -- see `:h neo-tree-file-actions` for options to customize the window.
-						["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
+						["/"] = { "fuzzy_finder", config = { keep_filter_on_submit = true } },
+						["<esc>"] = "clear_filter",
 					},
-					fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
-						["<down>"] = "move_cursor_down",
-						["<C-n>"] = "move_cursor_down",
-						["<up>"] = "move_cursor_up",
-						["<C-p>"] = "move_cursor_up",
-						["<Esc>"] = "close",
-						["<S-CR>"] = "close_keep_filter",
-						["<C-CR>"] = "close_clear_filter",
+					fuzzy_finder_mappings = {
+						["<C-J>"] = "move_cursor_down",
+						["<C-K>"] = "move_cursor_up",
 						["<C-w>"] = { "<C-S-w>", raw = true },
-						{
-							-- normal mode mappings
-							n = {
-								["j"] = "move_cursor_down",
-								["k"] = "move_cursor_up",
-								["<S-CR>"] = "close_keep_filter",
-								["<C-CR>"] = "close_clear_filter",
-								["<esc>"] = "close",
-							},
-						},
-						-- ["<esc>"] = "noop", -- if you want to use normal mode
-						-- ["key"] = function(state, scroll_padding) ... end,
 					},
-				},
-				cwd_target = {
-					sidebar = "tab", -- sidebar is when position = left or right
-					current = "window", -- current is when position = current
 				},
 				filtered_items = {
-					visible = false, -- when true, they will just be displayed differently than normal items
-					force_visible_in_empty_folder = false, -- when true, hidden files will be shown if the root folder is otherwise empty
-					children_inherit_highlights = true, -- whether children of filtered parents should inherit their parent's highlight group
+					force_visible_in_empty_folder = true,
 					show_hidden_count = true,
 					hide_by_name = { ".DS_Store", "thumbs.db", "node_modules" },
 					always_show_by_pattern = { ".env*" },
 				},
-				group_empty_dirs = false, -- when true, empty folders will be grouped together
 				follow_current_file = {
 					enabled = true,
 					leave_dirs_open = true,
@@ -242,7 +249,6 @@ return {
 					if package.loaded["neo-tree"] then return true end
 
 					local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(args.buf))
-					vim.notify(vim.inspect(stats), nil, { title = "🪚 stats", ft = "lua" })
 					if stats and stats.type == "directory" then
 						require("lazy").load({ plugins = { "neo-tree.nvim" } })
 						pcall(vim.api.nvim_exec_autocmds, "BufEnter", { group = "NeoTree_NetrwDeferred", buffer = args.buf })
