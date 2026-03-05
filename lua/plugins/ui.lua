@@ -196,4 +196,95 @@ return {
 			icon_provider = "mini",
 		},
 	},
+	{
+		"nvim-lualine/lualine.nvim",
+		lazy = false,
+		opts = {
+			options = {
+				theme = "catppuccin",
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = {
+					statusline = {},
+					winbar = { "neo-tree", "snacks_dashboard" },
+				},
+				always_divide_middle = true,
+				always_show_tabline = false,
+			},
+			sections = {
+				lualine_a = { { "branch", on_click = function() Snacks.lazygit() end } },
+				lualine_b = { "filetype" },
+				lualine_c = {
+					{
+						"diff",
+						diff_color = {
+							-- added = "LuaLineDiffAdd", -- Changes the diff's added color
+							-- modified = "LuaLineDiffChange", -- Changes the diff's modified color
+							-- removed = "LuaLineDiffDelete", -- Changes the diff's removed color you
+						},
+						symbols = {
+							added = require("icons").GitAdd .. " ",
+							modified = require("icons").GitChange .. " ",
+							removed = require("icons").GitDelete .. " ",
+						},
+					},
+				},
+				lualine_x = {},
+				lualine_y = { "diagnostics", "progress" },
+				lualine_z = { "location" },
+			},
+			tabline = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = { { "tabs", mode = 2, show_modified_status = false } },
+				lualine_x = {},
+				lualine_y = {},
+
+				lualine_z = {},
+			},
+			winbar = {
+				lualine_a = {},
+				lualine_b = {
+					{
+						"filename",
+						file_status = true,
+						newfile_status = true,
+						path = 1,
+						symbols = {
+							modified = require("icons").FileModified,
+							readonly = require("icons").FileReadOnly,
+							unnamed = require("icons").FileNew,
+							newfile = require("icons").FileNew,
+						},
+					},
+				},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			inactive_winbar = {
+				lualine_a = {},
+				lualine_b = {
+					{
+						"filename",
+						file_status = true,
+						newfile_status = true,
+						path = 1,
+						symbols = {
+							modified = require("icons").FileModified,
+							readonly = require("icons").FileReadOnly,
+							unnamed = require("icons").FileNew,
+							newfile = require("icons").FileNew,
+						},
+					},
+				},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			extensions = { "lazy", "man", "mason", "neo-tree", "quickfix", "trouble" },
+		},
+	},
 }
