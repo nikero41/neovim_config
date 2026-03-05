@@ -2,13 +2,13 @@
 return {
 	"folke/snacks.nvim",
 	keys = {
-		{ "<Leader>f<CR>", function() require("snacks").picker.resume() end, desc = "Resume previous search" },
-		{ "<Leader>f'", function() require("snacks").picker.marks() end, desc = "Find marks" },
-		{ "<Leader>fb", function() require("snacks").picker.buffers() end, desc = "Find buffers" },
-		{ "<Leader>fc", function() require("snacks").picker.grep_word() end, desc = "Find word under cursor" },
-		{ "<Leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
+		{ "<leader>f<CR>", function() require("snacks").picker.resume() end, desc = "Resume previous search" },
+		{ "<leader>f'", function() require("snacks").picker.marks() end, desc = "Find marks" },
+		{ "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Find buffers" },
+		{ "<leader>fc", function() require("snacks").picker.grep_word() end, desc = "Find word under cursor" },
+		{ "<leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
 		{
-			"<Leader>ff",
+			"<leader>ff",
 			function()
 				require("snacks").picker.files({
 					hidden = vim.tbl_get(vim.uv.fs_stat(".git") or {}, "type") == "directory",
@@ -17,29 +17,29 @@ return {
 			desc = "Find files",
 		},
 		{
-			"<Leader>fF",
+			"<leader>fF",
 			function() require("snacks").picker.files({ hidden = true, ignored = true }) end,
 			desc = "Find all files",
 		},
-		{ "<Leader>fg", function() require("snacks").picker.git_files() end, desc = "Find git files" },
-		{ "<Leader>fk", function() require("snacks").picker.keymaps() end, desc = "Find keymaps" },
-		{ "<Leader>fn", function() require("snacks").picker.notifications() end, desc = "Find notifications" },
-		{ "<Leader>fo", function() require("snacks").picker.recent() end, desc = "Find old files" },
+		{ "<leader>fg", function() require("snacks").picker.git_files() end, desc = "Find git files" },
+		{ "<leader>fk", function() require("snacks").picker.keymaps() end, desc = "Find keymaps" },
+		{ "<leader>fn", function() require("snacks").picker.notifications() end, desc = "Find notifications" },
+		{ "<leader>fo", function() require("snacks").picker.recent() end, desc = "Find old files" },
 		{
-			"<Leader>fO",
+			"<leader>fO",
 			function() require("snacks").picker.recent({ filter = { cwd = true } }) end,
 			desc = "Find old files (cwd)",
 		},
-		{ "<Leader>fp", function() require("snacks").picker.projects() end, desc = "Find projects" },
-		{ "<Leader>fr", function() require("snacks").picker.registers() end, desc = "Find registers" },
-		{ "<Leader>fw", function() require("snacks").picker.grep() end, desc = "Find words" },
+		{ "<leader>fp", function() require("snacks").picker.projects() end, desc = "Find projects" },
+		{ "<leader>fr", function() require("snacks").picker.registers() end, desc = "Find registers" },
+		{ "<leader>fw", function() require("snacks").picker.grep() end, desc = "Find words" },
 		{
-			"<Leader>fW",
+			"<leader>fW",
 			function() require("snacks").picker.grep({ hidden = true, ignored = true }) end,
 			desc = "Find words in all files",
 		},
-		{ "<Leader>fu", function() require("snacks").picker.undo() end, desc = "Find undo history" },
-		{ "<Leader>lD", function() require("snacks").picker.diagnostics() end, desc = "Search diagnostics" },
+		{ "<leader>fu", function() require("snacks").picker.undo() end, desc = "Find undo history" },
+		{ "<leader>lD", function() require("snacks").picker.diagnostics() end, desc = "Search diagnostics" },
 
 		-- LSP
 		{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
