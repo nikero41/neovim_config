@@ -1,5 +1,29 @@
 ---@type vim.lsp.Config
 return {
+	settings = {
+		typescript = {
+			updateImportsOnFileMove = { enabled = "always" },
+			inlayHints = {
+				enumMemberValues = { enabled = true },
+				functionLikeReturnTypes = { enabled = true },
+				parameterNames = { enabled = "all" },
+				parameterTypes = { enabled = true },
+				propertyDeclarationTypes = { enabled = true },
+				variableTypes = { enabled = true },
+			},
+		},
+		javascript = {
+			updateImportsOnFileMove = { enabled = "always" },
+			inlayHints = {
+				enumMemberValues = { enabled = true },
+				functionLikeReturnTypes = { enabled = true },
+				parameterNames = { enabled = "literals" },
+				parameterTypes = { enabled = true },
+				propertyDeclarationTypes = { enabled = true },
+				variableTypes = { enabled = true },
+			},
+		},
+	},
 	cmd = function(dispatchers, config)
 		local cmd = "tsgo"
 		local local_cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/tsgo"

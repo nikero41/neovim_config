@@ -36,16 +36,20 @@ return {
 			run_on_start = true,
 			auto_update = true,
 			ensure_installed = {
-				-- Astro
 				"astro-language-server",
+
 				-- Bash
 				"bash-language-server",
 				"shellcheck",
 				"shfmt",
 				"bash-debug-adapter",
+
+				"clangd",
+
 				-- Docker
 				"docker-language-server",
 				"hadolint",
+
 				-- Go
 				"delve",
 				"gopls",
@@ -55,39 +59,79 @@ return {
 				"impl",
 				"goimports",
 				"golangci-lint-langserver",
+				"golines",
+
+				-- Gradle
+				"gradle-language-server",
+				"npm-groovy-lint",
+
+				"graphql-language-service-cli",
+
 				-- HTML
 				"html-lsp",
 				"css-lsp",
 				"emmet-language-server",
+
 				-- hyprland
 				"hyprls",
+
 				-- json
 				"json-lsp",
 
-				-- language servers
-				-- "gradle-language-server",
-				-- "graphql-language-service-cli",
-				-- "typos-lsp",
-				-- "rust-analyzer",
-				--
-				"lua-language-server",
-				-- -- none-ls
-				-- "checkmake",
-				-- "clang-format",
-				-- "eslint_d",
-				-- "emmet-language-server",
-				-- "golines",
-				-- "golangci-lint-langserver",
-				-- "markdownlint",
-				-- "mypy",
-				-- "npm-groovy-lint",
-				-- "pylint",
-				-- "stylelint",
-				-- "sql-formatter",
-				"tsgo",
-				-- "yamllint",
+				"just-lsp",
 
-				-- install any other package
+				-- Lua
+				"lua-language-server",
+				"stylua",
+				"selene",
+
+				"checkmake",
+
+				-- Markdown
+				"marksman",
+				-- "markdownlint",
+
+				-- nginx
+				"nginx-config-formatter",
+				"nginx-language-server",
+
+				"prettierd",
+				"prisma-language-server",
+
+				-- Python
+				"debugpy",
+				"basedpyright",
+				"mypy",
+				"black",
+				"isort",
+
+				-- Rust
+				"rust-analyzer",
+				"codelldb", -- and C
+
+				-- SQL
+				"sqlfluff",
+				"sqls",
+
+				-- Swift
+				"codelldb",
+
+				"tailwindcss-language-server",
+				"taplo",
+
+				-- Javascript
+				"js-debug-adapter",
+				"tsgo",
+				"eslint_d",
+
+				-- XML
+				"lemminx",
+
+				-- YAML
+				"yamllint",
+				"yaml-language-server",
+
+				"typos-lsp",
 				"tree-sitter-cli",
 			},
 		},

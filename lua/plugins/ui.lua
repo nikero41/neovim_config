@@ -2,17 +2,39 @@
 return {
 	{
 		"nvim-mini/mini.icons",
-		opts = {
-			file = {
+		opts = function(_, opts)
+			opts = opts or {}
+
+			opts.file = vim.tbl_deep_extend("force", opts.file or {}, {
 				[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
 				["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
 				[".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
-			},
-			filetype = {
+				[".nvmrc"] = { glyph = "", hl = "MiniIconsGreen" },
+				[".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
+				["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
+				["tsconfig.json"] = { glyph = "", hl = "MiniIconsAzure" },
+				["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" },
+				["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
+			})
+
+			opts.filetype = vim.tbl_deep_extend("force", opts.filetype or {}, {
 				dotenv = { glyph = "", hl = "MiniIconsYellow" },
 				gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
-			},
-		},
+				postcss = { glyph = "󰌜", hl = "MiniIconsOrange" },
+			})
+
+			local filetypes = require("filetypes")
+
+			for _, filename in ipairs(filetypes.prettier_config) do
+				opts.file[filename] = { glyph = "", hl = "MiniIconsPurple" }
+			end
+
+			for _, filename in ipairs(filetypes.eslint_config) do
+				opts.file[filename] = { glyph = "󰱺", hl = "MiniIconsYellow" }
+			end
+
+			return opts
+		end,
 		init = function()
 			package.preload["nvim-web-devicons"] = function()
 				require("mini.icons").mock_nvim_web_devicons()

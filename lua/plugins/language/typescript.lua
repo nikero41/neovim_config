@@ -1,6 +1,17 @@
 ---@type LazySpec
 return {
 	{
+		"vuki656/package-info.nvim",
+		dependencies = { "MunifTanjim/nui.nvim" },
+		event = "BufRead package.json",
+		opts = {},
+	},
+	{
+		"dmmulroy/tsc.nvim",
+		cmd = "TSC",
+		opts = {},
+	},
+	{
 		"axelvc/template-string.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		ft = require("filetypes").javascript,

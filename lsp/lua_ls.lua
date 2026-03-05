@@ -1,7 +1,12 @@
 ---@type vim.lsp.Config
 return {
 	settings = {
-		Lua = {},
+		Lua = {
+			hint = {
+				enable = true,
+				arrayIndex = "Disable",
+			},
+		},
 	},
 	on_init = function(client)
 		if client.workspace_folders then
