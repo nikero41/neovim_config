@@ -16,7 +16,8 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-if not pcall(require, "lazy") then
+local lazy_loaded, lazy = pcall(require, "lazy")
+if not lazy_loaded then
 	vim.api.nvim_echo(
 		{ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } },
 		true,
@@ -26,7 +27,7 @@ if not pcall(require, "lazy") then
 	vim.cmd.quit()
 end
 
-require("lazy").setup({
+lazy.setup({
 	spec = {
 		{ import = "plugins/snacks" },
 		{ import = "plugins" },
