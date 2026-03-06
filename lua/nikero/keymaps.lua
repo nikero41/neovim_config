@@ -1,5 +1,11 @@
 ---@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c",
----@alias Keymap { [1]: KeymapModes | KeymapModes[], [2]: string, rhs: string|fun(), opts?: snacks.keymap.set.Opts }
+---@alias Keymap.Opts snacks.keymap.set.Opts | { optional?: boolean }
+
+---@class Keymap
+---@field [1] KeymapModes | KeymapModes[]
+---@field [2] string
+---@field [3] false | string | fun()
+---@field [4] Keymap.Opts?
 
 ---@class Keymaps
 ---@field protected keymaps Keymap[]
@@ -32,9 +38,19 @@ function Keymaps:set_opts(opts) self.opts = opts end
 
 function Keymaps:setup()
 	for _, keymap in ipairs(self.keymaps) do
-		local mode, lhs, rhs, opts = unpack(keymap)
-		local ok = pcall(Snacks.keymap.set, mode, lhs, rhs, opts)
-		if not ok then vim.notify(vim.inspect(keymap), nil, { title = "Error setting keymaps" }) end
+		local mode, lhs, rhs, opts = keymap[1], keymap[2], keymap[3], (keymap[4] or {})
+
+		-- if opts.unique == nil then opts.unique = true end
+		---@type Keymap.Opts
+		opts = vim.tbl_extend("force", self.opts, opts)
+
+		if rhs == false then
+			local ok = pcall(Snacks.keymap.del, mode, lhs, opts)
+			if not ok then vim.notify(vim.inspect(keymap), nil, { title = "Error deleting keymaps" }) end
+		else
+			local ok = pcall(Snacks.keymap.set, mode, lhs, rhs, opts)
+			if not ok and not opts.optional then vim.notify(vim.inspect(keymap), nil, { title = "Error setting keymaps" }) end
+		end
 	end
 end
 

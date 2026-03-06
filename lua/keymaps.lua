@@ -5,10 +5,10 @@ keymaps:add_multiple({
 	{ { "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move down" } },
 	{ { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move down" } },
 
-	{ "n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" } },
-	{ "n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" } },
-	{ "n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" } },
-	{ "n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" } },
+	{ "n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window", optional = true } },
+	{ "n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", optional = true } },
+	{ "n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window", optional = true } },
+	{ "n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window", optional = true } },
 
 	{ "n", "<leader>q", "<CMD>confirm q<CR>", { desc = "Close window" } },
 	{ "n", "<leader>Q", "<CMD>confirm qall<CR>", { desc = "Quit nvim" } },
@@ -30,8 +30,8 @@ keymaps:add_multiple({
 keymaps:add_multiple({
 	{ "n", "\\", vim.cmd.split, { desc = "Horizontal split" } },
 	{ "n", "|", vim.cmd.vsplit, { desc = "Vertical split" } },
-	{ "v", "<S-Tab>", "<gv", { desc = "Unindent line" } },
-	{ "v", "<Tab>", ">gv", { desc = "Indent line" } },
+	{ "v", "<S-Tab>", "<gv", { desc = "Unindent line", unique = false } },
+	{ "v", "<Tab>", ">gv", { desc = "Indent line", unique = false } },
 	{
 		"n",
 		"<leader>uw",
@@ -53,14 +53,8 @@ keymaps:add_multiple({
 
 -- Navigation
 keymaps:add_multiple({
-	{ "n", "]t", vim.cmd.tabnext, { desc = "Next tab" } },
-	{ "n", "[t", vim.cmd.tabprevious, { desc = "Previous tab" } },
-})
-
--- QList
-keymaps:add_multiple({
-	{ "n", "]q", vim.cmd.cnext, { desc = "Next quickfix item" } },
-	{ "n", "[q", vim.cmd.cprevious, { desc = "Previous quickfix item" } },
+	{ "n", "]t", vim.cmd.tabnext, { desc = "Next tab", unique = false } },
+	{ "n", "[t", vim.cmd.tabprevious, { desc = "Previous tab", unique = false } },
 })
 
 -- Search
@@ -115,109 +109,100 @@ keymaps:add_multiple({
 		"n",
 		"[e",
 		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "ERROR" }) end,
-		desc = "Previous error",
+		{ desc = "Previous error" },
 	},
-	{ "n", "]e", function() vim.diagnostic.jump({ count = vim.v.count1, severity = "ERROR" }) end, desc = "Next error" },
+	{
+		"n",
+		"]e",
+		function() vim.diagnostic.jump({ count = vim.v.count1, severity = "ERROR" }) end,
+		{ desc = "Next error" },
+	},
 	{
 		"n",
 		"[w",
 		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "WARN" }) end,
-		desc = "Previous warning",
+		{ desc = "Previous warning" },
 	},
 	{
 		"n",
 		"]w",
 		function() vim.diagnostic.jump({ count = vim.v.count1, severity = "WARN" }) end,
-		desc = "Next warning",
+		{ desc = "Next warning" },
 	},
 })
 
 -- LSP
 keymaps:add_multiple({
+	{ "n", "grr", false },
+	{ "n", "grn", false },
+	{ "n", "gri", false },
+	{ "n", "grt", false },
+	{ "n", "gra", false },
 	{
 		{ "n", "x" },
 		"<leader>la",
 		function() vim.lsp.buf.code_action() end,
-		desc = "LSP code action",
-		cond = "textDocument/codeAction",
+		{ desc = "LSP code action", lsp = { method = "textDocument/codeAction" } },
 	},
 	{
 		"n",
 		"<leader>lA",
 		function() vim.lsp.buf.code_action({ context = { only = { "source" }, diagnostics = {} } }) end,
-		desc = "LSP source action",
-		cond = "textDocument/codeAction",
+		{ desc = "LSP source action", lsp = { method = "textDocument/codeAction" } },
 	},
-
 	{
 		"n",
 		"<leader>ll",
 		function() vim.lsp.codelens.refresh() end,
-		desc = "LSP CodeLens refresh",
-		cond = "textDocument/codeLens",
+		{ desc = "LSP CodeLens refresh", lsp = { method = "textDocument/codeLens" } },
 	},
 	{
 		"n",
 		"<leader>lL",
 		function() vim.lsp.codelens.run() end,
-		desc = "LSP CodeLens run",
-		cond = "textDocument/codeLens",
+		{ desc = "LSP CodeLens run", lsp = { method = "textDocument/codeLens" } },
 	},
 	{
 		"n",
 		"<leader>lf",
 		vim.cmd.Format,
-		desc = "Format buffer",
-		cond = "textDocument/formatting",
+		{ desc = "Format buffer", lsp = { method = "textDocument/formatting" } },
 	},
 	{
 		"v",
 		"<leader>lf",
 		"<CMD>Format<CR>",
-		desc = "Format buffer",
-		cond = "textDocument/rangeFormatting",
+		{ desc = "Format buffer", lsp = { method = "textDocument/rangeFormatting" } },
 	},
 	{
 		"n",
 		"<leader>lR",
 		function() vim.lsp.buf.references() end,
-		desc = "Search references",
-		cond = "textDocument/references",
+		{ desc = "Search references", lsp = { method = "textDocument/references" } },
 	},
 	{
 		"n",
 		"<leader>lr",
 		function() vim.lsp.buf.rename() end,
-		desc = "Rename current symbol",
-		cond = "textDocument/rename",
+		{ desc = "Rename current symbol", lsp = { method = "textDocument/rename" } },
 	},
 	{
 		"n",
 		"<leader>lh",
 		function() vim.lsp.buf.signature_help() end,
-		desc = "Signature help",
-		cond = "textDocument/signatureHelp",
+		{ desc = "Signature help", lsp = { method = "textDocument/signatureHelp" } },
 	},
 	{
 		"n",
 		"gK",
 		function() vim.lsp.buf.signature_help() end,
-		desc = "Signature help",
-		cond = "textDocument/signatureHelp",
-	},
-	{
-		"n",
-		"gy",
-		function() vim.lsp.buf.type_definition() end,
-		desc = "Definition of current type",
-		cond = "textDocument/typeDefinition",
+		{ desc = "Signature help", lsp = { method = "textDocument/signatureHelp" } },
 	},
 	{
 		"n",
 		"<leader>lG",
 		function() vim.lsp.buf.workspace_symbol() end,
-		desc = "Search workspace symbols",
-		cond = "workspace/symbol",
+		{ desc = "Search workspace symbols", lsp = { method = "workspace/symbol" } },
 	},
 })
 

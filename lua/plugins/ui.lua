@@ -83,19 +83,18 @@ return {
 				desc = "Buffer Local Keymaps (which-key)",
 			},
 		},
-		---@type WhichKeyConfig
+		---@type wk.Opts
 		opts = {
-			---@type wk.Spec
 			spec = {
 				-- Groups
-				{ "<leader>f", desc = require("icons").Search .. " Find" },
-				{ "<leader>g", desc = require("icons").Git .. " Git" },
-				{ "<leader>l", desc = require("icons").ActiveLSP .. " LSP" },
-				{ "<leader>u", desc = require("icons").Window .. " UI" },
-				{ "<leader>c", desc = require("icons").Git .. " Logs" },
-				{ "<leader>h", desc = require("icons").Harpoon .. " Harpoon" },
-				{ "<leader>O", desc = require("icons").OpenCode .. " Opencode" },
-				{ "<leader>S", desc = require("icons").Session .. "Session" },
+				{ "<leader>f", group = require("icons").Search .. " Find" },
+				{ "<leader>g", group = require("icons").Git .. " Git" },
+				{ "<leader>l", group = require("icons").ActiveLSP .. " LSP" },
+				{ "<leader>u", group = require("icons").Window .. " UI" },
+				{ "<leader>c", group = require("icons").Git .. " Logs" },
+				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
+				{ "<leader>O", group = require("icons").OpenCode .. " Opencode" },
+				{ "<leader>S", group = require("icons").Session .. " Session" },
 
 				-- Naming
 				{ "gra", desc = "Code Actions", mode = { "n", "x" } },
@@ -104,6 +103,10 @@ return {
 				{ "gri", desc = "Go to implementation" },
 				{ "gO", desc = "LSP Outline" },
 				{ "<C-S>", desc = "LSP Signature Help", mode = { "i", "s" } },
+				{ "]q", desc = "Next quickfix item" },
+				{ "[q", desc = "Previous quickfix item" },
+				{ "]Q", desc = "Last quickfix item" },
+				{ "[Q", desc = "First quickfix item" },
 			},
 			preset = "modern",
 			icons = { group = "", rules = false },

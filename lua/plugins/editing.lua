@@ -1,7 +1,18 @@
 ---@type LazySpec
 return {
 	{ "kylechui/nvim-surround", event = "VeryLazy", opts = {} },
-	{ "nguyenvukhang/nvim-toggler", event = { "User NikeroFile", "InsertEnter" }, opts = {} },
+	{
+		"nguyenvukhang/nvim-toggler",
+		event = { "User NikeroFile", "InsertEnter" },
+		opts = {},
+		specs = {
+			{
+				"folke/which-key.nvim",
+				---@type wk.Opts
+				opts = { spec = { { "<leader>i", desc = "Toggle word", mode = { "n", "v" } } } },
+			},
+		},
+	},
 	{ "folke/ts-comments.nvim", event = "VeryLazy", opts = {} },
 	{
 		"windwp/nvim-autopairs",
