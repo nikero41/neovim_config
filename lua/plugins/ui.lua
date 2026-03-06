@@ -108,9 +108,16 @@ return {
 				{ "]Q", desc = "Last quickfix item" },
 				{ "[Q", desc = "First quickfix item" },
 			},
+			expand = 1,
 			preset = "modern",
+			show_help = false,
 			icons = { group = "", rules = false },
 			win = { no_overlap = false },
+			---@param ctx { mode: string, operator: string }
+			defer = function(ctx)
+				if vim.list_contains({ "d", "y" }, ctx.operator) then return true end
+				return vim.list_contains({ "<C-V>", "V" }, ctx.mode)
+			end,
 		},
 	},
 	{
