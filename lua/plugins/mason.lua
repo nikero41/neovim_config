@@ -5,7 +5,10 @@ return {
 		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
 		keys = { { "<Leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
 		opts = {},
-		init = function() vim.lsp.enable("sourcekit") end,
+		init = function()
+			vim.lsp.inlay_hint.enable()
+			vim.lsp.enable("sourcekit")
+		end,
 	},
 	{
 		"mason-org/mason.nvim",
