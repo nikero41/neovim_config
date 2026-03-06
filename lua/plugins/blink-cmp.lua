@@ -97,9 +97,8 @@ return {
 				menu = {
 					scrolloff = 1,
 					max_height = 20,
-					border = vim.o.winborder,
 					scrollbar = true,
-					winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
+					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					draw = {
 						treesitter = { "lsp" },
 						padding = 1,
@@ -113,8 +112,7 @@ return {
 					auto_show = true,
 					auto_show_delay_ms = 0,
 					window = {
-						border = vim.o.winborder,
-						winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder",
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					},
 				},
 				trigger = {
@@ -129,7 +127,6 @@ return {
 			signature = {
 				enabled = false,
 				window = {
-					border = vim.o.winborder,
 					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
 				},
 			},
