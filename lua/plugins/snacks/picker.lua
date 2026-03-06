@@ -8,7 +8,7 @@ return {
 		{ "<leader>fc", function() require("snacks").picker.grep_word() end, desc = "Find word under cursor" },
 		{ "<leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
 		{
-			"<leader>ff",
+			"<leader><space>",
 			function()
 				require("snacks").picker.files({
 					hidden = vim.tbl_get(vim.uv.fs_stat(".git") or {}, "type") == "directory",
