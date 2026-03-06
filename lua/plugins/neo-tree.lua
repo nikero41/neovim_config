@@ -198,7 +198,6 @@ return {
 
 			window = {
 				popup = { title = function(state) return state.name:gsub("^%l", string.upper) end },
-				position = "float",
 				mappings = {
 					["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
 					["<S-CR>"] = "system_open",
