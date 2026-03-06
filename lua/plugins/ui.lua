@@ -127,6 +127,12 @@ return {
 		---@module "noice"
 		---@type NoiceConfig
 		opts = {
+			cmdline = {
+				format = {
+					search_down = { view = "cmdline" },
+					search_up = { view = "cmdline" },
+				},
+			},
 			messages = { view_search = false },
 			notify = { enabled = false },
 			lsp = {
