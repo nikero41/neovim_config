@@ -124,7 +124,7 @@ return {
 		"HiPhish/rainbow-delimiters.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		submodules = false,
-		event = "User NikeroFile",
+		event = "User File",
 		main = "rainbow-delimiters.setup",
 		---@param opts rainbow_delimiters.config
 		opts = function(_, opts)
@@ -206,7 +206,7 @@ return {
 	},
 	{
 		"brenoprata10/nvim-highlight-colors",
-		event = { "User NikeroFile", "InsertEnter" },
+		event = { "User File", "InsertEnter" },
 		cmd = { "HighlightColors" },
 		opts = {
 			enable_named_colors = true,

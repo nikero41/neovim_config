@@ -2,7 +2,7 @@
 return {
 	{
 		"mfussenegger/nvim-lint",
-		event = { "User NikeroFile" },
+		event = { "User File" },
 		lazy = false,
 		config = function()
 			local lint = require("lint")

@@ -109,7 +109,7 @@ return {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
-		event = "User NikeroFile",
+		event = "User File",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 		keys = { { "<Leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find themes" } },
 		opts = {},

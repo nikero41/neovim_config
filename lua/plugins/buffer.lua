@@ -38,7 +38,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		event = "User NikeroFile",
+		event = "User File",
 		cmd = { "TSContext" },
 		opts = {
 			mode = "topline",

@@ -81,15 +81,14 @@ function Highlights:setup()
 	vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
 		desc = "Events for file detection",
 		callback = function(args)
-			if vim.b[args.buf].astrofile_checked then return end
-			vim.b[args.buf].astrofile_checked = true
+			if vim.b[args.buf].file_checked then return end
+			vim.b[args.buf].file_checked = true
 			vim.schedule(function()
 				if not vim.api.nvim_buf_is_valid(args.buf) then return end
 				local is_valid = vim.bo[args.buf].buflisted
 
 				local current_file = vim.api.nvim_buf_get_name(args.buf)
-
-				if not vim.g.vscode and (current_file == "" or vim.bo[args.buf].buftype == "nofile") then return end
+				if current_file == "" or vim.bo[args.buf].buftype == "nofile" then return end
 
 				local skip_augroups = {}
 				for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = args.event })) do
@@ -97,15 +96,7 @@ function Highlights:setup()
 				end
 
 				skip_augroups["filetypedetect"] = false -- don't skip filetypedetect events
-				vim.api.nvim_exec_autocmds("User", { pattern = "NikeroFile", modeline = false })
-
-				local folder = vim.fn.fnamemodify(current_file, ":p:h")
-
-				-- if astro.cmd({ "git", "-C", folder, "rev-parse" }, false) or astro.file_worktree() then
-				vim.api.nvim_exec_autocmds("User", { pattern = "NikeroGitFile", modeline = false })
-				-- 	-- astro.event("GitFile")
-				-- 	pcall(vim.api.nvim_del_augroup_by_name, "file_user_events")
-				-- end
+				vim.api.nvim_exec_autocmds("User", { pattern = "File", modeline = false })
 
 				if not is_valid then return end
 

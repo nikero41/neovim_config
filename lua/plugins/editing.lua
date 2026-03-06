@@ -3,7 +3,7 @@ return {
 	{ "kylechui/nvim-surround", event = "VeryLazy", opts = {} },
 	{
 		"nguyenvukhang/nvim-toggler",
-		event = { "User NikeroFile", "InsertEnter" },
+		event = { "User File", "InsertEnter" },
 		opts = {},
 		specs = {
 			{
@@ -21,7 +21,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		event = { "User NikeroFile" },
+		event = { "User File" },
 		opts = {},
 		config = function(_, opts)
 			require("nvim-ts-autotag").setup(opts)
@@ -39,7 +39,7 @@ return {
 	{
 		"ray-x/sad.nvim",
 		dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
-		event = "User NikeroFile",
+		event = "User File",
 		cmd = { "Sad" },
 		opts = {},
 		init = function()

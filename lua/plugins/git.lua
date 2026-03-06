@@ -2,7 +2,7 @@
 return {
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "User NikeroGitFile",
+		event = "User File",
 		opts = function()
 			local keymaps = require("nikero.keymaps"):new({
 				{ "n", "<leader>gl", function() require("gitsigns").blame_line() end, desc = "View Git blame" },
