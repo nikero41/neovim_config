@@ -4,6 +4,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
 		event = "VeryLazy",
+		main = "nvim-treesitter.configs",
 		cmd = {
 			"TSBufDisable",
 			"TSBufEnable",
@@ -87,6 +88,7 @@ return {
 				-- "query",
 				"vim",
 				"vimdoc",
+				"regex",
 			},
 		},
 		init = function(plugin)
@@ -94,16 +96,22 @@ return {
 			pcall(require, "nvim-treesitter.query_predicates")
 		end,
 		config = function(_, opts)
-			require("nvim-treesitter").install(opts.ensure_installed)
+			local ts = require("nvim-treesitter")
+			ts.install(opts.ensure_installed)
 
 			vim.treesitter.language.register("bash", "dotenv")
 			vim.treesitter.language.register("scss", "less")
 			vim.treesitter.language.register("scss", "postcss")
 
+			local installed_parsers = ts.get_installed()
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = opts.ensure_installed,
-				callback = function() vim.treesitter.start() end,
+				callback = function(args)
+					local lang = vim.treesitter.language.get_lang(args.match)
+					if vim.tbl_contains(installed_parsers, lang) then vim.treesitter.start(args.buf, lang) end
+				end,
 			})
+
+			ts.setup(opts)
 		end,
 	},
 	{
