@@ -13,20 +13,6 @@ return {
 		opts = {},
 	},
 	{
-		"codethread/qmk.nvim",
-		event = "BufRead *.keymap",
-		opts = {
-			name = "corne",
-			variant = "zmk",
-			layout = {
-				"x x x x x x _ x x x x x x",
-				"x x x x x x _ x x x x x x",
-				"x x x x x x _ x x x x x x",
-				"_ _ _ x x x _ x x x _ _ _",
-			},
-		},
-	},
-	{
 		"nvim-neotest/neotest",
 		dependencies = {
 			"nvim-neotest/neotest-jest",

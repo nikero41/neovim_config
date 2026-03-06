@@ -220,4 +220,18 @@ return {
 		dir = vim.env.GHOSTTY_RESOURCES_DIR and vim.fs.joinpath(vim.env.GHOSTTY_RESOURCES_DIR, "..", "nvim", "site") or nil,
 		cond = vim.env.GHOSTTY_RESOURCES_DIR ~= nil,
 	},
+	{
+		"codethread/qmk.nvim",
+		event = "BufRead *.keymap",
+		opts = {
+			name = "corne",
+			variant = "zmk",
+			layout = {
+				"x x x x x x _ x x x x x x",
+				"x x x x x x _ x x x x x x",
+				"x x x x x x _ x x x x x x",
+				"_ _ _ x x x _ x x x _ _ _",
+			},
+		},
+	},
 }
