@@ -56,7 +56,11 @@ end
 
 ---@param seq string
 local function write_osc(seq)
+	-- vim.api.nvim_ui_send(seq)
+	-- NOTE: change this when upgrading to Neovim 0.12
+	-- selene: allow(incorrect_standard_library_use)
 	io.stdout:write(seq)
+	-- selene: allow(incorrect_standard_library_use)
 	io.stdout:flush()
 end
 
