@@ -41,7 +41,11 @@ return {
 				function() require("opencode").prompt("Explain @this and its context", { submit = true }) end,
 				desc = "Explain this code",
 			},
-			{ "<leader>On", function() require("opencode").command("session.new") end, desc = "New session" },
+			{
+				"<leader>On",
+				function() require("opencode").command("session.new") end,
+				desc = "New session",
+			},
 			{
 				"<leader>Os",
 				function() require("opencode").select() end,

@@ -51,7 +51,11 @@ return {
 		config = function(_, opts) require("ayu").setup(opts) end,
 		init = set_colorscheme,
 	},
-	{ "samharju/synthweave.nvim", enabled = vim.g.colorscheme == "synthweave", init = set_colorscheme },
+	{
+		"samharju/synthweave.nvim",
+		enabled = vim.g.colorscheme == "synthweave",
+		init = set_colorscheme,
+	},
 	{
 		"navarasu/onedark.nvim",
 		enabled = vim.g.colorscheme == "onedark",

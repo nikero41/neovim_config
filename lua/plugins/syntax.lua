@@ -276,7 +276,9 @@ return {
 	{
 		"ghostty",
 		event = { "BufRead */ghostty/config,*/ghostty/themes/*" },
-		dir = vim.env.GHOSTTY_RESOURCES_DIR and vim.fs.joinpath(vim.env.GHOSTTY_RESOURCES_DIR, "..", "nvim", "site") or nil,
+		dir = vim.env.GHOSTTY_RESOURCES_DIR
+				and vim.fs.joinpath(vim.env.GHOSTTY_RESOURCES_DIR, "..", "nvim", "site")
+			or nil,
 		cond = vim.env.GHOSTTY_RESOURCES_DIR ~= nil,
 	},
 	{

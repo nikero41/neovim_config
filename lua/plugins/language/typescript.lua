@@ -24,7 +24,12 @@ return {
 	{
 		"marilari88/twoslash-queries.nvim",
 		ft = require("filetypes").javascript,
-		cmd = { "TwoSlashQueriesEnable", "TwoSlashQueriesDisable", "TwoSlashQueriesInspect", "TwoSlashQueriesRemove" },
+		cmd = {
+			"TwoSlashQueriesEnable",
+			"TwoSlashQueriesDisable",
+			"TwoSlashQueriesInspect",
+			"TwoSlashQueriesRemove",
+		},
 		opts = { multi_line = true },
 		config = function(_, opts)
 			require("twoslash-queries").setup(opts)

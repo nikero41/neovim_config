@@ -16,7 +16,9 @@ return {
 					vim.api.nvim_create_autocmd("BufWritePost", {
 						buffer = args.buf,
 						once = true,
-						callback = function(wargs) require("guess-indent").set_from_buffer(wargs.buf, true, true) end,
+						callback = function(wargs)
+							require("guess-indent").set_from_buffer(wargs.buf, true, true)
+						end,
 					})
 				end,
 			})
@@ -116,7 +118,10 @@ return {
 	},
 	{
 		"hasansujon786/nvim-navbuddy",
-		dependencies = { { "SmiteshP/nvim-navic", otps = { highlight = true } }, "MunifTanjim/nui.nvim" },
+		dependencies = {
+			{ "SmiteshP/nvim-navic", otps = { highlight = true } },
+			"MunifTanjim/nui.nvim",
+		},
 		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
 		keys = {
 			{ "<leader>fs", function() require("nvim-navbuddy").open() end, desc = "Breadcrumb search" },

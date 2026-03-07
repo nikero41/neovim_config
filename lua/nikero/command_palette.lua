@@ -34,7 +34,9 @@ local CommandPalette = {
 					function()
 						vim.ui.input(
 							{ prompt = "PR number: " },
-							function(input) Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") }) end
+							function(input)
+								Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") })
+							end
 						)
 					end,
 				},

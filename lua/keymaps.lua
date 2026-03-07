@@ -37,7 +37,11 @@ keymaps:add_multiple({
 		"<leader>uw",
 		function()
 			vim.wo.wrap = not vim.wo.wrap
-			vim.notify("wrap " .. (vim.wo.wrap and "enabled" or "disabled"), vim.log.levels.INFO, { title = "Line Wrap" })
+			vim.notify(
+				"wrap " .. (vim.wo.wrap and "enabled" or "disabled"),
+				vim.log.levels.INFO,
+				{ title = "Line Wrap" }
+			)
 		end,
 		{ desc = "Toggle line wrap" },
 	},
@@ -47,8 +51,18 @@ keymaps:add_multiple({
 keymaps:add_multiple({
 	{ "n", "<leader>/", "gcc", { remap = true, desc = "Toggle comment" } },
 	{ "x", "<leader>/", "gc", { remap = true, desc = "Toggle comment" } },
-	{ "n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Insert comment below current line" } },
-	{ "n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Insert comment above current line" } },
+	{
+		"n",
+		"gco",
+		"o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",
+		{ desc = "Insert comment below current line" },
+	},
+	{
+		"n",
+		"gcO",
+		"O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",
+		{ desc = "Insert comment above current line" },
+	},
 })
 
 -- Navigation

@@ -177,7 +177,10 @@ return {
 						["URI"] = vim.uri_from_fname(filepath),
 					}
 
-					local options = vim.tbl_filter(function(val) return vals[val] ~= "" end, vim.tbl_keys(vals))
+					local options = vim.tbl_filter(
+						function(val) return vals[val] ~= "" end,
+						vim.tbl_keys(vals)
+					)
 					if vim.tbl_isempty(options) then
 						vim.notify("No values to copy", vim.log.levels.WARN)
 						return
@@ -250,7 +253,11 @@ return {
 					local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(args.buf))
 					if stats and stats.type == "directory" then
 						require("lazy").load({ plugins = { "neo-tree.nvim" } })
-						pcall(vim.api.nvim_exec_autocmds, "BufEnter", { group = "NeoTree_NetrwDeferred", buffer = args.buf })
+						pcall(
+							vim.api.nvim_exec_autocmds,
+							"BufEnter",
+							{ group = "NeoTree_NetrwDeferred", buffer = args.buf }
+						)
 						return true
 					end
 				end,

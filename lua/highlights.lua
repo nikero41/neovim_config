@@ -18,7 +18,11 @@ function Highlights:setup()
 	hl(0, "PmenuSel", { bg = cursor_line_bg, bold = true })
 	hl(0, "NeoTreeRootName", { fg = colors.mauve })
 	hl(0, "BlinkCmpMenu", { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) })
-	hl(0, "HlSearchLensNear", { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 })
+	hl(
+		0,
+		"HlSearchLensNear",
+		{ bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 }
+	)
 
 	hl(0, "@markup.list.checked", { fg = "#d55fde", bg = "NONE" })
 	hl(0, "LspReferenceText", { underline = true })

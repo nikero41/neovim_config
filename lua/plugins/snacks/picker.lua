@@ -2,10 +2,18 @@
 return {
 	"folke/snacks.nvim",
 	keys = {
-		{ "<leader>f<CR>", function() require("snacks").picker.resume() end, desc = "Resume previous search" },
+		{
+			"<leader>f<CR>",
+			function() require("snacks").picker.resume() end,
+			desc = "Resume previous search",
+		},
 		{ "<leader>f'", function() require("snacks").picker.marks() end, desc = "Find marks" },
 		{ "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Find buffers" },
-		{ "<leader>fc", function() require("snacks").picker.grep_word() end, desc = "Find word under cursor" },
+		{
+			"<leader>fc",
+			function() require("snacks").picker.grep_word() end,
+			desc = "Find word under cursor",
+		},
 		{ "<leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
 		{
 			"<leader><space>",
@@ -23,7 +31,11 @@ return {
 		},
 		{ "<leader>fg", function() require("snacks").picker.git_files() end, desc = "Find git files" },
 		{ "<leader>fk", function() require("snacks").picker.keymaps() end, desc = "Find keymaps" },
-		{ "<leader>fn", function() require("snacks").picker.notifications() end, desc = "Find notifications" },
+		{
+			"<leader>fn",
+			function() require("snacks").picker.notifications() end,
+			desc = "Find notifications",
+		},
 		{ "<leader>fo", function() require("snacks").picker.recent() end, desc = "Find old files" },
 		{
 			"<leader>fO",
@@ -39,7 +51,11 @@ return {
 			desc = "Find words in all files",
 		},
 		{ "<leader>fu", function() require("snacks").picker.undo() end, desc = "Find undo history" },
-		{ "<leader>lD", function() require("snacks").picker.diagnostics() end, desc = "Search diagnostics" },
+		{
+			"<leader>lD",
+			function() require("snacks").picker.diagnostics() end,
+			desc = "Search diagnostics",
+		},
 
 		-- LSP
 		{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
@@ -50,7 +66,11 @@ return {
 		{ "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "LSP Incoming Calls" },
 		{ "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "LSP Outgoing Calls" },
 		{ "<leader>ls", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-		{ "<leader>lS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+		{
+			"<leader>lS",
+			function() Snacks.picker.lsp_workspace_symbols() end,
+			desc = "LSP Workspace Symbols",
+		},
 	},
 	---@type snacks.Config
 	opts = {

@@ -14,7 +14,11 @@ return {
 			function() Snacks.scratch.select() end,
 			desc = "Select Scratch Buffer",
 		},
-		{ "<leader>uD", function() require("snacks.notifier").hide() end, desc = "Dismiss notifications" },
+		{
+			"<leader>uD",
+			function() require("snacks.notifier").hide() end,
+			desc = "Dismiss notifications",
+		},
 		{
 			"[[",
 			function() Snacks.words.jump(-vim.v.count1) end,
@@ -27,7 +31,11 @@ return {
 			desc = "Next Reference",
 			mode = { "n", "t" },
 		},
-		{ "<Leader>uZ", function() require("snacks").toggle.zen():toggle() end, desc = "Toggle zen mode" },
+		{
+			"<Leader>uZ",
+			function() require("snacks").toggle.zen():toggle() end,
+			desc = "Toggle zen mode",
+		},
 	},
 	---@type snacks.Config
 	opts = {

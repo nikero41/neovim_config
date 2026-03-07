@@ -49,7 +49,9 @@ function Keymaps:setup()
 			if not ok then vim.notify(vim.inspect(keymap), nil, { title = "Error deleting keymaps" }) end
 		else
 			local ok = pcall(Snacks.keymap.set, mode, lhs, rhs, opts)
-			if not ok and not opts.optional then vim.notify(vim.inspect(keymap), nil, { title = "Error setting keymaps" }) end
+			if not ok and not opts.optional then
+				vim.notify(vim.inspect(keymap), nil, { title = "Error setting keymaps" })
+			end
 		end
 	end
 end
