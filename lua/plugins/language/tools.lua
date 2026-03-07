@@ -3,7 +3,6 @@ return {
 	{
 		"mfussenegger/nvim-lint",
 		event = { "User File" },
-		lazy = false,
 		config = function()
 			local lint = require("lint")
 			lint.linters_by_ft = {
@@ -32,7 +31,7 @@ return {
 			vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged" }, {
 				group = lint_augroup,
 				callback = function()
-					if vim.bo.modifiable then lint.try_lint("eslint_d") end
+					if vim.bo.modifiable then lint.try_lint() end
 				end,
 			})
 		end,
