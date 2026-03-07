@@ -10,18 +10,18 @@ local CommandPalette = {
 		{
 			name = "LSP",
 			commands = {
-				{ "Restart tsserver",  ":VtsExec restart_tsserver" },
-				{ "Restart eslint_d",  ":! eslint_d restart" },
+				{ "Restart tsserver", ":VtsExec restart_tsserver" },
+				{ "Restart eslint_d", ":! eslint_d restart" },
 				{ "Restart prettierd", ":!prettierd restart" },
-				{ "Restart lua-ls",    ":LspRestart lua-ls" },
+				{ "Restart lua-ls", ":LspRestart lua-ls" },
 			},
 		},
 		{
 			name = "File",
 			commands = {
-				{ "Inspect types",        ":InspectTwoslashQueries" },
-				{ "Toggle inline folds",  ":InlineFoldToggle" },
-				{ "Search and Replace",   ":SearchAndReplace" },
+				{ "Inspect types", ":InspectTwoslashQueries" },
+				{ "Toggle inline folds", ":InlineFoldToggle" },
+				{ "Search and Replace", ":SearchAndReplace" },
 				{ "Toggle env variables", "CloakToggle" },
 			},
 		},
@@ -32,8 +32,10 @@ local CommandPalette = {
 				{
 					"View PR Diff",
 					function()
-						vim.ui.input({ prompt = "PR number: " },
-							function(input) Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") }) end)
+						vim.ui.input(
+							{ prompt = "PR number: " },
+							function(input) Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") }) end
+						)
 					end,
 				},
 				{
@@ -55,9 +57,9 @@ local CommandPalette = {
 		{
 			name = "Vim",
 			commands = {
-				{ "Open Lazy",    function() require("lazy").home() end },
-				{ "Open Mason",   ":Mason" },
-				{ "Zen mode",     function() Snacks.zen() end },
+				{ "Open Lazy", function() require("lazy").home() end },
+				{ "Open Mason", ":Mason" },
+				{ "Zen mode", function() Snacks.zen() end },
 				{ "Check health", ":checkhealth" },
 				{
 					"Change colorscheme",
