@@ -40,7 +40,7 @@ return {
 
 			if not opts.queries then opts.queries = {} end
 
-			opts.queries.html = require("astrocore").extend_tbl(opts.queries.html, {
+			opts.queries.html = vim.tbl_extend("force", opts.queries.html, {
 				{ pattern = 'class="([^"]*)"' },
 				{ pattern = 'href="(.-)"' },
 				{ pattern = 'src="(.-)"' },
