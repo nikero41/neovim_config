@@ -132,24 +132,29 @@ return {
 		},
 	},
 	{
-		"alexghergh/nvim-tmux-navigation",
-		keys = function(plugin)
-			local mappings = plugin.opts.keybindings
-			return {
-				{ mappings.left, desc = "Move focus to the left window/pane" },
-				{ mappings.right, desc = "Move focus to the right window/pane" },
-				{ mappings.down, desc = "Move focus to the down window/pane" },
-				{ mappings.up, desc = "Move focus to the up window/pane" },
-			}
-		end,
-		opts = {
-			disable_when_zoomed = true,
-			keybindings = {
-				left = "<C-h>",
-				down = "<C-j>",
-				up = "<C-k>",
-				right = "<C-l>",
+		"mrjones2014/smart-splits.nvim",
+		keys = {
+			{
+				"<C-h>",
+				function() require("smart-splits").move_cursor_left() end,
+				desc = "Move focus to the left window/pane",
+			},
+			{
+				"<C-j>",
+				function() require("smart-splits").move_cursor_down() end,
+				desc = "Move focus to the right window/pane",
+			},
+			{
+				"<C-k>",
+				function() require("smart-splits").move_cursor_up() end,
+				desc = "Move focus to the down window/pane",
+			},
+			{
+				"<C-l>",
+				function() require("smart-splits").move_cursor_right() end,
+				desc = "Move focus to the up window/pane",
 			},
 		},
+		opts = {},
 	},
 }
