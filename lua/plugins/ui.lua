@@ -43,6 +43,36 @@ return {
 		end,
 		specs = {
 			{
+				"nvim-neo-tree/neo-tree.nvim",
+				---@module 'neo-tree'
+				---@type neotree.Config
+				opts = {
+					default_component_configs = {
+						---@diagnostic disable-next-line: missing-fields
+						icon = {
+							provider = function(icon, node)
+								local text, hl
+								local mini_icons = require("mini.icons")
+								if node.type == "file" then
+									text, hl = mini_icons.get("file", node.name)
+								elseif node.type == "directory" then
+									text, hl = mini_icons.get("directory", node.name)
+									if node:is_expanded() then text = nil end
+								end
+
+								if text then icon.text = text end
+								if hl then icon.highlight = hl end
+							end,
+						},
+						kind_icon = {
+							provider = function(icon, node)
+								icon.text, icon.highlight = require("mini.icons").get("lsp", node.extra.kind.name)
+							end,
+						},
+					},
+				},
+			},
+			{
 				"saghen/blink.cmp",
 				opts = {
 					completion = {
@@ -74,6 +104,54 @@ return {
 		},
 	},
 	{
+		"folke/trouble.nvim",
+		cmd = "Trouble",
+		keys = {
+			{ "<leader>ud", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
+		},
+		---@module 'trouble'
+		---@type trouble.Config
+		opts = {
+			focus = true,
+			preview = {
+				type = "float",
+				relative = "editor",
+				border = "rounded",
+				title = "Preview",
+				title_pos = "center",
+				position = { -2, -2 },
+				size = { width = 0.3, height = 0.3 },
+				zindex = 200,
+
+				-- when a buffer is not yet loaded, the preview window will be created
+				-- in a scratch buffer with only syntax highlighting enabled.
+				-- Set to false, if you want the preview to always be a real loaded buffer.
+				scratch = true,
+			},
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+				callback = function()
+					vim.notify("🪚 🔵")
+					vim.cmd([[Trouble qflist open]])
+				end,
+			})
+		end,
+		specs = {
+			"folke/snacks.nvim",
+			opts = function(_, opts)
+				return vim.tbl_deep_extend("force", opts or {}, {
+					picker = {
+						actions = require("trouble.sources.snacks").actions,
+						win = {
+							input = { keys = { ["<c-t>"] = { "trouble_open", mode = { "n", "i" } } } },
+						},
+					},
+				})
+			end,
+		},
+	},
+	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		keys = {
@@ -92,7 +170,9 @@ return {
 				{ "<leader>l", group = require("icons").ActiveLSP .. " LSP" },
 				{ "<leader>u", group = require("icons").Window .. " UI" },
 				{ "<leader>c", group = require("icons").Git .. " Logs" },
+				-- { "<leader>d", group = require("icons").Debugger .. " Debugger" },
 				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
+				-- { "<leader>T", group = require("icons").Tests .. " Tests" },
 				{ "<leader>O", group = require("icons").OpenCode .. " Opencode" },
 				{ "<leader>S", group = require("icons").Session .. " Session" },
 
@@ -159,8 +239,10 @@ return {
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
-		-- TODO: (easy) "AstroNvim/astrocore", opts.signs.BqfSign = { text = " " .. require("astroui").get_icon("Selected"), texthl = "BqfSign" }
 		opts = {},
+		init = function()
+			vim.fn.sign_define("BqfSign", { text = " " .. require("icons").Selected, texthl = "BqfSign" })
+		end,
 	},
 	{
 		"petertriho/nvim-scrollbar",
@@ -196,8 +278,8 @@ return {
 			{
 				"<leader>fy",
 				function() Snacks.picker.yanky() end,
-				mode = { "n", "x" },
 				desc = "Open Yank History",
+				mode = { "n", "x" },
 			},
 		},
 		opts = {},
@@ -208,9 +290,7 @@ return {
 		---@module "relpview"
 		---@type helpview.config
 		---@diagnostic disable-next-line: missing-fields
-		opts = {
-			icon_provider = "mini",
-		},
+		opts = { icon_provider = "mini" },
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -228,8 +308,20 @@ return {
 				always_show_tabline = false,
 			},
 			sections = {
-				lualine_a = { { "branch", on_click = function() Snacks.lazygit() end } },
-				lualine_b = { "filetype" },
+				lualine_a = {},
+				lualine_b = {
+					{
+						"branch",
+						separator = { left = "", right = "" },
+						padding = {
+							left = 1,
+						},
+						left_padding = 2,
+						right_padding = 2,
+						on_click = function() Snacks.lazygit() end,
+					},
+					"filetype",
+				},
 				lualine_c = {
 					{
 						"diff",
@@ -252,8 +344,19 @@ return {
 					},
 				},
 				lualine_x = {},
-				lualine_y = { "diagnostics", "progress" },
-				lualine_z = { "location" },
+				lualine_y = {
+					"diagnostics",
+					"progress",
+					{
+						"location",
+						separator = {
+							left = "",
+							right = "",
+						},
+						left_padding = 2,
+					},
+				},
+				lualine_z = {},
 			},
 			tabline = {
 				lualine_a = {},
@@ -261,7 +364,6 @@ return {
 				lualine_c = { { "tabs", mode = 2, show_modified_status = false } },
 				lualine_x = {},
 				lualine_y = {},
-
 				lualine_z = {},
 			},
 			winbar = {
