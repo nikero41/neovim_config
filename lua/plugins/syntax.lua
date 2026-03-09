@@ -148,6 +148,7 @@ return {
 				"vim",
 				"vimdoc",
 				"regex",
+				"tmux",
 			},
 		},
 		init = function(plugin)
