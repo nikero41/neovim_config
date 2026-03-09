@@ -1,3 +1,14 @@
+vim.lsp.config("*", {
+	---@param client vim.lsp.Client The LSP client details when attaching
+	---@param buffer integer The buffer that the LSP client is attaching to
+	on_attach = function(client, buffer)
+		if client:supports_method("textDocument/codeLens", buffer) then
+			vim.lsp.codelens.refresh({ bufnr = buffer })
+		end
+		vim.lsp.inlay_hint.enable()
+	end,
+})
+
 ---@type LazySpec
 return {
 	{
@@ -5,10 +16,7 @@ return {
 		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
 		keys = { { "<Leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
 		opts = {},
-		init = function()
-			vim.lsp.inlay_hint.enable()
-			vim.lsp.enable("sourcekit")
-		end,
+		init = function() vim.lsp.enable("sourcekit") end,
 	},
 	{
 		"mason-org/mason.nvim",
