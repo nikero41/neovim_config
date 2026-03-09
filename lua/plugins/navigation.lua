@@ -1,3 +1,6 @@
+local term = vim.trim((vim.env.TERM_PROGRAM or ""):lower())
+local mux = term == "tmux" or term == "wezterm" or vim.env.KITTY_LISTEN_ON
+
 ---@type LazySpec
 return {
 	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
@@ -133,6 +136,7 @@ return {
 	},
 	{
 		"mrjones2014/smart-splits.nvim",
+		event = mux and "VeryLazy" or nil, -- load early if mux detected
 		keys = {
 			{
 				"<C-h>",
@@ -155,6 +159,9 @@ return {
 				desc = "Move focus to the up window/pane",
 			},
 		},
-		opts = {},
+		opts = {
+			ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
+			ignored_buftypes = { "nofile" },
+		},
 	},
 }
