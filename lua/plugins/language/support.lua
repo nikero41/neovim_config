@@ -14,6 +14,7 @@ return {
 		"mason-org/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
 		build = ":MasonUpdate",
+		---@module 'mason'
 		---@type MasonSettings
 		opts = {
 			ui = {
