@@ -61,3 +61,22 @@ vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 
 vim.g.loaded_perl_provider = 0
+
+vim.diagnostic.config({
+	update_in_insert = false,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = require("icons").DiagnosticError,
+			[vim.diagnostic.severity.HINT] = require("icons").DiagnosticHint,
+			[vim.diagnostic.severity.WARN] = require("icons").DiagnosticWarn,
+			[vim.diagnostic.severity.INFO] = require("icons").DiagnosticInfo,
+		},
+	},
+	jump = { border = vim.o.winborder, float = true },
+	float = {
+		border = vim.o.winborder,
+		source = true,
+		header = "",
+		prefix = "",
+	},
+})
