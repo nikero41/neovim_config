@@ -6,6 +6,7 @@ return {
 		cmd = "LazyDev",
 		opts_extend = { "library" },
 		opts = {
+			---@module "lazydev"
 			---@type lazydev.Library.spec[]
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
@@ -17,7 +18,7 @@ return {
 		specs = {
 			{
 				"saghen/blink.cmp",
-				---@module 'blink.cmp'
+				---@module "blink.cmp"
 				---@type blink.cmp.Config
 				opts = {
 					sources = {

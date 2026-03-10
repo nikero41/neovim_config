@@ -1,3 +1,5 @@
+---@module "nui.tree"
+
 ---@type LazySpec
 return {
 	{
@@ -44,7 +46,7 @@ return {
 		specs = {
 			{
 				"nvim-neo-tree/neo-tree.nvim",
-				---@module 'neo-tree'
+				---@module "neo-tree"
 				---@type neotree.Config
 				opts = {
 					default_component_configs = {
@@ -74,6 +76,8 @@ return {
 			},
 			{
 				"saghen/blink.cmp",
+				---@module "blink.cmp"
+				---@type blink.cmp.Config
 				opts = {
 					completion = {
 						menu = {
@@ -109,7 +113,7 @@ return {
 		keys = {
 			{ "<leader>ud", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
 		},
-		---@module 'trouble'
+		---@module "trouble"
 		---@type trouble.Config
 		opts = {
 			focus = true,
@@ -287,7 +291,7 @@ return {
 	{
 		"OXY2DEV/helpview.nvim",
 		lazy = false, -- this plugin as it is already lazy-loaded
-		---@module "relpview"
+		---@module "helpview"
 		---@type helpview.config
 		---@diagnostic disable-next-line: missing-fields
 		opts = { icon_provider = "mini" },
@@ -325,11 +329,6 @@ return {
 				lualine_c = {
 					{
 						"diff",
-						diff_color = {
-							-- added = "LuaLineDiffAdd", -- Changes the diff's added color
-							-- modified = "LuaLineDiffChange", -- Changes the diff's modified color
-							-- removed = "LuaLineDiffDelete", -- Changes the diff's removed color you
-						},
 						symbols = {
 							added = require("icons").GitAdd .. " ",
 							modified = require("icons").GitChange .. " ",

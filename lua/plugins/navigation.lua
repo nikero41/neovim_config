@@ -1,3 +1,5 @@
+---@module "guess-indent"
+
 local term = vim.trim((vim.env.TERM_PROGRAM or ""):lower())
 local mux = term == "tmux" or term == "wezterm" or vim.env.KITTY_LISTEN_ON
 
@@ -10,6 +12,7 @@ return {
 		init = function()
 			vim.api.nvim_create_autocmd("BufReadPost", {
 				desc = "Guess indentation when loading a file",
+				---@diagnostic disable-next-line: param-type-mismatch -- can't find guess-indent buffer type
 				callback = function(args) require("guess-indent").set_from_buffer(args.buf, true, true) end,
 			})
 
@@ -20,6 +23,7 @@ return {
 						buffer = args.buf,
 						once = true,
 						callback = function(wargs)
+							---@diagnostic disable-next-line: param-type-mismatch -- can't find guess-indent buffer type
 							require("guess-indent").set_from_buffer(wargs.buf, true, true)
 						end,
 					})
@@ -125,7 +129,6 @@ return {
 			{ "SmiteshP/nvim-navic", otps = { highlight = true } },
 			"MunifTanjim/nui.nvim",
 		},
-		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
 		keys = {
 			{ "<leader>fs", function() require("nvim-navbuddy").open() end, desc = "Breadcrumb search" },
 		},
@@ -133,6 +136,7 @@ return {
 			window = { border = vim.o.winborder },
 			lsp = { auto_attach = true },
 		},
+		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
 	},
 	{
 		"mrjones2014/smart-splits.nvim",

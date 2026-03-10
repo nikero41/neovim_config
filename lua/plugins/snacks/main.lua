@@ -43,9 +43,7 @@ return {
 		image = { enabled = true },
 		quickfile = { enabled = true },
 		scroll = { enabled = false },
-		statuscolumn = {
-			folds = { open = true, git_hl = true },
-		},
+		statuscolumn = { folds = { open = true, git_hl = true } },
 		indent = {
 			indent = { char = "▏" },
 			scope = { char = "▏" },

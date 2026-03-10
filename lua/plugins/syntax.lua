@@ -138,6 +138,8 @@ return {
 				"tsx",
 				"jsdoc",
 
+				"tmux",
+
 				"xml",
 				"yaml",
 
@@ -148,7 +150,6 @@ return {
 				"vim",
 				"vimdoc",
 				"regex",
-				"tmux",
 			},
 		},
 		init = function(plugin)
@@ -186,6 +187,7 @@ return {
 		submodules = false,
 		event = "User File",
 		main = "rainbow-delimiters.setup",
+		---@module "rainbow-delimiters"
 		---@param opts rainbow_delimiters.config
 		opts = function(_, opts)
 			local js_query = "rainbow-parens"

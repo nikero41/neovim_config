@@ -1,3 +1,6 @@
+---@module "nui.tree"
+
+---@type LazySpec
 return {
 	{
 		"s1n7ax/nvim-window-picker",
@@ -32,7 +35,7 @@ return {
 				desc = "Toggle Explorer",
 			},
 		},
-		---@module 'neo-tree'
+		---@module "neo-tree"
 		---@type neotree.Config
 		opts = {
 			sources = { "filesystem" },
@@ -116,7 +119,7 @@ return {
 			commands = {
 				system_open = function(state) vim.ui.open(state.tree:get_node():get_id()) end,
 				parent_or_close = function(state)
-					local node = state.tree:get_node()
+					local node = assert(state.tree:get_node())
 					if node:has_children() and node:is_expanded() then
 						state.commands.toggle_node(state)
 					else
@@ -124,7 +127,7 @@ return {
 					end
 				end,
 				child_or_open = function(state)
-					local node = state.tree:get_node()
+					local node = assert(state.tree:get_node())
 					if not node:has_children() then
 						state.commands.open(state)
 						return
@@ -143,8 +146,7 @@ return {
 					end
 				end,
 				copy_selector = function(state)
-					local node = state.tree:get_node()
-					vim.notify(vim.inspect(node), nil, { title = "🪚 node", ft = "lua" })
+					local node = assert(state.tree:get_node())
 					local filepath = node:get_id()
 					local filename = node.name
 					local modify = vim.fn.fnamemodify

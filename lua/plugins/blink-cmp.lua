@@ -33,7 +33,7 @@ return {
 		dependencies = { "rafamadriz/friendly-snippets" },
 		event = { "InsertEnter", "CmdlineEnter" },
 		build = "cargo build --release",
-		---@module 'blink.cmp'
+		---@module "blink.cmp"
 		---@type blink.cmp.Config
 		opts = {
 			keymap = {
