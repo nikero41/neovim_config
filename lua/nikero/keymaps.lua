@@ -1,10 +1,10 @@
----@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c",
+---@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c"|"t"|"s"|"l",
 ---@alias Keymap.Opts snacks.keymap.set.Opts | { optional?: boolean }
 
 ---@class Keymap
 ---@field [1] KeymapModes | KeymapModes[]
 ---@field [2] string
----@field [3] false | string | fun()
+---@field [3] false | string | function
 ---@field [4] Keymap.Opts?
 
 ---@class Keymaps
