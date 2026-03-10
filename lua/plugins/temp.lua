@@ -1,8 +1,11 @@
--- TODO: cmp, dap, diagnostic, heirline, neo-tree, none-ls, ui
 if true then return {} end
 
 ---@type LazySpec
 return {
+	{
+		"sindrets/diffview.nvim",
+		opts = { view = { merge_tool = { layout = "diff4_mixed" } } },
+	},
 	{
 		"ThePrimeagen/refactoring.nvim",
 		event = "User File",
@@ -30,31 +33,6 @@ return {
 					require("neotest-golang")(),
 				},
 			})
-		end,
-	},
-	{
-		"malbertzard/inline-fold.nvim",
-		cmd = { "InlineFoldToggle" },
-		opts = function(_, opts)
-			opts.defaultPlaceholder = "…"
-
-			if not opts.queries then opts.queries = {} end
-
-			opts.queries.html = vim.tbl_extend("force", opts.queries.html, {
-				{ pattern = 'class="([^"]*)"' },
-				{ pattern = 'href="(.-)"' },
-				{ pattern = 'src="(.-)"' },
-			})
-
-			for _, language in ipairs(require("filetypes").javascript) do
-				opts.queries[language] = {
-					{ pattern = 'className="([^"]*)"' },
-					{ pattern = 'href="(.-)"' },
-					{ pattern = 'src="(.-)"' },
-				}
-			end
-
-			return opts
 		end,
 	},
 }
