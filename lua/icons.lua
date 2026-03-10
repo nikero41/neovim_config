@@ -37,6 +37,7 @@ return {
 	GitIgnored = "◌",
 	GitRenamed = "➜",
 	GitSign = "▎",
+	GitSignLine = "",
 	GitStaged = "✓",
 	GitUnstaged = "✗",
 	GitUntracked = "★",

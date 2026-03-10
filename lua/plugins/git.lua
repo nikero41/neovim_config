@@ -80,19 +80,19 @@ return {
 			---@type Gitsigns.config
 			return {
 				signs = {
-					add = { text = "▎" },
-					change = { text = "▎" },
-					delete = { text = "" },
-					topdelete = { text = "" },
-					changedelete = { text = "▎" },
-					untracked = { text = "▎" },
+					add = { text = require("icons").GitSign },
+					change = { text = require("icons").GitSign },
+					delete = { text = require("icons").GitSignLine },
+					topdelete = { text = require("icons").GitSignLine },
+					changedelete = { text = require("icons").GitSign },
+					untracked = { text = require("icons").GitSign },
 				},
 				signs_staged = {
-					add = { text = "▎" },
-					change = { text = "▎" },
-					delete = { text = "" },
-					topdelete = { text = "" },
-					changedelete = { text = "▎" },
+					add = { text = require("icons").GitSign },
+					change = { text = require("icons").GitSign },
+					delete = { text = require("icons").GitSignLine },
+					topdelete = { text = require("icons").GitSignLine },
+					changedelete = { text = require("icons").GitSign },
 				},
 				on_attach = function(buffer)
 					keymaps:set_opts({ buffer = buffer })
