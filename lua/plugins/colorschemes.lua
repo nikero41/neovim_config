@@ -92,6 +92,7 @@ return {
 				gitsigns = true,
 				blink_cmp = true,
 				rainbow_delimiters = true,
+				render_markdown = true,
 			},
 		},
 		init = set_colorscheme,
