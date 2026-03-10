@@ -275,6 +275,49 @@ return {
 			enable_tailwind = true,
 			virtual_symbol = "󱓻",
 		},
+		specs = {
+			{
+				"saghen/blink.cmp",
+				---@module "blink.cmp"
+				---@type blink.cmp.Config
+				opts = {
+					completion = {
+						menu = {
+							draw = {
+								components = {
+									kind_icon = {
+										text = function(ctx)
+											local icon = ctx.kind_icon
+											if ctx.item.source_name == "LSP" then
+												local color_item = require("nvim-highlight-colors").format(
+													ctx.item.documentation,
+													{ kind = ctx.kind }
+												)
+												if color_item and color_item.abbr ~= "" then icon = color_item.abbr end
+											end
+											return icon .. ctx.icon_gap
+										end,
+										highlight = function(ctx)
+											local highlight = "BlinkCmpKind" .. ctx.kind
+											if ctx.item.source_name == "LSP" then
+												local color_item = require("nvim-highlight-colors").format(
+													ctx.item.documentation,
+													{ kind = ctx.kind }
+												)
+												if color_item and color_item.abbr_hl_group then
+													highlight = color_item.abbr_hl_group
+												end
+											end
+											return highlight
+										end,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	},
 	{
 		"ghostty",
@@ -284,6 +327,7 @@ return {
 			or nil,
 		cond = vim.env.GHOSTTY_RESOURCES_DIR ~= nil,
 	},
+	{ "fei6409/log-highlight.nvim", opts = {} },
 	{
 		"codethread/qmk.nvim",
 		event = "BufRead *.keymap",
