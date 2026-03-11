@@ -327,6 +327,26 @@ return {
 					"filetype",
 				},
 				lualine_c = {
+					function()
+						local current_file = vim.fn.expand("%:p")
+						local result = {}
+						for id, item in ipairs(require("harpoon"):list().items) do
+							local file_path = vim.fn.fnamemodify(item.value, ":p")
+							local icon, hl = require("mini.icons").get("file", file_path)
+							local icon_str = "%#" .. hl .. "#" .. icon .. "%*"
+
+							local value = string.format("%s %d", icon_str, id)
+
+							if file_path == current_file then
+								value = string.format("(%s)", value)
+							else
+								value = string.format(" %s ", value)
+							end
+
+							table.insert(result, #result + 1, value)
+						end
+						return table.concat(result, "")
+					end,
 					{
 						"diff",
 						symbols = {
