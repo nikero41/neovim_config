@@ -64,6 +64,8 @@ vim.g.loaded_perl_provider = 0
 
 vim.diagnostic.config({
 	update_in_insert = false,
+	severity_sort = true,
+	virtual_text = true,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = require("icons").DiagnosticError,
