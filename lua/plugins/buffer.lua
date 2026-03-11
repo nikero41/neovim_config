@@ -80,6 +80,7 @@ return {
 		opts = {
 			closeOnlyOnFirstColumn = false, -- `h` and `^` only fold in the 1st column
 			scrollLeftOnCaret = false, -- `^` should scroll left (basically mapped to `0^`)
+			autoFold = { enabled = false },
 		},
 	},
 }
