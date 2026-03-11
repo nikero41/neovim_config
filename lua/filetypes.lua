@@ -75,7 +75,7 @@ function Filetypes:setup()
 			["docker-compose.ya?ml"] = "yaml.docker-compose",
 			[".*/hypr/.*.conf"] = "hyprlang",
 			["hypr.*.conf"] = "hyprlang",
-			[".?[jJ]ustfile"] = "just", -- TODO: should be a better pattern
+			[".?[jJ]ustfile"] = "just",
 		},
 	})
 
