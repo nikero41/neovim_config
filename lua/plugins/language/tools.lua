@@ -14,7 +14,7 @@ return {
 				groovy = { "npm-groovy-lint" },
 				lua = { "selene" },
 				markdown = { "markdownlint" },
-				makefile = { "checkmake" }, -- TODO:
+				make = { "checkmake" },
 				python = { "mypy" },
 				sql = { "sqlfluff" },
 				yaml = { "yamllint" },
