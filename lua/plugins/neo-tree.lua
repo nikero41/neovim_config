@@ -80,9 +80,7 @@ return {
 				},
 			},
 			default_component_configs = {
-				container = {
-					enable_character_fade = true,
-				},
+				container = { enable_character_fade = true },
 				indent = {
 					padding = 0,
 					with_markers = true,
