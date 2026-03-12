@@ -33,11 +33,10 @@ return {
 				"<leader>rl",
 				function()
 					require("rustowl").toggle()
-					if require("rustowl").is_enabled() then
-						vim.notify("Rust lifetimes enabled", vim.log.levels.INFO)
-					else
-						vim.notify("Rust lifetimes disabled", vim.log.levels.INFO)
-					end
+					vim.notify(
+						"Lifetimes enabled" .. (require("rustowl").is_enabled() and "enabled" or "disabled"),
+						vim.log.levels.INFO({ title = "Rust" })
+					)
 				end,
 				desc = "Toggle Rust lifetimes",
 				ft = "rust",
