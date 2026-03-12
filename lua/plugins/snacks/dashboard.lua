@@ -80,7 +80,7 @@ return {
 						},
 						{
 							title = "Notifications",
-							cmd = "gh notify -s -a -n5",
+							cmd = "gh notify -s -a -n5 || true",
 							action = function() vim.ui.open("https://github.com/notifications") end,
 							key = "n",
 							icon = " ",
@@ -88,7 +88,7 @@ return {
 						},
 						{
 							title = "Open Issues",
-							cmd = " if gh issue list -L 3; then gh issue list -L 3; fi",
+							cmd = "gh issue list -L 3 || true",
 							key = "i",
 							action = function() vim.system({ "gh", "issue", "list", "--web" }, { detach = true }) end,
 							icon = " ",
@@ -97,7 +97,7 @@ return {
 						{
 							icon = " ",
 							title = "Open PRs",
-							cmd = "gh pr list -L 3",
+							cmd = "gh pr list -L 3 || true",
 							key = "P",
 							action = function() vim.system({ "gh", "pr", "list", "--web" }, { detach = true }) end,
 							height = 7,
