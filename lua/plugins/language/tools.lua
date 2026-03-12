@@ -40,26 +40,56 @@ return {
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<Leader>ltl",
+				function()
+					vim.g.enable_golines = not vim.g.enable_golines
+					vim.notify(
+						"goliens " .. (vim.g.enable_golines and "enabled" or "disabled"),
+						vim.log.levels.INFO,
+						{ title = "LSP toggle" }
+					)
+				end,
+				desc = "Toggle golines",
+			},
+		},
 		---@module "conform"
 		---@param opts conform.setupOpts
 		---@return conform.setupOpts
 		opts = function(_, opts)
+			---@param buffer integer
+			---@param ... string
+			---@return string
+			local function first(buffer, ...)
+				local conform = require("conform")
+				for i = 1, select("#", ...) do
+					local formatter = select(i, ...)
+					if conform.get_formatter_info(formatter, buffer).available then return formatter end
+				end
+				return select(1, ...)
+			end
+
 			opts = opts or {}
 
 			opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
 				bash = { "shfmt", "shellcheck" },
 				sh = { "shfmt", "shellcheck" },
 				zsh = { "shfmt", "shellcheck" },
+				c = { "clang_format" },
+				cpp = { "clang_format" },
 				cs = { "csharpier" },
 				go = { "goimports", lsp_format = "last" },
+				groovy = { "npm-groovy-lint" },
 				lua = { "stylua" },
-				markdown = { "prettierd", "prettier", "markdownlint", stop_after_first = true },
+				markdown = function(buffer)
+					return { "markdownlint", first(buffer, "prettierd", "prettier") }
+				end,
 				nginx = { "nginxfmt" },
 				python = { "isort", "black" },
 				sql = { "sqlfluff" },
 			})
 
-			opts.default_format_opts = { lsp_format = "fallback" }
 			for _, filetype in ipairs({
 				"javascript",
 				"javascriptreact",
@@ -81,16 +111,35 @@ return {
 				"astro",
 				"htmlangular",
 			}) do
-				opts.formatters_by_ft[filetype] = { "prettierd" }
+				opts.formatters_by_ft[filetype] = function(buffer)
+					return { first(buffer, "prettierd", "prettier") }
+				end
 			end
 
 			for _, language in ipairs(require("filetypes").javascript) do
-				opts.formatters_by_ft[language] = { "prettierd", "prettier", stop_after_first = true }
+				opts.formatters_by_ft[language] = function(buffer)
+					return { "eslint_d", first(buffer, "prettierd", "prettier") }
+				end
 			end
 
-			opts.formatters = opts.formatters or {}
-			opts.formatters.sqlfluff = opts.formatters.sqlfluff or {}
-			opts.formatters.sqlfluff.require_cwd = false
+			opts.formatters = {
+				sqlfluff = { append_args = { "--dialect", "postgres" } },
+				prettierd = {
+					env = {
+						PRETTIERD_DEFAULT_CONFIG = vim.fs.joinpath(
+							vim.fn.stdpath("config"),
+							"config_files",
+							"prettier.config.js"
+						),
+					},
+				},
+				golines = {
+					condition = function() return vim.g.enable_golines end,
+					append_args = { "-t", "2", "-m", "80" },
+				},
+			}
+
+			opts.default_format_opts = { lsp_format = "fallback" }
 
 			return opts
 		end,

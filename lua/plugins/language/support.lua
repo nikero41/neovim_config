@@ -64,7 +64,9 @@ return {
 				"shfmt",
 				"bash-debug-adapter",
 
+				-- C/C++
 				"clangd",
+				"clang-format",
 
 				-- C#
 				"omnisharp",

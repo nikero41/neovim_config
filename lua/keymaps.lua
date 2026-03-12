@@ -220,19 +220,4 @@ keymaps:add_multiple({
 	},
 })
 
--- TODO:
-keymaps:add({
-	"n",
-	"<Leader>ltl",
-	function()
-		vim.g.enable_golines = not vim.g.enable_golines
-		vim.notify(
-			"goliens " .. (vim.g.enable_golines and "enabled" or "disabled"),
-			vim.log.levels.INFO,
-			{ title = "LSP toggle" }
-		)
-	end,
-	{ desc = "Toggle golines" },
-})
-
 return keymaps
