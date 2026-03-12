@@ -18,11 +18,12 @@ return {
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^8",
-		lazy = false, -- This plugin is already lazy
 		ft = "rust",
-		opts = {
-			tools = { enable_clippy = false },
-			dap = { load_rust_types = true },
+		init = function()
+			vim.lsp.enable("rust_analyzer", false)
+			vim.g.rustaceanvim = { dap = { load_rust_types = true } }
+		end,
+	},
 		},
 		init = function() vim.lsp.enable("rust_analyzer", false) end,
 		config = function(_, opts) vim.g.rustaceanvim = opts end,
