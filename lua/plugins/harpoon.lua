@@ -44,9 +44,7 @@ return {
 		},
 	},
 	---@type HarpoonPartialConfig
-	opts = {
-		settings = { save_on_toggle = true },
-	},
+	opts = { settings = { save_on_toggle = true } },
 	config = function(_, opts)
 		local harpoon = require("harpoon")
 		local extensions = require("harpoon.extensions")
