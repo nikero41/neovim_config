@@ -16,14 +16,9 @@ return {
 			or vim.fn.executable("fdfind") == 1
 			or vim.fn.executable("fd-find") == 1,
 		cmd = "VenvSelect",
+		keys = {
+			{ "<leader>lv", vim.cmd.VenvSelect, desc = "Select VirtualEnv", ft = "python" },
+		},
 		opts = {},
-		init = function()
-			require("snacks").keymap.set(
-				"n",
-				"<leader>lv",
-				vim.cmd.VenvSelect,
-				{ ft = "python", desc = "Select VirtualEnv" }
-			)
-		end,
 	},
 }
