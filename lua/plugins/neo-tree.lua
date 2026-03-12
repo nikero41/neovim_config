@@ -13,6 +13,16 @@ return {
 		},
 	},
 	{
+		"antosha417/nvim-lsp-file-operations",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-neo-tree/neo-tree.nvim" },
+		main = "lsp-file-operations",
+		opts = {},
+		config = function(plugin, opts)
+			require(plugin.main).setup(opts)
+			vim.lsp.config("*", { capabilities = require("lsp-file-operations").default_capabilities() })
+		end,
+	},
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		lazy = false, -- neo-tree will lazily load itself
 		dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
