@@ -5,7 +5,6 @@ local PluginHelpers = {}
 
 function PluginHelpers:after_load(plugins, callback)
 	local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
-	vim.notify(vim.inspect(lazy_config_avail), nil, { title = "🪚 lazy_config_avail", ft = "lua" })
 	if not lazy_config_avail then return end
 
 	for _, plugin in ipairs(plugins) do
