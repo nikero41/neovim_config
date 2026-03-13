@@ -250,6 +250,7 @@ return {
 	},
 	{
 		"petertriho/nvim-scrollbar",
+		event = "User File",
 		opts = {
 			excluded_buftypes = { "nofile" },
 			excluded_filetypes = {
