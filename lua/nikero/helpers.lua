@@ -34,8 +34,8 @@ function Helpers:check_json_key_exists(filename, key)
 end
 
 function Helpers:get_highlight(name)
-	local ok, hl = pcall(vim.api.nvim_get_hl, name, true)
-	if not ok then return end
+	local hl = vim.api.nvim_get_hl(0, { name = name })
+	if vim.tbl_isempty(hl) then return end
 	for _, key in pairs({ "foreground", "background", "special" }) do
 		if hl[key] then hl[key] = string.format("#%06x", hl[key]) end
 	end
