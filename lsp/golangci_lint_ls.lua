@@ -1,7 +1,7 @@
 ---TODO: should use nvim-lint(?)
 ---@type vim.lsp.Config
 return {
-	nit_options = {
+	init_options = {
 		command = {
 			"golangci-lint",
 			"run",
