@@ -19,7 +19,13 @@ return {
 		opts = {},
 		config = function(plugin, opts)
 			require(plugin.main).setup(opts)
-			vim.lsp.config("*", { capabilities = require("lsp-file-operations").default_capabilities() })
+			vim.lsp.config("*", { capabilities = require(plugin.main).default_capabilities() })
+		end,
+		init = function(plugin)
+			require("nikero.plugin_helpers"):after_load(
+				{ "neo-tree.nvim" },
+				function() require("lazy").load({ plugins = { plugin.name } }) end
+			)
 		end,
 	},
 	{
