@@ -5,17 +5,20 @@ return {
 		event = { "User File" },
 		config = function()
 			local lint = require("lint")
+
 			lint.linters_by_ft = {
 				bash = { "shellcheck" },
 				sh = { "shellcheck" },
-				zsh = { "shellcheck" },
+				zsh = { "shellcheck", "zsh" },
 				dockerfile = { "hadolint" },
+				dotenv = { "dotenv-linter" },
+				json = { "jsonlint" },
 				go = { "golangcilint" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "selene" },
 				markdown = { "markdownlint" },
 				make = { "checkmake" },
-				python = { "mypy" },
+				python = { "mypy", "pylint" },
 				sql = { "sqlfluff" },
 				yaml = { "yamllint" },
 			}
