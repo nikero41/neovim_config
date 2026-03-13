@@ -126,7 +126,7 @@ return {
 	{
 		"hasansujon786/nvim-navbuddy",
 		dependencies = {
-			{ "SmiteshP/nvim-navic", otps = { highlight = true } },
+			{ "SmiteshP/nvim-navic", opts = { highlight = true } },
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
