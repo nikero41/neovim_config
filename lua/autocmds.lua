@@ -3,6 +3,24 @@
 local Autocmds = {}
 
 function Autocmds:setup()
+	-- Custom "User File" Event
+	--
+	-- This autocmd creates a custom `User File` event that provides deferred plugin loading
+	-- for file-related plugins. Use `event = "User File"` in lazy.nvim plugin specs instead
+	-- of `BufReadPost`/`BufNewFile` for plugins that should load when a real file is opened.
+	--
+	-- Benefits:
+	-- 1. Avoids loading plugins for special buffers (nofile, empty buffers)
+	-- 2. Ensures filetype detection completes before plugins load
+	-- 3. Prevents duplicate autocmd triggers on config reload by tracking augroups
+	--
+	-- Usage in plugin specs:
+	--   { "some/plugin", event = "User File" }
+	--
+	-- The event fires after:
+	-- - Buffer is valid and listed
+	-- - Buffer has a filename (not empty)
+	-- - Buffer is not a special buffer (buftype ~= "nofile")
 	vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
 		desc = "Events for file detection",
 		callback = function(args)
