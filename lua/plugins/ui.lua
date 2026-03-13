@@ -197,6 +197,7 @@ return {
 			show_help = false,
 			icons = { group = "", rules = false },
 			win = { no_overlap = false },
+			delay = 300,
 			---@param ctx { mode: string, operator: string }
 			defer = function(ctx)
 				if vim.list_contains({ "d", "y" }, ctx.operator) then return true end
