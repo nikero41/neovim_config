@@ -12,7 +12,14 @@ return {
 			end,
 			desc = "Toggle Harpoon",
 		},
-		{ "<leader>ha", function() require("harpoon"):list():add() end, desc = "Add file to Harpoon" },
+		{
+			"<leader>ha",
+			function()
+				require("harpoon"):list():add()
+				require("lualine").refresh()
+			end,
+			desc = "Add file to Harpoon",
+		},
 		{ "<C-p>", function() require("harpoon"):list():prev() end, desc = "Previous Harpoon file" },
 		{ "<C-n>", function() require("harpoon"):list():next() end, desc = "Next Harpoon file" },
 		{ "<M-z>", function() require("harpoon"):list():select(1) end, desc = "Goto 1 of mark" },
@@ -26,6 +33,7 @@ return {
 				for index, item in pairs(harpoon_list) do
 					if string.find(vim.api.nvim_buf_get_name(0), item.value) then
 						table.remove(harpoon_list, index)
+						require("lualine").refresh()
 						break
 					end
 				end
