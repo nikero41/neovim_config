@@ -3,7 +3,7 @@ local keymaps = require("nikero.keymaps"):new()
 -- General
 keymaps:add_multiple({
 	{ { "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move down" } },
-	{ { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move down" } },
+	{ { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move up" } },
 
 	{ "n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window", optional = true } },
 	{ "n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", optional = true } },
