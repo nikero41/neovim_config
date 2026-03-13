@@ -19,7 +19,7 @@ return {
 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 			runtime = {
 				version = "LuaJIT",
-				path = { "lua/?.lua", "lua/?/init.lua" },
+				path = { "lua/?.lua", "lua/?/init.lua", "lsp" },
 			},
 			workspace = {
 				checkThirdParty = true,
