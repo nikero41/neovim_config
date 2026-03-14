@@ -7,7 +7,7 @@ function Highlights:setup()
 	local hl = vim.api.nvim_set_hl
 
 	local ok, catppuccin = pcall(require, "catppuccin.palettes")
-	if not ok then print("catppuccin.nvim not found") end
+	if not ok then return print("catppuccin.nvim not found") end
 	local colors = catppuccin.get_palette("mocha")
 	local cursor_line_bg = helpers:blend(colors.mauve, "#000000", 0.28)
 
