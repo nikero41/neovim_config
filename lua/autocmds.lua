@@ -93,13 +93,15 @@ function Autocmds:setup()
 
 	vim.api.nvim_create_autocmd("BufReadPost", {
 		desc = "Go to last loc when opening a buffer",
-		group = vim.api.nvim_create_augroup("last-loc", { clear = true }),
-		callback = function(event)
+		group = vim.api.nvim_create_augroup("restore-cursor", { clear = true }),
+		callback = function(args)
 			local exclude = { "gitcommit" }
-			local buf = event.buf
-			if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].last_location then return end
+			local buf = args.buf
+			if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].has_cursor_restored then
+				return
+			end
 
-			vim.b[buf].last_location = true
+			vim.b[buf].has_cursor_restored = true
 			local mark = vim.api.nvim_buf_get_mark(buf, '"')
 			local lcount = vim.api.nvim_buf_line_count(buf)
 
@@ -118,8 +120,8 @@ function Autocmds:setup()
 	vim.api.nvim_create_autocmd("LspProgress", {
 		desc = "Show progress bar for LSP progress on terminal",
 		group = vim.api.nvim_create_augroup("terminal-progress-bar", { clear = true }),
-		callback = function(event)
-			local value = event.data.params.value or {}
+		callback = function(args)
+			local value = args.data.params.value or {}
 
 			local progress_bar = require("nikero.progress_bar")
 
