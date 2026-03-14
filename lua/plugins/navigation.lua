@@ -1,5 +1,3 @@
----@module "guess-indent"
-
 local term = vim.trim((vim.env.TERM_PROGRAM or ""):lower())
 local mux = term == "tmux" or term == "wezterm" or vim.env.KITTY_LISTEN_ON
 
