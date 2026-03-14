@@ -79,9 +79,10 @@ function Filetypes:setup()
 		},
 	})
 
+	local group = vim.api.nvim_create_augroup("close-with-q", { clear = true })
 	vim.api.nvim_create_autocmd("FileType", {
 		desc = "Close with <q>",
-		group = vim.api.nvim_create_augroup("close-with-q", { clear = true }),
+		group = group,
 		pattern = {
 			"PlenaryTestPopup",
 			"checkhealth",
@@ -99,18 +100,32 @@ function Filetypes:setup()
 			"startuptime",
 			"tsplayground",
 		},
-		callback = function(event)
-			vim.bo[event.buf].buflisted = false
+		callback = function(args)
+			vim.bo[args.buf].buflisted = false
+
+			if not vim.g.q_close_windows then vim.g.q_close_windows = {} end
+			if vim.g.q_close_windows[args.buf] then return end
+
+			vim.g.q_close_windows[args.buf] = true
+
+			for _, map in ipairs(vim.api.nvim_buf_get_keymap(args.buf, "n")) do
+				if map.lhs == "q" then return end
+			end
+
 			vim.schedule(function()
-				vim.keymap.set("n", "q", function()
+				Snacks.keymap.set("n", "q", function()
 					vim.cmd("close")
-					pcall(vim.api.nvim_buf_delete, event.buf, { force = true }) -- TODO: use snack?
-				end, {
-					buffer = event.buf,
-					silent = true,
-					desc = "Quit buffer",
-				})
+					pcall(vim.api.nvim_buf_delete, args.buf, { force = true }) -- TODO: use snack?
+				end, { buffer = args.buf, desc = "Quit buffer" })
 			end)
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("BufDelete", {
+		desc = "Clean up q_close_windows cache",
+		group = group,
+		callback = function(args)
+			if vim.g.q_close_windows then vim.g.q_close_windows[args.buf] = nil end
 		end,
 	})
 end
