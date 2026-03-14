@@ -70,6 +70,8 @@ function ProgressBar:progress(percent) write_osc(progress_osc(con_emu_state.prog
 function ProgressBar:clear() write_osc(progress_osc(con_emu_state.clear)) end
 
 vim.api.nvim_create_autocmd("VimLeavePre", {
+	desc = "Clear progress bar on exit",
+	group = vim.api.nvim_create_augroup("clear-progress-bar", { clear = true }),
 	callback = function() ProgressBar:clear() end,
 })
 

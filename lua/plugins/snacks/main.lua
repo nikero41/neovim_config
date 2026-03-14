@@ -77,11 +77,14 @@ return {
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "VeryLazy",
+			desc = "Load snacks.nvim functions",
+			group = vim.api.nvim_create_augroup("snacks-lazy", { clear = true }),
 			callback = function()
 				_G.dd = function(...) Snacks.debug.inspect(...) end
 				_G.bt = function() Snacks.debug.backtrace() end
 				vim._print = function(_, ...) Snacks.debug.inspect(...) end
 			end,
+			once = true,
 		})
 	end,
 }

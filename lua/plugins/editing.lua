@@ -26,6 +26,8 @@ return {
 		config = function(_, opts)
 			require("nvim-ts-autotag").setup(opts)
 			vim.api.nvim_create_autocmd("InsertCharPre", {
+				desc = "Auto close tag",
+				group = vim.api.nvim_create_augroup("auto-close-tag", { clear = true }),
 				callback = function()
 					if vim.v.char ~= "/" then return end
 					local row, col = unpack(vim.api.nvim_win_get_cursor(0))

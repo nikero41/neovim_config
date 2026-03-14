@@ -166,6 +166,8 @@ return {
 
 			local installed_parsers = ts.get_installed()
 			vim.api.nvim_create_autocmd("FileType", {
+				desc = "Start treesitter parser",
+				group = vim.api.nvim_create_augroup("start-treesitter-parser", { clear = true }),
 				callback = function(args)
 					local lang = vim.treesitter.language.get_lang(args.match)
 					if vim.tbl_contains(installed_parsers, lang) then vim.treesitter.start(args.buf, lang) end

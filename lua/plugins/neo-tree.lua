@@ -245,6 +245,7 @@ return {
 		init = function()
 			vim.api.nvim_create_autocmd("BufEnter", {
 				desc = "Open Neo-Tree on startup with directory",
+				group = vim.api.nvim_create_augroup("neo-tree-directory-startup", { clear = true }),
 				callback = function(args)
 					if package.loaded["neo-tree"] then return true end
 

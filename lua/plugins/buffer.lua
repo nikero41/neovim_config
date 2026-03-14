@@ -14,7 +14,7 @@ return {
 			end,
 		},
 		init = function()
-			local group = vim.api.nvim_create_augroup("autosave", {})
+			local group = vim.api.nvim_create_augroup("autosave", { clear = true })
 
 			local initial_run = true
 			vim.api.nvim_create_autocmd("User", {
