@@ -23,6 +23,7 @@ function Autocmds:setup()
 	-- - Buffer is not a special buffer (buftype ~= "nofile")
 	vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
 		desc = "Events for file detection",
+		group = vim.api.nvim_create_augroup("user-file", { clear = true }),
 		callback = function(args)
 			if vim.b[args.buf].file_checked then return end
 			vim.b[args.buf].file_checked = true
@@ -60,12 +61,13 @@ function Autocmds:setup()
 
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		desc = "Highlight when yanking (copying) text",
-		-- group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+		group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 		callback = function() vim.hl.on_yank() end,
 	})
 
 	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
 		desc = "Use LSP folding if available",
+		group = vim.api.nvim_create_augroup("lsp-folding", { clear = true }),
 		callback = function(args)
 			if vim.wo.foldexpr == "v:lua.vim.lsp.foldexpr()" then return end
 
@@ -81,7 +83,7 @@ function Autocmds:setup()
 
 	vim.api.nvim_create_autocmd("VimResized", {
 		desc = "Resize splits if window got resized",
-		-- group = augroup("resize_splits"),
+		group = vim.api.nvim_create_augroup("resize-splits", { clear = true }),
 		callback = function()
 			local current_tab = vim.fn.tabpagenr()
 			vim.cmd.tabdo("wincmd =")
@@ -91,7 +93,7 @@ function Autocmds:setup()
 
 	vim.api.nvim_create_autocmd("BufReadPost", {
 		desc = "Go to last loc when opening a buffer",
-		-- group = augroup("last_loc"),
+		group = vim.api.nvim_create_augroup("last-loc", { clear = true }),
 		callback = function(event)
 			local exclude = { "gitcommit" }
 			local buf = event.buf
@@ -107,12 +109,15 @@ function Autocmds:setup()
 
 	vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 		desc = "Check if buffers changed on editor focus",
+		group = vim.api.nvim_create_augroup("check-buffers", { clear = true }),
 		callback = function()
 			if vim.bo.buftype ~= "nofile" then vim.cmd.checktime() end
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("LspProgress", {
+		desc = "Show progress bar for LSP progress on terminal",
+		group = vim.api.nvim_create_augroup("terminal-progress-bar", { clear = true }),
 		callback = function(event)
 			local value = event.data.params.value or {}
 

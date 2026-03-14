@@ -79,9 +79,9 @@ function Filetypes:setup()
 		},
 	})
 
-	-- close some filetypes with <q>
 	vim.api.nvim_create_autocmd("FileType", {
-		-- TODO: group = augroup("close_with_q"),
+		desc = "Close with <q>",
+		group = vim.api.nvim_create_augroup("close-with-q", { clear = true }),
 		pattern = {
 			"PlenaryTestPopup",
 			"checkhealth",
