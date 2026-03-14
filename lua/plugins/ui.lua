@@ -171,7 +171,7 @@ return {
 				-- Groups
 				{ "<leader>f", group = require("icons").Search .. " Find" },
 				{ "<leader>g", group = require("icons").Git .. " Git" },
-				{ "<leader>l", group = require("icons").ActiveLSP .. " LSP" },
+				{ "<leader>l", group = require("icons").LSP .. " LSP" },
 				{ "<leader>u", group = require("icons").Window .. " UI" },
 				{ "<leader>c", group = require("icons").Git .. " Logs" },
 				-- { "<leader>d", group = require("icons").Debugger .. " Debugger" },
