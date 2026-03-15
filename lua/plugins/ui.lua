@@ -245,6 +245,33 @@ return {
 		opts = { icon_provider = "mini" },
 	},
 	{
+		"rachartier/tiny-code-action.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		event = "LspAttach",
+		keys = {
+			{
+				"<leader>la",
+				function() require("tiny-code-action").code_action() end,
+				desc = "LSP code action",
+			},
+		},
+		opts = {
+			backend = "delta",
+			picker = {
+				"buffer",
+				opts = {
+					hotkeys = true,
+					auto_preview = true,
+					auto_accept = true,
+					keymaps = { close = { "q", "<Esc>" } },
+				},
+			},
+			backend_opts = {
+				delta = { header_lines_to_remove = 4 },
+			},
+		},
+	},
+	{
 		"nvim-lualine/lualine.nvim",
 		lazy = false,
 		opts = {

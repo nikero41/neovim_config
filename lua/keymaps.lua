@@ -156,7 +156,7 @@ keymaps:add_multiple({
 		{ "n", "x" },
 		"<leader>la",
 		function() vim.lsp.buf.code_action() end,
-		{ desc = "LSP code action", lsp = { method = "textDocument/codeAction" } },
+		{ desc = "LSP code action", lsp = { method = "textDocument/codeAction" }, optional = true },
 	},
 	{
 		"n",
