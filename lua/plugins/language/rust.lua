@@ -5,15 +5,14 @@ return {
 		event = "BufRead Cargo.toml",
 		---@type crates.UserConfig
 		opts = {
-			completion = {
-				crates = { enabled = true },
-			},
+			completion = { crates = { enabled = true } },
 			lsp = {
 				enabled = true,
 				actions = true,
 				completion = true,
 				hover = true,
 			},
+			popup = { show_version_date = true },
 		},
 	},
 	{
