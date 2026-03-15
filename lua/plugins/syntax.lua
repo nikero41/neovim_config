@@ -273,6 +273,7 @@ return {
 		event = { "User File", "InsertEnter" },
 		cmd = { "HighlightColors" },
 		opts = {
+			render = "virtual",
 			enable_named_colors = true,
 			enable_tailwind = true,
 			virtual_symbol = "󱓻",
