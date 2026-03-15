@@ -161,17 +161,17 @@ return {
 			{
 				"<C-j>",
 				function() require("smart-splits").move_cursor_down() end,
-				desc = "Move focus to the right window/pane",
+				desc = "Move focus to the down window/pane",
 			},
 			{
 				"<C-k>",
 				function() require("smart-splits").move_cursor_up() end,
-				desc = "Move focus to the down window/pane",
+				desc = "Move focus to the up window/pane",
 			},
 			{
 				"<C-l>",
 				function() require("smart-splits").move_cursor_right() end,
-				desc = "Move focus to the up window/pane",
+				desc = "Move focus to the right window/pane",
 			},
 		},
 		---@type SmartSplitsConfig

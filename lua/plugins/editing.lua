@@ -108,7 +108,7 @@ return {
 						live = false,
 					})
 				end,
-				desc = "Clear logs",
+				desc = "Find logs",
 			},
 		},
 		---@type Chainsaw.config
