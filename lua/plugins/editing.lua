@@ -75,6 +75,7 @@ return {
 	},
 	{
 		"Wansmer/treesj",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
 		keys = {
 			{
@@ -120,8 +121,13 @@ return {
 				objectLog = {
 					go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' },
 					javascript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
+					typescript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
+					typescriptreact = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
 				},
-				variableLog = { go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' } },
+				variableLog = {
+					nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
+					go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' },
+				},
 				messageLog = { go = { 'slog.Debug("{{marker}} {{insert}}")' } },
 				emojiLog = { go = { 'slog.Debug("{{marker}} {{emoji}}")' } },
 			},
