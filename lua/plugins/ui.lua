@@ -305,12 +305,28 @@ return {
 					},
 					"%=",
 					{
-						require("noice").api.statusline.mode.get,
-						cond = require("noice").api.statusline.mode.has,
+						function()
+							local reg = vim.fn.reg_recording()
+							if reg == "" then return "" end
+							return require("icons").MacroRecording .. "  " .. reg
+						end,
+						cond = function() return vim.fn.reg_recording() ~= "" end,
 						color = { fg = "#ff9e64" },
 					},
 				},
-				lualine_x = {},
+				lualine_x = {
+					{
+						function()
+							local linters = require("lint").get_running()
+							if #linters == 0 then return require("icons").Active end
+							return require("icons").Working .. "  "  .. table.concat(linters, ", ")
+						end,
+						color = function()
+							local linters = require("lint").get_running()
+							return { fg = #linters == 0 and "#33aa88" or "" }
+						end,
+					},
+				},
 				lualine_y = {
 					"diagnostics",
 					"progress",
