@@ -253,9 +253,11 @@ return {
 		"petertriho/nvim-scrollbar",
 		event = "User File",
 		opts = {
+			hide_if_all_visible = true,
 			excluded_buftypes = { "nofile" },
 			excluded_filetypes = {
 				"prompt",
+				"noice",
 				"neo-tree",
 				"blink-cmp-menu",
 				"blink-cmp-documentation",
