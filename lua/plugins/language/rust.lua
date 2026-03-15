@@ -3,6 +3,7 @@ return {
 	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
+		---@module "crates"
 		---@type crates.UserConfig
 		opts = {
 			completion = { crates = { enabled = true } },
@@ -38,8 +39,9 @@ return {
 				function()
 					require("rustowl").toggle()
 					vim.notify(
-						"Lifetimes enabled" .. (require("rustowl").is_enabled() and "enabled" or "disabled"),
-						vim.log.levels.INFO({ title = "Rust" })
+						"Lifetimes " .. (require("rustowl").is_enabled() and "enabled" or "disabled"),
+						vim.log.levels.INFO,
+						{ title = "Rust" }
 					)
 				end,
 				desc = "Toggle Rust lifetimes",
