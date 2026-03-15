@@ -346,7 +346,7 @@ return {
 						function()
 							local linters = require("lint").get_running()
 							if #linters == 0 then return require("icons").Active end
-							return require("icons").Working .. "  "  .. table.concat(linters, ", ")
+							return require("icons").Working .. "  " .. table.concat(linters, ", ")
 						end,
 						color = function()
 							local linters = require("lint").get_running()
