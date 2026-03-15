@@ -4,12 +4,14 @@ return {
 		"vuki656/package-info.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		event = "BufRead package.json",
-		opts = {},
+		opts = { hide_up_to_date = true },
 	},
 	{
 		"dmmulroy/tsc.nvim",
 		cmd = "TSC",
-		opts = {},
+		---@module "tsc"
+		---@type Opts
+		opts = { use_trouble_qflist = true },
 	},
 	{
 		"axelvc/template-string.nvim",
@@ -42,7 +44,12 @@ return {
 		"OlegGulevskyy/better-ts-errors.nvim",
 		dependencies = { "MunifTanjim/nui.nvim" },
 		ft = require("filetypes").javascript,
-		opts = { keymaps = { toggle = "gL" } },
+		opts = {
+			keymaps = {
+				toggle = "gL",
+				go_to_definition = "<leader>dx",
+			},
+		},
 	},
 	{
 		"davidosomething/format-ts-errors.nvim",
