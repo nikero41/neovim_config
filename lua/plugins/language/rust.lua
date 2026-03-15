@@ -25,7 +25,22 @@ return {
 			---@module "rustaceanvim"
 			---@type rustaceanvim.Opts
 			vim.g.rustaceanvim = {
-				dap = { load_rust_types = true },
+				tools = {
+					hover_actions = { auto_focus = true },
+					inlay_hints = {
+						auto = true,
+						show_parameter_hints = true,
+					},
+				},
+				server = {
+					standalone = false,
+					default_settings = {
+						["rust-analyzer"] = {
+							cargo = { allFeatures = true },
+							procMacro = { enable = true },
+						},
+					},
+				},
 			}
 		end,
 	},
@@ -48,10 +63,13 @@ return {
 				ft = "rust",
 			},
 		},
+		---@type rustowl.Config
 		opts = {},
-		init = function()
+		---@param opts rustowl.Config
+		config = function(_, opts)
 			local config = require("rustowl.config").client
 			vim.lsp.config("rustowl", config)
+			require("rustowl").setup(opts)
 		end,
 	},
 }
