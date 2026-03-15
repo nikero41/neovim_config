@@ -1,6 +1,12 @@
 ---@type LazySpec
 return {
-	{ "kylechui/nvim-surround", event = "VeryLazy", opts = {} },
+	{
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		---@module "nvim-surround"
+		---@type user_options
+		opts = {},
+	},
 	{
 		"nguyenvukhang/nvim-toggler",
 		event = { "User File", "InsertEnter" },
@@ -105,6 +111,7 @@ return {
 				desc = "Clear logs",
 			},
 		},
+		---@type Chainsaw.config
 		opts = {
 			logStatements = {
 				objectLog = {

@@ -3,6 +3,7 @@ return {
 	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
+		---@type crates.UserConfig
 		opts = {
 			completion = {
 				crates = { enabled = true },
@@ -21,7 +22,11 @@ return {
 		ft = "rust",
 		init = function()
 			vim.lsp.enable("rust_analyzer", false)
-			vim.g.rustaceanvim = { dap = { load_rust_types = true } }
+			---@module "rustaceanvim"
+			---@type rustaceanvim.Opts
+			vim.g.rustaceanvim = {
+				dap = { load_rust_types = true },
+			}
 		end,
 	},
 	{

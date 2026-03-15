@@ -7,6 +7,8 @@ return {
 		keys = {
 			{ "<leader>fa", vim.cmd.ASToggle, desc = "Toggle auto-save" },
 		},
+		---@module "auto-save"
+		---@type Config
 		opts = {
 			condition = function(buffer)
 				local ok, filetype = pcall(vim.api.nvim_get_option_value, "filetype", { buf = buffer })

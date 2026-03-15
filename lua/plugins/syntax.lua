@@ -333,6 +333,8 @@ return {
 	{
 		"codethread/qmk.nvim",
 		event = "BufRead *.keymap",
+		---@module "qmk"
+		---@type qmk.UserConfig
 		opts = {
 			name = "corne",
 			variant = "zmk",

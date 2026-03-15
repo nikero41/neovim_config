@@ -105,7 +105,12 @@ return {
 		"FabijanZulj/blame.nvim",
 		cmd = { "BlameToggle" },
 		keys = { { "<Leader>gB", vim.cmd.BlameToggle, desc = "Toggle git blame" } },
-		opts = { date_format = "%d/%m/%Y" },
+		---@module "blame"
+		---@type Config
+		---@diagnostic disable-next-line: missing-fields
+		opts = {
+			date_format = "%d/%m/%Y",
+		},
 	},
 	{
 		"akinsho/git-conflict.nvim",
@@ -119,6 +124,9 @@ return {
 			"GitConflictPrevConflict",
 			"GitConflictListQf",
 		},
+		---@module "git-conflict"
+		---@type GitConflictUserConfig
+		---@diagnostic disable-next-line: missing-fields
 		opts = {
 			list_opener = "copen", -- TODO: use snacks.picker or trouble.nvim (?)
 		},
