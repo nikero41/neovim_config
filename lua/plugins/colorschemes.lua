@@ -38,10 +38,11 @@ return {
 		"AstroNvim/astrotheme",
 		enabled = vim.g.colorscheme == "astro",
 		priority = 1000,
+		---@module "astrotheme"
+		---@type AstroThemeOpts
 		opts = {
 			style = {
-				transparent = true,
-				inactive = false,
+				transparent = require("nikero.config").transparency,
 				simple_syntax_colors = false,
 			},
 		},
@@ -49,10 +50,10 @@ return {
 	},
 	{
 		"Shatur/neovim-ayu",
+		main = "ayu",
 		enabled = vim.g.colorscheme == "ayu",
 		priority = 1000,
 		opts = { mirage = false },
-		config = function(_, opts) require("ayu").setup(opts) end,
 		init = set_colorscheme,
 	},
 	{
@@ -66,14 +67,19 @@ return {
 		enabled = vim.g.colorscheme == "onedark",
 		priority = 1000,
 		opts = {
-			style = "darker",
+			transparent = require("nikero.config").transparency,
 			code_style = {
 				variables = "bold",
 				functions = "bold",
 				comments = "italic",
 				keywords = "italic",
 			},
+			lualine = { transparent = require("nikero.config").transparency },
 		},
+		config = function(_, opts)
+			require("onedark").setup(opts)
+			require("onedark").load()
+		end,
 		init = set_colorscheme,
 	},
 	{
@@ -88,7 +94,8 @@ return {
 			},
 			options = {
 				cursorline = true,
-				transparency = false,
+				transparency = require("nikero.config").transparency,
+				highlight_inactive_windows = true,
 			},
 			plugins = {
 				all = false,
@@ -112,7 +119,7 @@ return {
 		opts = {
 			flavour = "mocha",
 			auto_integrations = true,
-			transparent_background = true,
+			transparent_background = require("nikero.config").transparency,
 		},
 	},
 }
