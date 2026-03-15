@@ -103,7 +103,6 @@ return {
 	},
 	{
 		"chrisgrieser/nvim-various-textobjs",
-		opts = { keymaps = { useDefaults = false } },
 		keys = {
 			{
 				"a<leader>w",
@@ -116,6 +115,8 @@ return {
 				mode = { "o", "x" },
 			},
 		},
+		---@type VariousTextobjs.Config
+		opts = { keymaps = { useDefaults = false } },
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -128,14 +129,22 @@ return {
 	{
 		"hasansujon786/nvim-navbuddy",
 		dependencies = {
-			{ "SmiteshP/nvim-navic", opts = { highlight = true } },
+			{
+				"SmiteshP/nvim-navic",
+				---@module "nvim-navic"
+				---@type Options
+				opts = { highlight = true },
+			},
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
 			{ "<leader>fs", function() require("nvim-navbuddy").open() end, desc = "Breadcrumb search" },
 		},
+		---@type Navbuddy.config
 		opts = {
-			window = { border = vim.o.winborder },
+			window = {
+				border = vim.o.winborder --[[@as string]],
+			},
 			lsp = { auto_attach = true },
 		},
 		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
@@ -165,6 +174,8 @@ return {
 				desc = "Move focus to the up window/pane",
 			},
 		},
+		---@type SmartSplitsConfig
+		---@diagnostic disable-next-line: missing-fields
 		opts = {
 			ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
 			ignored_buftypes = { "nofile" },
