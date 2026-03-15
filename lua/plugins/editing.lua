@@ -123,9 +123,9 @@ return {
 					javascript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
 					typescript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
 					typescriptreact = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
+					nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
 				},
 				variableLog = {
-					nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
 					go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' },
 				},
 				messageLog = { go = { 'slog.Debug("{{marker}} {{insert}}")' } },
