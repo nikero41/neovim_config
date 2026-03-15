@@ -107,11 +107,8 @@ return {
 				icon = {
 					folder_closed = require("icons").FolderClosed,
 					folder_open = require("icons").FolderOpen,
-					-- TODO:
-					-- folder_empty = require("icons").FolderEmpty,
-					-- folder_empty_open = require("icons").FolderEmptyOpen,
-					folder_empty = "󰉖",
-					folder_empty_open = "󰷏",
+					folder_empty = require("icons").FolderEmpty,
+					folder_empty_open = require("icons").FolderEmptyOpen,
 					use_filtered_colors = true,
 					default = require("icons").DefaultFile,
 				},
