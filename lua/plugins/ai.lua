@@ -9,7 +9,11 @@ return {
 				clear_suggestion = "<C-h>",
 				accept_word = "<C-w>",
 			},
-			ignore_filetypes = { "neo-tree-popup" },
+			ignore_filetypes = {
+				"neo-tree-popup",
+				"DressingInput",
+				"snacks_input",
+			},
 		},
 		init = function()
 			vim.g.ai_accept = function()

@@ -110,6 +110,7 @@ return {
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
 			date_format = "%d/%m/%Y",
+			merge_consecutive = true,
 		},
 	},
 	{

@@ -11,8 +11,21 @@ return {
 		---@type Config
 		opts = {
 			condition = function(buffer)
-				local ok, filetype = pcall(vim.api.nvim_get_option_value, "filetype", { buf = buffer })
-				return not ok or not vim.list_contains({ "harpoon" }, filetype)
+				if vim.fn.getbufvar(buffer, "&buftype") ~= "" then return false end
+
+				local excluded_filetypes = {
+					"harpoon",
+					"gitcommit",
+					"neo-tree",
+					"neo-tree-popup",
+					"TelescopePrompt",
+					"lazy",
+					"mason",
+					"oil",
+					"snacks_dashboard",
+				}
+
+				return not vim.tbl_contains(excluded_filetypes, vim.bo[buffer].filetype)
 			end,
 		},
 		init = function()
@@ -42,12 +55,9 @@ return {
 		"nvim-treesitter/nvim-treesitter-context",
 		event = "User File",
 		cmd = { "TSContext" },
-		opts = {
-			mode = "topline",
-			separator = "",
-			max_lines = 8,
-			trim_scope = "outer",
-		},
+		---@module "treesitter-context"
+		---@type TSContext.UserConfig
+		opts = { multiwindow = true, mode = "topline" },
 	},
 	{
 		"kevinhwang91/nvim-hlslens",
@@ -79,10 +89,8 @@ return {
 	{
 		"chrisgrieser/nvim-origami",
 		event = "VeryLazy",
-		opts = {
-			closeOnlyOnFirstColumn = false, -- `h` and `^` only fold in the 1st column
-			scrollLeftOnCaret = false, -- `^` should scroll left (basically mapped to `0^`)
-			autoFold = { enabled = false },
-		},
+		---@module "origami"
+		---@type Origami.config
+		opts = { autoFold = { enabled = false } },
 	},
 }
