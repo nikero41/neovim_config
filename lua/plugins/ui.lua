@@ -108,54 +108,6 @@ return {
 		},
 	},
 	{
-		"folke/trouble.nvim",
-		cmd = "Trouble",
-		keys = {
-			{ "<leader>ud", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
-		},
-		---@module "trouble"
-		---@type trouble.Config
-		opts = {
-			focus = true,
-			preview = {
-				type = "float",
-				relative = "editor",
-				border = "rounded",
-				title = "Preview",
-				title_pos = "center",
-				position = { -2, -2 },
-				size = { width = 0.3, height = 0.3 },
-				zindex = 200,
-
-				-- when a buffer is not yet loaded, the preview window will be created
-				-- in a scratch buffer with only syntax highlighting enabled.
-				-- Set to false, if you want the preview to always be a real loaded buffer.
-				scratch = true,
-			},
-		},
-		init = function()
-			vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-				callback = function()
-					vim.notify("🪚 🔵")
-					vim.cmd([[Trouble qflist open]])
-				end,
-			})
-		end,
-		specs = {
-			"folke/snacks.nvim",
-			opts = function(_, opts)
-				return vim.tbl_deep_extend("force", opts or {}, {
-					picker = {
-						actions = require("trouble.sources.snacks").actions,
-						win = {
-							input = { keys = { ["<c-t>"] = { "trouble_open", mode = { "n", "i" } } } },
-						},
-					},
-				})
-			end,
-		},
-	},
-	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		keys = {
@@ -240,14 +192,6 @@ return {
 				long_message_to_split = true,
 			},
 		},
-	},
-	{
-		"kevinhwang91/nvim-bqf",
-		ft = "qf",
-		opts = {},
-		init = function()
-			vim.fn.sign_define("BqfSign", { text = " " .. require("icons").Selected, texthl = "BqfSign" })
-		end,
 	},
 	{
 		"petertriho/nvim-scrollbar",
