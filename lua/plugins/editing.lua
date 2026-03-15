@@ -27,7 +27,7 @@ return {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		event = { "User File" },
+		event = "User File",
 		opts = {},
 		config = function(_, opts)
 			require("nvim-ts-autotag").setup(opts)
