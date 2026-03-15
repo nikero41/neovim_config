@@ -5,6 +5,7 @@ return {
 	{
 		"folke/tokyonight.nvim",
 		enabled = vim.g.colorscheme == "tokyonight",
+		priority = 1000,
 		---@module "tokyonight"
 		---@type tokyonight.Config
 		---@diagnostic disable-next-line: missing-fields
@@ -16,10 +17,11 @@ return {
 		},
 		init = set_colorscheme,
 	},
-	{ "rakr/vim-one", enabled = vim.g.colorscheme == "one", init = set_colorscheme },
+	{ "rakr/vim-one", enabled = vim.g.colorscheme == "one", priority = 1000, init = set_colorscheme },
 	{
 		"sainnhe/sonokai",
 		enabled = vim.g.colorscheme == "sonokai",
+		priority = 1000,
 		init = function()
 			vim.g.sonokai_style = "andromeda"
 			vim.g.sonokai_enable_italic = 1
@@ -35,6 +37,7 @@ return {
 	{
 		"AstroNvim/astrotheme",
 		enabled = vim.g.colorscheme == "astro",
+		priority = 1000,
 		opts = {
 			style = {
 				transparent = true,
@@ -47,6 +50,7 @@ return {
 	{
 		"Shatur/neovim-ayu",
 		enabled = vim.g.colorscheme == "ayu",
+		priority = 1000,
 		opts = { mirage = false },
 		config = function(_, opts) require("ayu").setup(opts) end,
 		init = set_colorscheme,
@@ -54,11 +58,13 @@ return {
 	{
 		"samharju/synthweave.nvim",
 		enabled = vim.g.colorscheme == "synthweave",
+		priority = 1000,
 		init = set_colorscheme,
 	},
 	{
 		"navarasu/onedark.nvim",
 		enabled = vim.g.colorscheme == "onedark",
+		priority = 1000,
 		opts = {
 			style = "darker",
 			code_style = {
