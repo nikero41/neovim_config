@@ -278,9 +278,9 @@ return {
 		opts = {
 			options = {
 				theme = "catppuccin-nvim",
-				component_separators = "",
+				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
-				disabled_filetypes = { "neo-tree", "snacks_dashboard" },
+				disabled_filetypes = { winbar = { "neo-tree", "snacks_dashboard" } },
 				always_divide_middle = true,
 				always_show_tabline = false,
 			},
@@ -288,13 +288,13 @@ return {
 				lualine_a = {},
 				lualine_b = {
 					{
+						-- Separator to set the left edge
+						function() return "" end,
+						draw_empty = true,
+						separator = { left = "" },
+					},
+					{
 						"branch",
-						separator = { left = "", right = "" },
-						padding = {
-							left = 1,
-						},
-						left_padding = 2,
-						right_padding = 2,
 						on_click = function() Snacks.lazygit() end,
 					},
 					"filetype",
@@ -322,13 +322,15 @@ return {
 					end,
 					{
 						"diff",
+						padding = { left = 2 },
 						symbols = {
 							added = require("icons").GitAdd .. " ",
 							modified = require("icons").GitChange .. " ",
 							removed = require("icons").GitDelete .. " ",
 						},
+						separator = "",
 					},
-					"%=",
+					{ "%=", separator = "" },
 					{
 						function()
 							local reg = vim.fn.reg_recording()
@@ -336,14 +338,14 @@ return {
 							return require("icons").MacroRecording .. "  " .. reg
 						end,
 						cond = function() return vim.fn.reg_recording() ~= "" end,
-						color = { fg = "#ff9e64" },
+						color = "SpecialChar",
 					},
 				},
 				lualine_x = {
 					{
 						function()
 							local linters = require("lint").get_running()
-							if #linters == 0 then return require("icons").Active end
+							if #linters == 0 then return require("icons").Active .. " " end
 							return require("icons").Working .. "  " .. table.concat(linters, ", ")
 						end,
 						color = function()
@@ -351,18 +353,11 @@ return {
 							return { fg = #linters == 0 and "#33aa88" or "" }
 						end,
 					},
+					{ "diagnostics", padding = 2 },
 				},
 				lualine_y = {
-					"diagnostics",
 					"progress",
-					{
-						"location",
-						separator = {
-							left = "",
-							right = "",
-						},
-						left_padding = 2,
-					},
+					{ "location", separator = { right = "" } },
 				},
 				lualine_z = {},
 			},
@@ -378,7 +373,14 @@ return {
 				lualine_a = {},
 				lualine_b = {
 					{
+						"filetype",
+						separator = { left = "" },
+						padding = { left = 1, right = 0 },
+						icon_only = true,
+					},
+					{
 						"filename",
+						padding = { left = 0, right = 1 },
 						file_status = true,
 						newfile_status = true,
 						path = 1,
@@ -399,7 +401,15 @@ return {
 				lualine_a = {},
 				lualine_b = {
 					{
+						"filetype",
+						separator = "",
+						padding = { left = 2, right = 0 },
+						colored = false,
+						icon_only = true,
+					},
+					{
 						"filename",
+						padding = { left = 0, right = 1 },
 						file_status = true,
 						newfile_status = true,
 						path = 1,
