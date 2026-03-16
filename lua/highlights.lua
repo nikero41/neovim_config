@@ -1,9 +1,10 @@
+local helpers = require("nikero.helpers")
+
 ---@class Highlights
 ---@field setup fun(self: Highlights)
 local Highlights = {}
 
 function Highlights:setup()
-	local helpers = require("nikero.helpers")
 	local hl = vim.api.nvim_set_hl
 
 	local ok, catppuccin = pcall(require, "catppuccin.palettes")
