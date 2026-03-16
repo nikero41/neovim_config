@@ -8,6 +8,7 @@ return {
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-neotest/neotest-jest",
+			"arthur944/neotest-bun",
 			"marilari88/neotest-vitest",
 			"fredrikaverpil/neotest-golang",
 		},
