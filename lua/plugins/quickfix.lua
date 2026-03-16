@@ -1,6 +1,18 @@
 ---@type LazySpec
 return {
 	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {
+			opts = {
+				number = true,
+				relativenumber = true,
+			},
+		},
+	},
+	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
 		---@module "bqf"
