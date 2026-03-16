@@ -215,15 +215,6 @@ return {
 		},
 	},
 	{
-		"levouh/tint.nvim",
-		event = "User File",
-		opts = {
-			highlight_ignore_patterns = { "WinSeparator", "NeoTree", "Status.*" },
-			tint = -45,
-			saturation = 0.6,
-		},
-	},
-	{
 		"gbprod/yanky.nvim",
 		dependencies = { "folke/snacks.nvim" },
 		event = "VeryLazy",
