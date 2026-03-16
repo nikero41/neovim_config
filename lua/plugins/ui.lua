@@ -417,5 +417,10 @@ return {
 			},
 			extensions = { "lazy", "man", "mason", "neo-tree", "quickfix", "trouble" },
 		},
+		config = function(_, opts)
+			local lualine_require = require("lualine_require")
+			lualine_require.require = require
+			require("lualine").setup(opts)
+		end,
 	},
 }
