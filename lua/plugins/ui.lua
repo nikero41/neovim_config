@@ -251,7 +251,7 @@ return {
 		keys = {
 			{
 				"<leader>la",
-				function() require("tiny-code-action").code_action() end,
+				function() require("tiny-code-action").code_action({}) end,
 				desc = "LSP code action",
 			},
 		},
