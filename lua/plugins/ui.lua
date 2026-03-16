@@ -289,7 +289,7 @@ return {
 					},
 					{
 						"branch",
-            padding = { left = 1, right = 2 },
+						padding = { left = 1, right = 2 },
 						on_click = function() Snacks.lazygit() end,
 					},
 					{ "filetype", padding = { left = 2, right = 1 } },
@@ -300,12 +300,12 @@ return {
 							local current_file = vim.fn.expand("%:p")
 							return vim
 								.iter(ipairs(require("harpoon"):list().items))
-								:map(function(id, item)
+								:map(function(index, item)
 									local file_path = vim.fn.fnamemodify(item.value, ":p")
 									local icon, hl = require("mini.icons").get("file", file_path)
 									local icon_str = "%#" .. hl .. "#" .. icon .. "%*" .. fmt.default_hl
 
-									local value = string.format("%s %d", icon_str, id)
+									local value = string.format("%s %d", icon_str, index)
 
 									if file_path == current_file then
 										value = string.format("(%s)", value)
@@ -362,7 +362,18 @@ return {
 			tabline = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = { { "tabs", mode = 2, show_modified_status = false } },
+				lualine_c = {
+					{
+						"tabs",
+						mode = 2,
+						section_separators = { left = "", right = "" },
+						show_modified_status = false,
+						tabs_color = {
+							active = "lualine_a_normal",
+							inactive = "lualine_c_inactive",
+						},
+					},
+				},
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = {},
