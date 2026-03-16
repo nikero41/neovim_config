@@ -43,6 +43,7 @@ function Highlights:get()
 		BlinkCmpMenu = { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) },
 		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
 		["@tag.builtin"] = { link = "Special" },
+		["@keyword.export"] = { link = "Keyword" },
 		["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },
 		LspReferenceText = { underline = true },
 	}
