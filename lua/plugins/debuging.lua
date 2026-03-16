@@ -95,6 +95,7 @@ return {
 				require("neotest-bun"),
 			}
 
+			opts.consumers = opts.consumers or {}
 			opts.consumers.trouble = function(client)
 				client.listeners.results = function(adapter_id, results, partial)
 					if partial then return end
