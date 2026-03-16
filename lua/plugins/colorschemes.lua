@@ -84,7 +84,7 @@ return {
 	},
 	{
 		"olimorris/onedarkpro.nvim",
-		enabled = vim.g.colorscheme == "onedark_vivid",
+		priority = 1000,
 		opts = {
 			styles = {
 				types = "bold",
@@ -99,20 +99,19 @@ return {
 			},
 			plugins = {
 				all = false,
+				lsp_semantic_tokens = true,
 				nvim_lsp = true,
 				treesitter = true,
-				lsp_semantic_tokens = true,
 				gitsigns = true,
-				blink_cmp = true,
 				rainbow_delimiters = true,
 				render_markdown = true,
 			},
 		},
-		init = set_colorscheme,
 	},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		priority = 1000,
 		---@module "catppuccin"
 		---@type CatppuccinOptions
 		---@diagnostic disable: missing-fields
@@ -120,6 +119,45 @@ return {
 			flavour = "mocha",
 			auto_integrations = true,
 			transparent_background = require("nikero.config").transparency,
+			highlight_overrides = {
+				all = function() return require("highlights"):get() end,
+			},
+			dim_inactive = {
+				enabled = true,
+				percentage = 0.1,
+			},
+			styles = {
+				comments = { "italic" },
+				conditionals = { "italic" },
+				loops = {},
+				functions = { "bold" },
+				keywords = { "italic" },
+				strings = {},
+				variables = {},
+				numbers = {},
+				booleans = {},
+				properties = {},
+				types = { "bold" },
+				operators = {},
+			},
+			lsp_styles = {
+				virtual_text = {
+					errors = { "italic" },
+					hints = { "italic" },
+					warnings = { "italic" },
+					information = { "italic" },
+					ok = { "italic" },
+				},
+				underlines = {
+					errors = { "undercurl" },
+					hints = { "undercurl" },
+					warnings = { "undercurl" },
+					information = { "undercurl" },
+					ok = { "undercurl" },
+				},
+				inlay_hints = { background = false },
+			},
 		},
+		init = set_colorscheme,
 	},
 }

@@ -1,32 +1,61 @@
 local helpers = require("nikero.helpers")
 
 ---@class Highlights
+---@field get fun(self: Highlights): table<string, vim.api.keyset.highlight>
 ---@field setup fun(self: Highlights)
 local Highlights = {}
 
-function Highlights:setup()
-	local hl = vim.api.nvim_set_hl
+---@return vim.api.keyset.highlight[]
+local function to_hl(all)
+	for _, hl in pairs(all) do
+		if hl.style ~= nil then
+			if hl.style == "NONE" then
+				hl.style = nil
+			else
+				-- TODO: split on comma
+				hl[hl.style] = true
+				hl.style = nil
+			end
+		end
+	end
 
-	local ok, catppuccin = pcall(require, "catppuccin.palettes")
-	if not ok then return print("catppuccin.nvim not found") end
-	local colors = catppuccin.get_palette("mocha")
+	return all
+end
+
+function Highlights:get()
+	local theme = require("onedarkpro.theme").load("onedark_vivid")
+	local syntax = require("onedarkpro.highlights.syntax").groups(theme)
+	local plugins = require("onedarkpro.highlights.plugin").groups(theme)
+	local filetypes = require("onedarkpro.highlights.filetype").groups(theme)
+
+	local all = to_hl(vim.tbl_deep_extend("force", syntax, plugins, filetypes))
+
+	local colors = require("catppuccin.palettes").get_palette("mocha")
 	local cursor_line_bg = helpers:blend(colors.mauve, "#000000", 0.28)
 
-	hl(0, "Title", { fg = colors.mauve })
-	hl(0, "Visual", { bg = helpers:blend(colors.mauve, "#000000", 0.4) })
-	hl(0, "CursorLine", { bg = cursor_line_bg })
-	hl(0, "FloatBorder", { fg = colors.mauve, bg = "NONE" })
-	hl(0, "PmenuSel", { bg = cursor_line_bg, bold = true })
-	hl(0, "NeoTreeRootName", { fg = colors.mauve })
-	hl(0, "BlinkCmpMenu", { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) })
-	hl(
-		0,
-		"HlSearchLensNear",
-		{ bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 }
-	)
+	local extra = {
+		Title = { fg = colors.mauve },
+		Visual = { bg = helpers:blend(colors.mauve, "#000000", 0.4) },
+		CursorLine = { bg = cursor_line_bg },
+		FloatBorder = { fg = colors.mauve, bg = "NONE" },
+		PmenuSel = { bg = cursor_line_bg, bold = true },
+		NeoTreeRootName = { fg = colors.mauve },
+		BlinkCmpMenu = { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) },
+		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
+		["@tag.builtin"] = { link = "Special" },
+		["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },
+		LspReferenceText = { underline = true },
+	}
 
-	hl(0, "@markup.list.checked", { fg = "#d55fde", bg = "NONE" })
-	hl(0, "LspReferenceText", { underline = true })
+	return vim.tbl_extend("force", to_hl(all), extra)
+end
+
+function Highlights:setup()
+	local groups = self:get()
+
+	for group, hl in pairs(groups) do
+		vim.api.nvim_set_hl(0, group, hl)
+	end
 end
 
 return Highlights
