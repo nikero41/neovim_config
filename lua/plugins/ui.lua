@@ -271,7 +271,10 @@ return {
 				theme = "catppuccin-nvim",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
-				disabled_filetypes = { winbar = { "neo-tree", "snacks_dashboard" } },
+				disabled_filetypes = {
+					statusline = {},
+					winbar = { "neo-tree", "snacks_dashboard", "qf", "noice" },
+				},
 				always_divide_middle = true,
 				always_show_tabline = false,
 			},
