@@ -40,7 +40,7 @@ function Keymaps:setup()
 	for _, keymap in ipairs(self.keymaps) do
 		local mode, lhs, rhs, opts = keymap[1], keymap[2], keymap[3], (keymap[4] or {})
 
-		-- if opts.unique == nil then opts.unique = true end
+		if opts.unique == nil then opts.unique = true end
 		---@type Keymap.Opts
 		opts = vim.tbl_extend("force", self.opts, opts)
 
