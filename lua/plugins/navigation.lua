@@ -6,6 +6,7 @@ return {
 	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
 	{
 		"nmac427/guess-indent.nvim",
+		---@module "guess-indent"
 		---@type GuessIndentConfig
 		opts = { auto_cmd = true },
 	},
