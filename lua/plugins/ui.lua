@@ -264,6 +264,23 @@ return {
 		},
 	},
 	{
+		"SmiteshP/nvim-navic",
+		---@module "nvim-navic"
+		---@type Options
+		opts = {
+			highlight = true,
+			click = true,
+			lsp = { auto_attach = true },
+			safe_output = true,
+		},
+		config = function(_, opts)
+			-- vim.api.nvim_set_hl(0, "NavicText", { link = "lualine_c_inactive" })
+			-- vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "#000000", fg = "#ffffff" })
+		  require("nvim-navic").setup(opts)
+
+		end,
+	},
+	{
 		"nvim-lualine/lualine.nvim",
 		lazy = false,
 		opts = {
@@ -401,7 +418,13 @@ return {
 						},
 					},
 				},
-				lualine_c = {},
+				lualine_c = {
+					{
+						"navic",
+						color_correction = "static",
+						-- color = "Comment",
+					},
+				},
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = {},

@@ -46,6 +46,8 @@ function Highlights:get()
 		["@keyword.export"] = { link = "Keyword" },
 		["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },
 		LspReferenceText = { underline = true },
+		NavicText = { link = "lualine_c_inactive" },
+		NavicSeparator = { link = "lualine_c_inactive" },
 	}
 
 	return vim.tbl_extend("force", to_hl(all), extra)
