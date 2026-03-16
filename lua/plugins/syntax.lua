@@ -113,7 +113,11 @@ return {
 				"styled",
 
 				"hyprlang",
+
+				-- JSON
 				"json",
+				"jsonc",
+
 				"just",
 
 				-- Lua
@@ -143,13 +147,17 @@ return {
 				"xml",
 				"yaml",
 
-				-- vim
-				-- "diff",
+				-- misc
+				"diff",
 				-- "luadoc",
 				-- "query",
+				"latex",
+				"regex",
+				"svelte",
+				"typest",
 				"vim",
 				"vimdoc",
-				"regex",
+				"vue",
 			},
 		},
 		init = function(plugin)
