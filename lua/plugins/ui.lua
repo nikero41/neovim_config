@@ -286,31 +286,35 @@ return {
 					},
 					{
 						"branch",
+            padding = { left = 1, right = 2 },
 						on_click = function() Snacks.lazygit() end,
 					},
-					"filetype",
+					{ "filetype", padding = { left = 2, right = 1 } },
 				},
 				lualine_c = {
-					function()
-						local current_file = vim.fn.expand("%:p")
-						local result = {}
-						for id, item in ipairs(require("harpoon"):list().items) do
-							local file_path = vim.fn.fnamemodify(item.value, ":p")
-							local icon, hl = require("mini.icons").get("file", file_path)
-							local icon_str = "%#" .. hl .. "#" .. icon .. "%*"
+					{
+						function(fmt)
+							local current_file = vim.fn.expand("%:p")
+							return vim
+								.iter(ipairs(require("harpoon"):list().items))
+								:map(function(id, item)
+									local file_path = vim.fn.fnamemodify(item.value, ":p")
+									local icon, hl = require("mini.icons").get("file", file_path)
+									local icon_str = "%#" .. hl .. "#" .. icon .. "%*" .. fmt.default_hl
 
-							local value = string.format("%s %d", icon_str, id)
+									local value = string.format("%s %d", icon_str, id)
 
-							if file_path == current_file then
-								value = string.format("(%s)", value)
-							else
-								value = string.format(" %s ", value)
-							end
+									if file_path == current_file then
+										value = string.format("(%s)", value)
+									else
+										value = string.format(" %s ", value)
+									end
 
-							table.insert(result, #result + 1, value)
-						end
-						return table.concat(result, "")
-					end,
+									return value
+								end)
+								:join(" ")
+						end,
+					},
 					{
 						"diff",
 						padding = { left = 2 },
@@ -347,7 +351,7 @@ return {
 					{ "diagnostics", padding = 2 },
 				},
 				lualine_y = {
-					"progress",
+					{ "progress", padding = { left = 1, right = 2 } },
 					{ "location", separator = { right = "" } },
 				},
 				lualine_z = {},
@@ -417,7 +421,7 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
-			extensions = { "lazy", "man", "mason", "neo-tree", "quickfix", "trouble" },
+			extensions = { "lazy", "man", "mason", "trouble" },
 		},
 		config = function(_, opts)
 			local lualine_require = require("lualine_require")
