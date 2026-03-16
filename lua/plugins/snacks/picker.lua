@@ -80,7 +80,6 @@ return {
 				cwd_bonus = true,
 				frecency = true,
 			},
-			previewers = { git = { native = true } },
 			win = {
 				input = {
 					keys = {
