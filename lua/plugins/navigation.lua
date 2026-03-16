@@ -6,32 +6,8 @@ return {
 	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
 	{
 		"nmac427/guess-indent.nvim",
-		opts = { auto_cmds = true },
-		init = function()
-			local group = vim.api.nvim_create_augroup("guess-indent", { clear = true })
-
-			vim.api.nvim_create_autocmd("BufReadPost", {
-				desc = "Guess indentation when loading a file",
-				group = group,
-				---@diagnostic disable-next-line: param-type-mismatch -- can't find guess-indent buffer type
-				callback = function(args) require("guess-indent").set_from_buffer(args.buf, true, true) end,
-			})
-
-			vim.api.nvim_create_autocmd("BufNewFile", {
-				desc = "Guess indentation when saving a new file",
-				group = group,
-				callback = function(args)
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						buffer = args.buf,
-						once = true,
-						callback = function(wargs)
-							---@diagnostic disable-next-line: param-type-mismatch -- can't find guess-indent buffer type
-							require("guess-indent").set_from_buffer(wargs.buf, true, true)
-						end,
-					})
-				end,
-			})
-		end,
+		---@type GuessIndentConfig
+		opts = { auto_cmd = true },
 	},
 	{
 		"nvim-mini/mini.move",
