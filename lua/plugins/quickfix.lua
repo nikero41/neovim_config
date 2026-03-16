@@ -32,25 +32,40 @@ return {
 		cmd = "Trouble",
 		keys = {
 			{ "<leader>ud", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
+			{
+				"[q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").prev({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cprev)
+						if not ok then vim.notify(err, vim.log.levels.ERROR) end
+					end
+				end,
+				desc = "Previous Trouble/Quickfix Item",
+			},
+			{
+				"]q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").next({ skip_groups = true, jump = true })
+					else
+						local ok, err = pcall(vim.cmd.cnext)
+						if not ok then vim.notify(err, vim.log.levels.ERROR) end
+					end
+				end,
+				desc = "Next Trouble/Quickfix Item",
+			},
 		},
-		-- TODO:
 		---@module "trouble"
 		---@type trouble.Config
 		opts = {
 			focus = true,
-			preview = {
-				scratch = true,
+			modes = {
+				lsp = { win = { position = "right" } },
 			},
+			preview = { scratch = true },
 		},
-		init = function()
-			-- TODO:
-			vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-				callback = function()
-					vim.notify("🪚 🔵")
-					vim.cmd.Trouble("qflist open")
-				end,
-			})
-		end,
 		specs = {
 			{
 				"folke/snacks.nvim",
