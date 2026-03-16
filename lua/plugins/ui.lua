@@ -128,7 +128,8 @@ return {
 				{ "<leader>c", group = require("icons").Git .. " Logs" },
 				-- { "<leader>d", group = require("icons").Debugger .. " Debugger" },
 				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
-				-- { "<leader>T", group = require("icons").Tests .. " Tests" },
+				{ "<leader>T", group = require("icons").Tests .. " Tests" },
+				{ "<leader>TW", group = require("icons").Watch .. " Watch" },
 				{ "<leader>O", group = require("icons").OpenCode .. " Opencode" },
 				{ "<leader>S", group = require("icons").Session .. " Session" },
 

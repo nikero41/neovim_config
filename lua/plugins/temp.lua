@@ -15,24 +15,4 @@ return {
 		},
 		opts = {},
 	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/neotest-jest",
-			"marilari88/neotest-vitest",
-			"rcasia/neotest-bash",
-			"fredrikaverpil/neotest-golang",
-		},
-		opts = function(_, opts)
-			return vim.tbl_extend("force", opts, {
-				adapters = {
-					require("neotest-jest")(),
-					require("neotest-vitest")(),
-					require("rustaceanvim.neotest")(),
-					require("neotest-bash")(),
-					require("neotest-golang")(),
-				},
-			})
-		end,
-	},
 }
