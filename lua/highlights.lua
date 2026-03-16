@@ -12,8 +12,9 @@ local function to_hl(all)
 			if hl.style == "NONE" then
 				hl.style = nil
 			else
-				-- TODO: split on comma
-				hl[hl.style] = true
+				for _, style in pairs(hl.style) do
+					hl[style] = true
+				end
 				hl.style = nil
 			end
 		end
@@ -33,7 +34,7 @@ function Highlights:get()
 	local colors = require("catppuccin.palettes").get_palette("mocha")
 	local cursor_line_bg = helpers:blend(colors.mauve, "#000000", 0.28)
 
-	local extra = {
+	local highlights = {
 		Title = { fg = colors.mauve },
 		Visual = { bg = helpers:blend(colors.mauve, "#000000", 0.4) },
 		CursorLine = { bg = cursor_line_bg },
@@ -50,7 +51,7 @@ function Highlights:get()
 		NavicSeparator = { link = "lualine_c_inactive" },
 	}
 
-	return vim.tbl_extend("force", to_hl(all), extra)
+	return vim.tbl_extend("force", to_hl(all), highlights)
 end
 
 function Highlights:setup()
