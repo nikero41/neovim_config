@@ -113,11 +113,7 @@ return {
 				"styled",
 
 				"hyprlang",
-
-				-- JSON
 				"json",
-				"jsonc",
-
 				"just",
 
 				-- Lua
@@ -154,7 +150,6 @@ return {
 				"latex",
 				"regex",
 				"svelte",
-				"typest",
 				"vim",
 				"vimdoc",
 				"vue",
