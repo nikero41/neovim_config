@@ -79,6 +79,22 @@ vim.diagnostic.config({
 		border = vim.o.winborder,
 		source = true,
 		header = "",
-		prefix = "",
+		prefix = function(diagnostic)
+			local icon = {
+				[vim.diagnostic.severity.ERROR] = require("icons").DiagnosticError,
+				[vim.diagnostic.severity.HINT] = require("icons").DiagnosticHint,
+				[vim.diagnostic.severity.WARN] = require("icons").DiagnosticWarn,
+				[vim.diagnostic.severity.INFO] = require("icons").DiagnosticInfo,
+			}
+
+			local highlight = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticError",
+				[vim.diagnostic.severity.HINT] = "DiagnosticHint",
+				[vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+				[vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+			}
+
+			return icon[diagnostic.severity] .. "  ", highlight[diagnostic.severity]
+		end,
 	},
 })
