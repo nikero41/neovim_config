@@ -39,18 +39,6 @@ return {
 		opts = {
 			focus = true,
 			preview = {
-				type = "float",
-				relative = "editor",
-				border = "rounded",
-				title = "Preview",
-				title_pos = "center",
-				position = { -2, -2 },
-				size = { width = 0.3, height = 0.3 },
-				zindex = 200,
-
-				-- when a buffer is not yet loaded, the preview window will be created
-				-- in a scratch buffer with only syntax highlighting enabled.
-				-- Set to false, if you want the preview to always be a real loaded buffer.
 				scratch = true,
 			},
 		},
