@@ -49,6 +49,7 @@ function Highlights:get()
 		LspReferenceText = { underline = true },
 		NavicText = { link = "lualine_c_inactive" },
 		NavicSeparator = { link = "lualine_c_inactive" },
+		["@parameter"] = { link = "@variable.parameter" },
 	}
 
 	return vim.tbl_extend("force", to_hl(all), highlights)
