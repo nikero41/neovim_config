@@ -126,7 +126,7 @@ return {
 				{ "<leader>l", group = require("icons").LSP .. " LSP" },
 				{ "<leader>u", group = require("icons").Window .. " UI" },
 				{ "<leader>c", group = require("icons").Git .. " Logs" },
-				-- { "<leader>d", group = require("icons").Debugger .. " Debugger" },
+				{ "<leader>d", group = require("icons").Debugger .. " Debugger" },
 				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
 				{ "<leader>T", group = require("icons").Tests .. " Tests" },
 				{ "<leader>TW", group = require("icons").Watch .. " Watch" },
