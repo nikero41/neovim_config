@@ -12,7 +12,7 @@ local function to_hl(all)
 			if hl.style == "NONE" then
 				hl.style = nil
 			else
-				for _, style in pairs(hl.style) do
+				for _, style in pairs(vim.split(hl.style, ",", { trimempty = true })) do
 					hl[style] = true
 				end
 				hl.style = nil
