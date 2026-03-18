@@ -17,6 +17,11 @@ vim.o.wrap = false
 vim.o.winborder = "rounded"
 vim.o.confirm = true
 vim.g.have_nerd_font = true
+vim.o.autoread = true
+vim.o.cmdheight = 0
+vim.opt.linebreak = true
+vim.o.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Indentation
 vim.o.tabstop = 2
@@ -24,6 +29,9 @@ vim.o.shiftwidth = 0
 -- vim.o.showfulltag = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
+vim.o.copyindent = true
+vim.o.preserveindent = true
+vim.opt.breakindent = true
 
 -- Search
 vim.o.ignorecase = true
@@ -34,22 +42,22 @@ vim.o.incsearch = true
 -- Splits
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.tabclose = "uselast"
 
 -- Folding
 vim.o.foldenable = true
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
 vim.o.foldmethod = "expr"
-
-vim.o.swapfile = false
-vim.o.backup = false
-vim.o.writebackup = false
-
-vim.o.undofile = true
 
 -- Performance
 vim.o.updatetime = 250
 vim.o.timeoutlen = 400
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.undofile = true
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = "split"
@@ -60,6 +68,7 @@ vim.o.inccommand = "split"
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 
+-- Checkhealth
 vim.g.loaded_perl_provider = 0
 
 vim.diagnostic.config({
