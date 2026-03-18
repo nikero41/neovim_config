@@ -192,6 +192,19 @@ return {
 						),
 					},
 				},
+				stylua = {
+					append_args = function()
+						local project_configs = { ".stylua.toml", "stylua.toml", ".editorconfig" }
+						local has_project_config = vim.iter(project_configs):any(
+							function(filename) return vim.uv.fs_stat(filename) ~= nil end
+						)
+						if has_project_config then return {} end
+						return {
+							"--config-path",
+							vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".stylua.toml"),
+						}
+					end,
+				},
 				golines = {
 					condition = function() return vim.g.enable_golines end,
 					append_args = { "-t", "2", "-m", "80" },
