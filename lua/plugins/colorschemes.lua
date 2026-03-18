@@ -103,6 +103,7 @@ return {
 				nvim_lsp = true,
 				treesitter = true,
 				gitsigns = true,
+				neo_tree = true,
 				rainbow_delimiters = true,
 				render_markdown = true,
 			},
