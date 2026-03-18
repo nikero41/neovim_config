@@ -130,7 +130,7 @@ return {
 				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
 				{ "<leader>T", group = require("icons").Tests .. " Tests" },
 				{ "<leader>TW", group = require("icons").Watch .. " Watch" },
-				{ "<leader>O", group = require("icons").OpenCode .. " Opencode" },
+				{ "<leader>a", group = require("icons").Robot .. " AI" },
 				{ "<leader>S", group = require("icons").Session .. " Session" },
 
 				-- Naming
