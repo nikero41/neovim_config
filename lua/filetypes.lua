@@ -115,7 +115,7 @@ function Filetypes:setup()
 			vim.schedule(function()
 				Snacks.keymap.set("n", "q", function()
 					vim.cmd("close")
-					pcall(vim.api.nvim_buf_delete, args.buf, { force = true }) -- TODO: use snack?
+					Snacks.bufdelete.delete({ buf = args.buf, force = true })
 				end, { buffer = args.buf, desc = "Quit buffer" })
 			end)
 		end,
