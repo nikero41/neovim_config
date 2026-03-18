@@ -28,6 +28,60 @@ return {
 				lint.linters_by_ft[language] = { "eslint_d" }
 			end
 
+			table.insert(lint.linters.selene.args, function()
+				local project_configs = { ".selene.toml", "selene.toml" }
+				local has_project_config = vim.iter(project_configs):any(
+					function(filename) return vim.uv.fs_stat(filename) ~= nil end
+				)
+				if has_project_config then return "" end
+				return "--config="
+					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".selene.toml")
+			end)
+
+			table.insert(lint.linters.stylelint.args, function()
+				local project_configs = {
+					".stylelintrc.js",
+					"stylelint.config.js",
+					".stylelintrc.mjs",
+					"stylelint.config.mjs",
+					".stylelintrc.cjs",
+					"stylelint.config.cjs",
+					".stylelintrc.json",
+					".stylelintrc.yml",
+					".stylelintrc.yaml",
+				} or require("nikero.utils"):check_json_key_exists(
+					vim.fs.joinpath(vim.uv.cwd(), "package.json"),
+					"stylelint"
+				)
+				local has_project_config = vim.iter(project_configs):any(
+					function(filename) return vim.uv.fs_stat(filename) ~= nil end
+				)
+				if has_project_config then return "" end
+				return "--config="
+					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", "stylelint.config.js")
+			end)
+
+			table.insert(lint.linters.sqlfluff.args, function()
+				local args = "--dialect=postgres"
+				local project_configs =
+					{ "setup.cfg", "tox.ini", "pep8.ini", ".sqlfluff", "pyproject.toml" }
+				local has_project_config = vim.iter(project_configs):any(
+					function(filename) return vim.uv.fs_stat(filename) ~= nil end
+				)
+				if has_project_config then return args end
+				return args
+					.. " --config="
+					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".sqlfluff")
+			end)
+
+			lint.linters.yamllint.env = {
+				YAMLLINT_CONFIG_FILE = vim.fs.joinpath(
+					vim.fn.stdpath("config"),
+					"config_files",
+					".yamllint.yaml"
+				),
+			}
+
 			lint.try_lint()
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

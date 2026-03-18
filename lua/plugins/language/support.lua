@@ -105,6 +105,7 @@ return {
 
 				-- json
 				"json-lsp",
+				"jsonlint",
 
 				"just-lsp",
 
