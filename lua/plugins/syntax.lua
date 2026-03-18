@@ -333,7 +333,7 @@ return {
 			or nil,
 		cond = vim.env.GHOSTTY_RESOURCES_DIR ~= nil,
 	},
-	{ "fei6409/log-highlight.nvim", opts = {} },
+	{ "fei6409/log-highlight.nvim", ft = "log", opts = {} },
 	{
 		"codethread/qmk.nvim",
 		event = "BufRead *.keymap",
