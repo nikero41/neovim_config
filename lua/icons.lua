@@ -1,5 +1,6 @@
 return {
 	Working = "",
+	Active = "",
 	ActiveTS = "",
 	Bookmarks = "",
 	Check = "✓",
@@ -28,6 +29,7 @@ return {
 	FolderClosed = "",
 	FolderEmpty = "",
 	FolderOpen = "",
+	Github = " ",
 	Git = "󰊢",
 	GitAdd = "",
 	GitBranch = "",
@@ -70,6 +72,7 @@ return {
 	WordFile = "󰈭",
 	LSP = "",
 	OpenCode = "",
+	Robot = "󰚩",
 	Harpoon = "󱡀",
 	Tests = "󰗇",
 	Watch = "",
