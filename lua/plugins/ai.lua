@@ -66,22 +66,19 @@ return {
 					tmux = {},
 				},
 			}
-
-			-- TODO:
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "OpencodeEvent:*", -- Optionally filter event types
-				callback = function(args)
-					---@type opencode.cli.client.Event
-					local event = args.data.event
-					---@type number
-					local port = args.data.port
-
-					-- See the available event types and their properties
-					vim.notify(vim.inspect(event))
-					-- Do something useful
-					if event.type == "session.idle" then vim.notify("`opencode` finished responding") end
-				end,
-			})
 		end,
+		specs = {
+			{
+				"folke/snacks.nvim",
+				opts = {
+					picker = {
+						actions = {
+							opencode_send = function(...) return require("opencode").snacks_picker_send(...) end,
+						},
+						win = { input = { keys = { ["<M-x>"] = { "opencode_send", mode = { "n", "i" } } } } },
+					},
+				},
+			},
+		},
 	},
 }
