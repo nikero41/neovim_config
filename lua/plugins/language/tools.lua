@@ -2,7 +2,7 @@
 return {
 	{
 		"mfussenegger/nvim-lint",
-		event = { "User File" },
+		event = "User File",
 		config = function()
 			local lint = require("lint")
 
@@ -97,8 +97,8 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
+		event = "BufWritePre",
 		keys = {
 			{
 				"<Leader>ltl",
