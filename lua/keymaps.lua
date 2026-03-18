@@ -77,8 +77,8 @@ keymaps:add_multiple({
 		"n",
 		"n",
 		function()
-			vim.cmd("normal! nzz")
-			require("hlslens").start()
+			local ok = pcall(function() vim.cmd("normal! nzz") end)
+			if ok then require("hlslens").start() end
 		end,
 		{ desc = "Next result" },
 	},
@@ -86,8 +86,8 @@ keymaps:add_multiple({
 		"n",
 		"N",
 		function()
-			vim.cmd("normal! Nzz")
-			require("hlslens").start()
+			local ok = pcall(function() vim.cmd("normal! Nzz") end)
+			if ok then require("hlslens").start() end
 		end,
 		{ desc = "Previous result" },
 	},
