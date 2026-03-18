@@ -28,28 +28,22 @@ return {
 	{
 		"NickvanDyke/opencode.nvim",
 		keys = {
-			{ "<leader>Ot", function() require("opencode").toggle() end, desc = "Toggle embedded" },
 			{
-				"<leader>Oa",
+				"<leader>aa",
 				function() require("opencode").ask("@this: ", { submit = true }) end,
 				desc = "Ask about this",
 				mode = { "n", "v" },
 			},
 			{
-				"<leader>O+",
+				"<leader>ab",
 				function() require("opencode").prompt("@buffer", { append = true }) end,
 				desc = "Add buffer to prompt",
 				mode = { "n", "v" },
 			},
 			{
-				"<leader>Oe",
+				"<leader>ae",
 				function() require("opencode").prompt("Explain @this and its context", { submit = true }) end,
 				desc = "Explain this code",
-			},
-			{
-				"<leader>On",
-				function() require("opencode").command("session.new") end,
-				desc = "New session",
 			},
 			{
 				"<leader>Os",
@@ -60,12 +54,7 @@ return {
 		},
 		init = function()
 			---@type opencode.Opts
-			vim.g.opencode_opts = {
-				provider = {
-					enabled = "tmux",
-					tmux = {},
-				},
-			}
+			vim.g.opencode_opts = { provider = { enabled = "tmux", tmux = {} } }
 		end,
 		specs = {
 			{
