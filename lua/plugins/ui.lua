@@ -298,12 +298,8 @@ return {
 						draw_empty = true,
 						separator = { left = "" },
 					},
-					{
-						"branch",
-						padding = { left = 1, right = 2 },
-						on_click = function() Snacks.lazygit() end,
-					},
-					{ "filetype", padding = { left = 2, right = 1 } },
+					{ "branch", on_click = function() Snacks.lazygit() end },
+					"filetype",
 				},
 				lualine_c = {
 					{
