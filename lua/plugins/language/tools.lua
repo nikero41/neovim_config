@@ -18,7 +18,7 @@ return {
 				lua = { "selene" },
 				markdown = { "markdownlint" },
 				make = { "checkmake" },
-				python = { "mypy", "pylint" },
+				python = { "mypy", "basedpyright" },
 				sql = { "sqlfluff" },
 				yaml = { "yamllint" },
 			}
