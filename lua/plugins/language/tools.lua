@@ -1,6 +1,26 @@
 ---@type LazySpec
 return {
 	{
+		"nvimtools/none-ls.nvim",
+		dependencies = { "nvimtools/none-ls-extras.nvim" },
+		event = "User File",
+		opts = function(_, opts)
+			local none_ls = require("null-ls")
+
+			opts.sources = {
+				require("none-ls.code_actions.eslint_d"),
+				none_ls.builtins.code_actions.gitsigns,
+				none_ls.builtins.code_actions.refactoring.with({
+					extra_filetypes = require("filetypes").javascript,
+				}),
+				none_ls.builtins.code_actions.gomodifytags,
+				none_ls.builtins.code_actions.impl,
+			}
+
+			return opts
+		end,
+	},
+	{
 		"mfussenegger/nvim-lint",
 		event = "User File",
 		config = function()
