@@ -83,6 +83,8 @@ return {
 				_G.dd = function(...) Snacks.debug.inspect(...) end
 				_G.bt = function() Snacks.debug.backtrace() end
 				vim._print = function(_, ...) Snacks.debug.inspect(...) end
+
+				Snacks.toggle.inlay_hints():map("<leader>uh")
 			end,
 			once = true,
 		})
