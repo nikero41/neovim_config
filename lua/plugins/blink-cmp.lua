@@ -30,7 +30,7 @@ return {
 	{ "Kaiser-Yang/blink-cmp-git", ft = "gitcommit", dependencies = { "nvim-lua/plenary.nvim" } },
 	{
 		"saghen/blink.cmp",
-		dependencies = { "rafamadriz/friendly-snippets" },
+		dependencies = { "L3MON4D3/LuaSnip" },
 		event = { "InsertEnter", "CmdlineEnter" },
 		build = "cargo build --release",
 		---@module "blink.cmp"
