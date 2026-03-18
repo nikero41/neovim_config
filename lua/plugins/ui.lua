@@ -363,7 +363,16 @@ return {
 							return { fg = #linters == 0 and "#33aa88" or "" }
 						end,
 					},
-					{ "diagnostics", padding = 2 },
+					{
+						"diagnostics",
+						padding = 2,
+						symbols = {
+							error = require("icons").DiagnosticError .. " ",
+							warn = require("icons").DiagnosticWarn .. " ",
+							info = require("icons").DiagnosticInfo .. " ",
+							hint = require("icons").DiagnosticHint .. " ",
+						},
+					},
 				},
 				lualine_y = {
 					{ "progress", padding = { left = 1, right = 2 } },
