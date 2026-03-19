@@ -1,4 +1,4 @@
----@type vim.lsp.Config
+---@type vim.lsp.Config | { settings?: lsp.omnisharp }
 return {
 	handlers = {
 		["textDocument/definition"] = function(...)

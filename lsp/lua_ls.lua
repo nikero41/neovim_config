@@ -1,4 +1,4 @@
----@type vim.lsp.Config
+---@type vim.lsp.Config | { settings?: lsp.lua_ls }
 return {
 	settings = {
 		Lua = {
@@ -8,6 +8,7 @@ return {
 			},
 		},
 	},
+	---@param client vim.lsp.Client | { config: vim.lsp.Config | { settings?: lsp.lua_ls }}
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name

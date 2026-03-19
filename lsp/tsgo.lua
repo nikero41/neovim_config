@@ -1,4 +1,4 @@
----@type vim.lsp.Config
+---@type vim.lsp.Config | { settings?: lsp.ts_ls }
 return {
 	settings = {
 		typescript = {

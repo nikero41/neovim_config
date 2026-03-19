@@ -1,4 +1,4 @@
----@type vim.lsp.Config
+---@type vim.lsp.Config | { settings?: lsp.gopls }
 return {
 	settings = {
 		gopls = {

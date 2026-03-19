@@ -1,4 +1,4 @@
----@type vim.lsp.Config
+---@type vim.lsp.Config | { settings?: lsp.jsonls }
 return {
 	settings = {
 		json = {
