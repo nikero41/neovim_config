@@ -15,6 +15,7 @@
   "cmake-tools.nvim": { "branch": "master", "commit": "5fc40e9e252a113be945019ab16301b851eb98d1" },
   "cmp-dap": { "branch": "master", "commit": "ea92773e84c0ad3288c3bc5e452ac91559669087" },
   "cmp-npm": { "branch": "main", "commit": "2337f109f51a09297596dd6b538b70ccba92b4e4" },
+  "codesettings.nvim": { "branch": "master", "commit": "9d19437af1965a951f8db14b9502aba9f2509362" },
   "conform.nvim": { "branch": "master", "commit": "086a40dc7ed8242c03be9f47fbcee68699cc2395" },
   "crates.nvim": { "branch": "main", "commit": "ac9fa498a9edb96dc3056724ff69d5f40b898453" },
   "format-ts-errors.nvim": { "branch": "main", "commit": "4b7418d6689bc0fd3c1db0500c67133422522384" },

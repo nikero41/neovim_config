@@ -20,10 +20,20 @@ return {
 					})
 				end,
 			},
-			-- { "folke/neoconf.nvim", opts = {} },
 		},
 		keys = { { "<Leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
 		opts = {},
+	},
+	{
+		"mrjones2014/codesettings.nvim",
+		lazy = false, -- this plugin since it already lazy loads
+		opts = {
+			loader_extensions = {
+				"codesettings.extensions.vscode",
+				"codesettings.extensions.env",
+				"codesettings.extensions.neoconf",
+			},
+		},
 	},
 	{
 		"mason-org/mason.nvim",
