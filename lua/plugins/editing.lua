@@ -9,15 +9,8 @@ return {
 	},
 	{
 		"nguyenvukhang/nvim-toggler",
-		event = "User File",
+		keys = { { "<leader>i", desc = "Toggle word", mode = { "n", "v" } } },
 		opts = {},
-		specs = {
-			{
-				"folke/which-key.nvim",
-				---@type wk.Opts
-				opts = { spec = { { "<leader>i", desc = "Toggle word", mode = { "n", "v" } } } },
-			},
-		},
 	},
 	{ "folke/ts-comments.nvim", event = "VeryLazy", opts = {} },
 	{
