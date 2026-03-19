@@ -106,6 +106,7 @@ return {
 				neo_tree = true,
 				rainbow_delimiters = true,
 				render_markdown = true,
+				which_key = true,
 			},
 		},
 	},
