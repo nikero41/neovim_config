@@ -9,7 +9,7 @@ return {
 	},
 	{
 		"nguyenvukhang/nvim-toggler",
-		event = { "User File", "InsertEnter" },
+		event = "User File",
 		opts = {},
 		specs = {
 			{
