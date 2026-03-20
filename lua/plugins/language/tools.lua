@@ -43,10 +43,11 @@ return {
 				yaml = { "yamllint" },
 			}
 
-			vim.env.ESLINT_D_PPID = vim.fn.getpid()
 			for _, language in ipairs(require("filetypes").javascript) do
 				lint.linters_by_ft[language] = { "eslint_d" }
 			end
+
+			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
 
 			table.insert(lint.linters.selene.args, function()
 				local project_configs = { ".selene.toml", "selene.toml" }
