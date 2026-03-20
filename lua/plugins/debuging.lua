@@ -85,7 +85,7 @@ return {
 			},
 		},
 		---@param opts neotest.Config
-		---@return neotest.CoreConfig
+		---@return neotest.Config
 		opts = function(_, opts)
 			opts.adapters = {
 				require("neotest-jest"),
