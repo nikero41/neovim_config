@@ -270,7 +270,10 @@ return {
 		opts = {
 			highlight = true,
 			click = true,
-			lsp = { auto_attach = true },
+			lsp = {
+				auto_attach = true,
+				preference = { "tsgo" },
+			},
 			safe_output = true,
 		},
 	},
