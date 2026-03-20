@@ -103,14 +103,17 @@ return {
 				),
 			}
 
-			lint.try_lint()
-
 			vim.api.nvim_create_autocmd(
 				{ "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged", "BufEnter" },
 				{
 					group = vim.api.nvim_create_augroup("lint", { clear = true }),
 					callback = function()
-						if vim.bo.modifiable then lint.try_lint() end
+						if vim.bo.modifiable then
+							local ok, msg = pcall(lint.try_lint)
+							if not ok then
+								vim.notify(msg or "Error while linting", vim.log.levels.ERROR, { title = "Lint" })
+							end
+						end
 					end,
 				}
 			)
