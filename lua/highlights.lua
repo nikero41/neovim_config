@@ -50,6 +50,7 @@ function Highlights:get()
 		NavicText = { link = "lualine_c_inactive" },
 		NavicSeparator = { link = "lualine_c_inactive" },
 		["@parameter"] = { link = "@variable.parameter" },
+		["@property.class.css"] = { link = "@property" },
 	}
 
 	return vim.tbl_extend("force", to_hl(all), highlights)
