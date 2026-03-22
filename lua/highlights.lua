@@ -51,7 +51,7 @@ function Highlights:get()
 		["@property.class.css"] = { link = "@property" },
 	}
 
-	return vim.tbl_extend("force", to_hl(all), highlights)
+	return vim.tbl_extend("force", all, highlights)
 end
 
 function Highlights:setup()
