@@ -36,6 +36,11 @@ return {
 			function() require("snacks").toggle.zen():toggle() end,
 			desc = "Toggle zen mode",
 		},
+		{
+			"<Leader>uz",
+			function() require("snacks").toggle.zoom():toggle() end,
+			desc = "Toggle zen mode",
+		},
 	},
 	---@type snacks.Config
 	opts = {
