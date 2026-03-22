@@ -5,22 +5,20 @@ local helpers = require("nikero.helpers")
 ---@field setup fun(self: Highlights)
 local Highlights = {}
 
+---@param hlgroups table
 ---@return vim.api.keyset.highlight[]
-local function to_hl(all)
-	for _, hl in pairs(all) do
-		if hl.style ~= nil then
-			if hl.style == "NONE" then
-				hl.style = nil
-			else
-				for _, style in pairs(vim.split(hl.style, ",", { trimempty = true })) do
-					hl[style] = true
-				end
-				hl.style = nil
-			end
-		end
+local function to_hl(hlgroups)
+	for _, hl in pairs(hlgroups) do
+		local modifiers = vim.split(hl.style or "", ",", { trimempty = true })
+		vim
+			.iter(modifiers)
+			:filter(function(modifier) return modifier ~= "NONE" end)
+			:each(function(modifier) hl[modifier] = true end)
+
+		hl.style = nil
 	end
 
-	return all
+	return hlgroups
 end
 
 function Highlights:get()
