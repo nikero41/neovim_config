@@ -122,15 +122,15 @@ return {
 			spec = {
 				-- Groups
 				{ "<leader>f", group = require("icons").Search .. " Find" },
-				{ "<leader>g", group = require("icons").Git .. " Git" },
-				{ "<leader>l", group = require("icons").LSP .. " LSP" },
+				{ "<leader>g", group = require("icons").Git .. " Git", mode = { "n", "v" } },
+				{ "<leader>l", group = require("icons").LSP .. " LSP", mode = { "n", "v" } },
 				{ "<leader>u", group = require("icons").Window .. " UI" },
 				{ "<leader>c", group = require("icons").Git .. " Logs" },
 				{ "<leader>d", group = require("icons").Debugger .. " Debugger" },
 				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
 				{ "<leader>T", group = require("icons").Tests .. " Tests" },
 				{ "<leader>TW", group = require("icons").Watch .. " Watch" },
-				{ "<leader>a", group = require("icons").Robot .. " AI" },
+				{ "<leader>a", group = require("icons").Robot .. " AI", mode = { "n", "v" } },
 				{ "<leader>S", group = require("icons").Session .. " Session" },
 
 				-- Naming
