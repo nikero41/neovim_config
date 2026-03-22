@@ -67,6 +67,7 @@ return {
 			end,
 		},
 		scope = { enabled = true },
+		toggle = { icon = "" },
 		words = { enabled = true },
 		zen = {
 			toggles = { dim = false, inlay_hints = false },
