@@ -30,8 +30,8 @@ keymaps:add_multiple({
 keymaps:add_multiple({
 	{ "n", "\\", vim.cmd.split, { desc = "Horizontal split" } },
 	{ "n", "|", vim.cmd.vsplit, { desc = "Vertical split" } },
-	{ "v", "<S-Tab>", "<gv", { desc = "Unindent line", unique = false } },
-	{ "v", "<Tab>", ">gv", { desc = "Indent line", unique = false } },
+	{ "v", "<S-Tab>", "<gv", { desc = "Unindent line", optional = false } },
+	{ "v", "<Tab>", ">gv", { desc = "Indent line", optional = false } },
 	{
 		"n",
 		"<leader>uw",
@@ -67,8 +67,8 @@ keymaps:add_multiple({
 
 -- Navigation
 keymaps:add_multiple({
-	{ "n", "]t", vim.cmd.tabnext, { desc = "Next tab", unique = false } },
-	{ "n", "[t", vim.cmd.tabprevious, { desc = "Previous tab", unique = false } },
+	{ "n", "]t", vim.cmd.tabnext, { desc = "Next tab", optional = false } },
+	{ "n", "[t", vim.cmd.tabprevious, { desc = "Previous tab", optional = false } },
 })
 
 -- Search
