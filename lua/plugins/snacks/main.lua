@@ -31,16 +31,6 @@ return {
 			desc = "Next Reference",
 			mode = { "n", "t" },
 		},
-		{
-			"<Leader>uZ",
-			function() require("snacks").toggle.zen():toggle() end,
-			desc = "Toggle zen mode",
-		},
-		{
-			"<Leader>uz",
-			function() require("snacks").toggle.zoom():toggle() end,
-			desc = "Toggle zen mode",
-		},
 	},
 	---@type snacks.Config
 	opts = {
@@ -93,6 +83,8 @@ return {
 				vim._print = function(_, ...) Snacks.debug.inspect(...) end
 
 				Snacks.toggle.inlay_hints():map("<leader>uh")
+				Snacks.toggle.zen():map("<leader>uZ")
+				Snacks.toggle.zoom():map("<leader>uz")
 			end,
 			once = true,
 		})
