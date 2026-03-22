@@ -251,7 +251,18 @@ return {
 						["end"] = { args.line2, end_line:len() },
 					}
 				end
-				require("conform").format({ async = true, lsp_format = "fallback", range = range })
+
+				if vim.bo.modified then
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						group = vim.api.nvim_create_augroup("conform", { clear = true }),
+						callback = function()
+							require("conform").format({ async = true, lsp_format = "fallback", range = range })
+						end,
+						once = true,
+					})
+				else
+					require("conform").format({ async = true, lsp_format = "fallback", range = range })
+				end
 			end, { range = true, desc = "Format" })
 		end,
 	},
