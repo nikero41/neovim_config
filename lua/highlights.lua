@@ -27,6 +27,8 @@ function Highlights:get()
 	local plugins = require("onedarkpro.highlights.plugin").groups(theme)
 	local filetypes = require("onedarkpro.highlights.filetype").groups(theme)
 
+	plugins.NeoTreeNormalNC = nil
+
 	local all = to_hl(vim.tbl_deep_extend("force", syntax, plugins, filetypes))
 
 	local colors = require("catppuccin.palettes").get_palette("mocha")
