@@ -137,9 +137,6 @@ return {
 				},
 			},
 			transparent_background = require("nikero.config").transparency,
-			highlight_overrides = {
-				all = function() return require("highlights"):get() end,
-			},
 			dim_inactive = {
 				enabled = true,
 				percentage = 0.1,
