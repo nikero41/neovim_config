@@ -73,6 +73,9 @@ return {
 		},
 		scope = { enabled = true },
 		words = { enabled = true },
+		zen = {
+			toggles = { dim = false, inlay_hints = false },
+		},
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
