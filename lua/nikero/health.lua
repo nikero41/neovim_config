@@ -194,7 +194,9 @@ function HealthCheck:check_performance()
 			function(plugin) return plugin._.loaded end,
 			lazy_config.plugins
 		)
-		vim.health.info(("Plugins: %d loaded / %d total"):format(#loaded_plugins, #lazy_config.plugins))
+		vim.health.info(
+			("Plugins: %d loaded / %d total"):format(#loaded_plugins, vim.tbl_count(lazy_config.plugins))
+		)
 	end
 
 	vim.health.info("Run :Lazy profile for detailed startup timing")
