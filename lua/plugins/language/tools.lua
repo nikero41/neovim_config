@@ -103,6 +103,10 @@ return {
 				),
 			}
 
+			lint.linters.dotenv_linter.env = {
+				DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ","),
+			}
+
 			vim.api.nvim_create_autocmd(
 				{ "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged", "BufEnter" },
 				{
