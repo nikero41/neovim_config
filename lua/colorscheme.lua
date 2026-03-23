@@ -6,7 +6,7 @@ local favorites = {
 	ayu = "ayu",
 	synthweave = "synthweave",
 	onedarkpro = "onedark_vivid",
-	catppuccin = "catppuccin-nvim",
+	catppuccin = "catppuccin-mocha",
 }
 
 return favorites.catppuccin
