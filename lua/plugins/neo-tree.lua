@@ -3,14 +3,6 @@
 ---@type LazySpec
 return {
 	{
-		"wsdjeg/rooter.nvim",
-		event = "User File",
-		opts = {
-			root_patterns = { ".git/", "_darcs/", ".hg/", ".bzr/", ".svn/" },
-			enable_logger = false,
-		},
-	},
-	{
 		"s1n7ax/nvim-window-picker",
 		version = "2.*",
 		name = "window-picker",
