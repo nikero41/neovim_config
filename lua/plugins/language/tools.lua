@@ -31,7 +31,7 @@ return {
 				sh = { "shellcheck" },
 				zsh = { "shellcheck", "zsh" },
 				dockerfile = { "hadolint" },
-				dotenv = { "dotenv-linter" },
+				dotenv = { "dotenv_linter" },
 				json = { "jsonlint" },
 				go = { "golangcilint" },
 				groovy = { "npm-groovy-lint" },

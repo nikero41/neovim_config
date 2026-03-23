@@ -87,6 +87,8 @@ return {
 				"docker-language-server",
 				"hadolint",
 
+				"dotenv-linter",
+
 				-- Go
 				"delve",
 				"gopls",
