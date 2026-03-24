@@ -124,22 +124,16 @@ return {
 		},
 	},
 	{
-		"akinsho/git-conflict.nvim",
-		version = "*",
-		cmd = {
-			"GitConflictChooseOurs",
-			"GitConflictChooseTheirs",
-			"GitConflictChooseBoth",
-			"GitConflictChooseNone",
-			"GitConflictNextConflict",
-			"GitConflictPrevConflict",
-			"GitConflictListQf",
-		},
-		---@module "git-conflict"
-		---@type GitConflictUserConfig
-		---@diagnostic disable-next-line: missing-fields
+		"esmuellert/codediff.nvim",
+		cmd = { "CodeDiff" },
 		opts = {
-			list_opener = "copen", -- TODO: use snacks.picker or trouble.nvim (?)
+			explorer = {
+				icons = {
+					folder_closed = require("icons").FolderClosed,
+					folder_open = require("icons").FolderOpen,
+				},
+				focus_on_select = true,
+			},
 		},
 	},
 }
