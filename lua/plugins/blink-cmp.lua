@@ -128,7 +128,7 @@ return {
 				},
 			},
 			signature = {
-				enabled = false,
+				enabled = true,
 				window = {
 					winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
 				},
