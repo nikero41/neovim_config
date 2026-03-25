@@ -74,7 +74,7 @@ function Autocmds:setup()
 			for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
 				if c.server_capabilities and c.server_capabilities.foldingRangeProvider then
 					vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
-					vim.cmd.normal("zx")
+					vim.cmd("normal! zx")
 					return
 				end
 			end
