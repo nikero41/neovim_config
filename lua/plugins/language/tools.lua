@@ -167,7 +167,7 @@ return {
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				cs = { "csharpier" },
-				go = { "goimports", lsp_format = "last" },
+				go = { "goimports", "golines", lsp_format = "last" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "stylua" },
 				markdown = function(buffer)
