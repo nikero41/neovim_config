@@ -3,6 +3,61 @@ local mux = term == "tmux" or term == "wezterm" or vim.env.KITTY_LISTEN_ON
 
 ---@type LazySpec
 return {
+	{
+		"DrKJeff16/project.nvim",
+		dependencies = { "folke/snacks.nvim", "mason-org/mason-lspconfig.nvim" },
+		event = "User File",
+		cmd = {
+			"Project",
+			"ProjectAdd",
+			"ProjectConfig",
+			"ProjectDelete",
+			"ProjectExport",
+			"ProjectHealth",
+			"ProjectHistory",
+			"ProjectImport",
+			"ProjectLog",
+			"ProjectRecents",
+			"ProjectRoot",
+			"ProjectSession",
+			"ProjectSnacks",
+		},
+		---@module "project"
+		---@type Project.Config.Options
+		opts = {
+			lsp = {
+				enabled = true,
+				ignore = {"tailwindcss"},
+				use_pattern_matching = false,
+				no_fallback = true,
+			},
+			scope_chdir = "win",
+			snacks = { enabled = true },
+			patterns = {
+				".git",
+				".github",
+				"_darcs",
+				".hg",
+				".bzr",
+				".svn",
+				"Pipfile",
+				"pyproject.toml",
+				".pre-commit-config.yaml",
+				".pre-commit-config.yml",
+				".csproj",
+				".sln",
+				".nvim.lua",
+				".neoconf.json",
+				"neoconf.json",
+				-- "package.json",
+				-- "tsconfig.json",
+				"go.mod",
+				"go.sum",
+				"Cargo.toml",
+				"Cargo.lock",
+			},
+		},
+	},
 	{ "nvim-mini/mini.ai", event = "VeryLazy", opts = {} },
 	{
 		"nmac427/guess-indent.nvim",

@@ -301,6 +301,7 @@ return {
 						draw_empty = true,
 						separator = { left = "" },
 					},
+					{ "project", format = "short", no_project = "N/A" },
 					{ "branch", on_click = function() Snacks.lazygit() end },
 					"filetype",
 				},
