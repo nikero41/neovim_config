@@ -10,10 +10,10 @@ return {
 	},
 	---@param client vim.lsp.Client | { config: vim.lsp.Config | { settings?: lsp.lua_ls }}
 	on_init = function(client)
-		if client.workspace_folders then
+		if client.workspace_folders and client.workspace_folders[1] then
 			local path = client.workspace_folders[1].name
 			local config_path = vim.fs.joinpath(path, ".luarc.json")
-			local has_config = vim.loop.fs_stat(config_path) or vim.loop.fs_stat(config_path .. "c")
+			local has_config = vim.uv.fs_stat(config_path) or vim.uv.fs_stat(config_path .. "c")
 			if has_config then return end
 		end
 
