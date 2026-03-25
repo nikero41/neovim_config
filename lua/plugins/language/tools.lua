@@ -248,6 +248,8 @@ return {
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 			vim.api.nvim_create_user_command("Format", function(args)
+				local buffer = vim.api.nvim_get_current_buf()
+
 				local range = nil
 				if args.count ~= -1 then
 					local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
@@ -257,16 +259,16 @@ return {
 					}
 				end
 
-				if vim.bo.modified then
+				if vim.bo[buffer].modified then
 					vim.api.nvim_create_autocmd("BufWritePost", {
 						group = vim.api.nvim_create_augroup("conform", { clear = true }),
 						callback = function()
-							require("conform").format({ async = true, lsp_format = "fallback", range = range })
+							require("conform").format({ async = true, bufnr = buffer, range = range })
 						end,
 						once = true,
 					})
 				else
-					require("conform").format({ async = true, lsp_format = "fallback", range = range })
+					require("conform").format({ async = true, bufnr = buffer, range = range })
 				end
 			end, { range = true, desc = "Format" })
 		end,
