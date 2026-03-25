@@ -102,6 +102,7 @@ return {
 				lsp_semantic_tokens = true,
 				nvim_lsp = true,
 				treesitter = true,
+				blink_cmp = true,
 				gitsigns = true,
 				neo_tree = true,
 				rainbow_delimiters = true,
