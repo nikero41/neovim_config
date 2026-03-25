@@ -60,20 +60,21 @@ return {
 			end)
 
 			table.insert(lint.linters.stylelint.args, function()
-				local project_configs = {
-					".stylelintrc.js",
-					"stylelint.config.js",
-					".stylelintrc.mjs",
-					"stylelint.config.mjs",
-					".stylelintrc.cjs",
-					"stylelint.config.cjs",
-					".stylelintrc.json",
-					".stylelintrc.yml",
-					".stylelintrc.yaml",
-				} or require("nikero.utils"):check_json_key_exists(
-					vim.fs.joinpath(vim.uv.cwd(), "package.json"),
-					"stylelint"
-				)
+				local project_configs = vim
+					.iter({
+						".stylelintrc.js",
+						"stylelint.config.js",
+						".stylelintrc.mjs",
+						"stylelint.config.mjs",
+						".stylelintrc.cjs",
+						"stylelint.config.cjs",
+						".stylelintrc.json",
+						".stylelintrc.yml",
+						".stylelintrc.yaml",
+					})
+					:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end) or require(
+					"nikero.utils"
+				):check_json_key_exists(vim.fs.joinpath(vim.uv.cwd(), "package.json"), "stylelint")
 				local has_project_config = vim.iter(project_configs):any(
 					function(filename) return vim.uv.fs_stat(filename) ~= nil end
 				)
