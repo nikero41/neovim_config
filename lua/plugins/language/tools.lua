@@ -73,7 +73,7 @@ return {
 						".stylelintrc.yaml",
 					})
 					:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end) or require(
-					"nikero.utils"
+					"nikero.helpers"
 				):check_json_key_exists(vim.fs.joinpath(vim.uv.cwd(), "package.json"), "stylelint")
 				local has_project_config = vim.iter(project_configs):any(
 					function(filename) return vim.uv.fs_stat(filename) ~= nil end
