@@ -91,7 +91,7 @@ return {
 		"razak17/tailwind-fold.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		ft = vim.list_extend(
-			require("filetypes").javascript,
+			vim.deepcopy(require("filetypes").javascript),
 			{ "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade" }
 		),
 		keys = {

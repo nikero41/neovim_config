@@ -157,7 +157,7 @@ function Keymaps:setup()
 			return keymap
 		end)
 		:each(function(keymap)
-			local seted_keymaps = global_keymaps
+			local seted_keymaps = vim.deepcopy(global_keymaps)
 
 			if keymap.opts.buffer ~= nil then
 				local buffer_keymaps = get_buffer_keymaps(keymap.opts.buffer)
