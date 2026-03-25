@@ -170,9 +170,7 @@ return {
 				go = { "goimports", "golines", lsp_format = "last" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "stylua" },
-				markdown = function(buffer)
-					return { "markdownlint", first(buffer, "prettierd", "prettier") }
-				end,
+				markdown = { "markdownlint" },
 				nginx = { "nginxfmt" },
 				python = { "isort", "black" },
 				sql = { "sqlfluff" },
