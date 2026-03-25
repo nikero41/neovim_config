@@ -8,11 +8,11 @@ return {
 				lsp = { name = "clangd" },
 			})
 
-			local group = vim.api.nvim_create_augroup("clangd_extensions", { clear = true })
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = group,
+				group = vim.api.nvim_create_augroup("clangd_extensions", { clear = true }),
 				callback = function(args)
-					if vim.lsp.get_client_by_id(args.data.client_id).name ~= "clangd" then return end
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client or client.name ~= "clangd" then return end
 					require("clangd_extensions")
 					vim.api.nvim_del_augroup_by_name("clangd_extensions")
 				end,
