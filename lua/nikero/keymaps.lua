@@ -1,4 +1,4 @@
----@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c"|"t"|"s"|"l",
+---@alias KeymapModes "n"|"i"|"v"|"x"|"o"|"c"|"t"|"s"|"l"
 ---@alias Keymap.Opts snacks.keymap.set.Opts | { optional?: boolean }
 
 ---@class KeymapInput
