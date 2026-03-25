@@ -35,9 +35,9 @@ end
 
 function Keymaps:add(keymap)
 	local modes = keymap[1]
-	if type(modes) == "string" then keymap[1] = { modes } end
+	if type(modes) == "string" then modes = { modes } end
 	table.insert(self.keymaps, {
-		modes = keymap[1],
+		modes = modes,
 		lhs = keymap[2],
 		rhs = keymap[3],
 		opts = keymap[4] or {},
@@ -52,10 +52,9 @@ function Keymaps:set_opts(opts) self.opts = opts end
 
 ---@param keymap vim.api.keyset.get_keymap
 local function from_nvim_keymap(keymap)
-	keymap.lhs = string.gsub(keymap.lhs, "^ ", "<leader>")
 	---@type Keymap
 	return {
-		lhs = keymap.lhs,
+		lhs = string.gsub(keymap.lhs, "^ ", "<leader>"),
 		rhs = keymap.rhs,
 		modes = { keymap.mode },
 		opts = {
