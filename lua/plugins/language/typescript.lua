@@ -58,16 +58,20 @@ return {
 			vim.lsp.config("tsgo", {
 				handlers = {
 					["textDocument/diagnostic"] = function(error, result, ctx)
+						if not result or result.kind ~= "full" then
+							return vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
+						end
+
+						local ignore_codes = {
+							[80001] = "File is a CommonJS module; it may be converted to an ES module.",
+						}
+
 						local idx = 1
 						while idx <= #result.items do
 							local entry = result.items[idx]
 
 							local formatter = require("format-ts-errors")[entry.code]
 							entry.message = formatter and formatter(entry.message) or entry.message
-
-							local ignore_codes = {
-								[80001] = "File is a CommonJS module; it may be converted to an ES module.",
-							}
 
 							-- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
 							if ignore_codes[entry.code] then
@@ -77,7 +81,7 @@ return {
 							end
 						end
 
-						vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
+						return vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
 					end,
 				},
 			})
