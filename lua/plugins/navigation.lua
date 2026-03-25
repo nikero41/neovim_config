@@ -27,7 +27,7 @@ return {
 		opts = {
 			lsp = {
 				enabled = true,
-				ignore = {"tailwindcss"},
+				ignore = { "tailwindcss" },
 				use_pattern_matching = false,
 				no_fallback = true,
 			},
