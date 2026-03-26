@@ -32,12 +32,11 @@ local CommandPalette = {
 				{
 					"View PR Diff",
 					function()
-						vim.ui.input(
-							{ prompt = "PR number: " },
-							function(input)
-								Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") })
-							end
-						)
+						vim.ui.input({ prompt = "PR number: " }, function(input)
+							if not input or input == "" then return end
+							Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") })
+						end)
+
 					end,
 				},
 				{
