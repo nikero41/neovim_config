@@ -68,7 +68,9 @@ return {
 						},
 						kind_icon = {
 							provider = function(icon, node)
-								icon.text, icon.highlight = require("mini.icons").get("lsp", node.extra.kind.name)
+								local kind = node.extra and node.extra.kind and node.extra.kind.name
+							if not kind then return end
+								icon.text, icon.highlight = require("mini.icons").get("lsp", kind.name)
 							end,
 						},
 					},
