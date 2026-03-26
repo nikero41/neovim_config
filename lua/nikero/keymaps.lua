@@ -151,6 +151,7 @@ function Keymaps:setup()
 
 	vim
 		.iter(self.keymaps)
+		:map(vim.deepcopy)
 		:map(function(keymap)
 			local can_set_unique = keymap.opts.lsp == nil
 				and keymap.opts.ft == nil
@@ -164,9 +165,10 @@ function Keymaps:setup()
 			return keymap
 		end)
 		:each(function(keymap)
-			local seted_keymaps = vim.deepcopy(global_keymaps)
+			local seted_keymaps = global_keymaps
 
 			if keymap.opts.buffer ~= nil then
+				seted_keymaps = vim.deepcopy(global_keymaps)
 				local buffer_keymaps = get_buffer_keymaps(keymap.opts.buffer)
 				for mode in pairs(seted_keymaps) do
 					vim.list_extend(seted_keymaps[mode], buffer_keymaps[mode])
