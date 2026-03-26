@@ -11,6 +11,7 @@ return {
 			"arthur944/neotest-bun",
 			"marilari88/neotest-vitest",
 			"fredrikaverpil/neotest-golang",
+			"mrcjkb/rustaceanvim",
 		},
 		keys = {
 			{
