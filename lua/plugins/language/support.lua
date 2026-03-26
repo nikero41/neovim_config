@@ -22,7 +22,11 @@ return {
 			},
 		},
 		keys = { { "<leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
-		opts = {},
+		opts = {
+			automatic_enable = {
+				exclude = { "rust_analyzer" },
+			},
+		},
 	},
 	{
 		"mrjones2014/codesettings.nvim",
