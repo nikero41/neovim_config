@@ -101,12 +101,20 @@ function Keymaps:apply(seted_keymaps, keymap)
 	if keymap.rhs == false then
 		local ok, msg = pcall(Snacks.keymap.del, keymap.modes, keymap.lhs, keymap.opts)
 		if not ok then
-			vim.notify(msg .. ": " .. vim.inspect(keymap), nil, { title = "Error deleting keymaps" })
+			vim.notify(
+				msg .. ": " .. vim.inspect(keymap),
+				vim.log.levels.ERROR,
+				{ title = "Error deleting keymaps" }
+			)
 		end
 	else
 		local ok, msg = pcall(Snacks.keymap.set, keymap.modes, keymap.lhs, keymap.rhs, keymap.opts)
 		if not ok then
-			vim.notify(msg .. ": " .. vim.inspect(keymap), nil, { title = "Error setting keymaps" })
+			vim.notify(
+				msg .. ": " .. vim.inspect(keymap),
+				vim.log.levels.ERROR,
+				{ title = "Error setting keymaps" }
+			)
 		end
 	end
 end
