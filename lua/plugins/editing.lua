@@ -50,12 +50,10 @@ return {
 			vim.api.nvim_create_user_command("SearchAndReplace", function(params)
 				vim.ui.input({
 					prompt = "Search",
-					default = params.args[1] or vim.fn.expand("<cword>") or "",
+					default = params.args or vim.fn.expand("<cword>") or "",
 				}, function(search_word)
 					if search_word == nil then return end
-					vim.ui.input({
-						prompt = "Replace",
-					}, function(replace_word)
+					vim.ui.input({ prompt = "Replace" }, function(replace_word)
 						if replace_word == nil then return end
 						vim.ui.input(
 							{ prompt = "Filetype" },
