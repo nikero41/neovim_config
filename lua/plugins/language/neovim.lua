@@ -3,8 +3,7 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
-		cmd = "LazyDev",
-		opts_extend = { "library" },
+		cmd = { "LazyDev" },
 		opts = {
 			---@module "lazydev"
 			---@type lazydev.Library.spec[]

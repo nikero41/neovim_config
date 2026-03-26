@@ -69,7 +69,7 @@ return {
 						kind_icon = {
 							provider = function(icon, node)
 								local kind = node.extra and node.extra.kind and node.extra.kind.name
-							if not kind then return end
+								if not kind then return end
 								icon.text, icon.highlight = require("mini.icons").get("lsp", kind.name)
 							end,
 						},
@@ -362,7 +362,7 @@ return {
 						end,
 						color = function()
 							local linters = require("lint").get_running()
-							return { fg = #linters == 0 and "#33aa88" or "" }
+							return { fg = #linters == 0 and "#33aa88" or nil }
 						end,
 					},
 					{
