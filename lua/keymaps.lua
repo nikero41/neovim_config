@@ -106,13 +106,13 @@ keymaps:add_multiple({
 
 -- Clipboard
 keymaps:add_multiple({
-	{ "x", "<Leader>p", '"_dP', { desc = "Paste without coping" } },
-	{ "n", "<Leader>y", '"+y', { desc = "Yank to clipboard" } },
-	{ "x", "<Leader>y", '"+y', { desc = "Yank to clipboard" } },
-	{ "n", "<Leader>Y", '"+Y', { desc = "Yank rest of line to clipboard" } },
-	{ "x", "<Leader>Y", '"+Y', { desc = "Yank rest of line to clipboard" } },
-	{ "x", "<Leader>D", '"_d', { desc = "Cut" } },
-	{ "n", "<Leader>D", '"_d', { desc = "Cut" } },
+	{ "x", "<leader>p", '"_dP', { desc = "Paste without coping" } },
+	{ "n", "<leader>y", '"+y', { desc = "Yank to clipboard" } },
+	{ "x", "<leader>y", '"+y', { desc = "Yank to clipboard" } },
+	{ "n", "<leader>Y", '"+Y', { desc = "Yank rest of line to clipboard" } },
+	{ "x", "<leader>Y", '"+Y', { desc = "Yank rest of line to clipboard" } },
+	{ "x", "<leader>D", '"_d', { desc = "Cut" } },
+	{ "n", "<leader>D", '"_d', { desc = "Cut" } },
 })
 
 -- Diagnostics

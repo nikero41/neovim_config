@@ -127,7 +127,7 @@ return {
 		event = "BufWritePre",
 		keys = {
 			{
-				"<Leader>ltl",
+				"<leader>ltl",
 				function()
 					vim.g.enable_golines = not vim.g.enable_golines
 					vim.notify(

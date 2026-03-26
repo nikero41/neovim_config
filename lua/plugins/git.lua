@@ -114,7 +114,7 @@ return {
 	{
 		"FabijanZulj/blame.nvim",
 		cmd = "BlameToggle",
-		keys = { { "<Leader>gB", vim.cmd.BlameToggle, desc = "Toggle git blame" } },
+		keys = { { "<leader>gB", vim.cmd.BlameToggle, desc = "Toggle git blame" } },
 		---@module "blame"
 		---@type Config
 		---@diagnostic disable-next-line: missing-fields

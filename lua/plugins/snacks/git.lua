@@ -27,18 +27,18 @@ return {
 			function() Snacks.git.blame_line() end,
 			desc = "View full Git blame",
 		},
-		{ "<Leader>gb", function() require("snacks").picker.git_branches() end, desc = "Git branches" },
+		{ "<leader>gb", function() require("snacks").picker.git_branches() end, desc = "Git branches" },
 		{
-			"<Leader>gc",
+			"<leader>gc",
 			function() require("snacks").picker.git_log() end,
 			desc = "Git commits (repository)",
 		},
 		{
-			"<Leader>gC",
+			"<leader>gC",
 			function() require("snacks").picker.git_log({ current_file = true, follow = true }) end,
 			desc = "Git commits (current file)",
 		},
-		{ "<Leader>gt", function() require("snacks").picker.git_status() end, desc = "Git status" },
-		{ "<Leader>gT", function() require("snacks").picker.git_stash() end, desc = "Git stash" },
+		{ "<leader>gt", function() require("snacks").picker.git_status() end, desc = "Git status" },
+		{ "<leader>gT", function() require("snacks").picker.git_stash() end, desc = "Git stash" },
 	},
 }

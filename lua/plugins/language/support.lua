@@ -21,7 +21,7 @@ return {
 				end,
 			},
 		},
-		keys = { { "<Leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
+		keys = { { "<leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
 		opts = {},
 	},
 	{
