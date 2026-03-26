@@ -21,7 +21,6 @@ return {
 		version = "^8",
 		ft = "rust",
 		init = function()
-			vim.lsp.enable("rust_analyzer", false)
 			---@module "rustaceanvim"
 			---@type rustaceanvim.Opts
 			vim.g.rustaceanvim = {
@@ -32,6 +31,13 @@ return {
 						["rust-analyzer"] = {
 							cargo = { allFeatures = true },
 							procMacro = { enable = true },
+							files = {
+								excludeDirs = { ".direnv", ".git", "target" },
+							},
+							check = {
+								command = "clippy",
+								extraArgs = { "--no-deps" },
+							},
 						},
 					},
 				},
