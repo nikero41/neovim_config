@@ -106,7 +106,7 @@ keymaps:add_multiple({
 
 -- Clipboard
 keymaps:add_multiple({
-	{ "x", "<leader>p", '"_dP', { desc = "Paste without coping" } },
+	{ "x", "<leader>p", '"_dP', { desc = "Paste without copying" } },
 	{ "n", "<leader>y", '"+y', { desc = "Yank to clipboard" } },
 	{ "x", "<leader>y", '"+y', { desc = "Yank to clipboard" } },
 	{ "n", "<leader>Y", '"+Y', { desc = "Yank rest of line to clipboard" } },

@@ -140,7 +140,7 @@ return {
 						return
 					end
 
-					-- if expanded and has children, seleect the next child
+					-- if expanded and has children, select the next child
 					if node.type == "file" then
 						state.commands.open(state)
 					else
