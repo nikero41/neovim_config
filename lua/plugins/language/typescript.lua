@@ -55,16 +55,16 @@ return {
 		"davidosomething/format-ts-errors.nvim",
 		ft = require("filetypes").javascript,
 		config = function()
+			local ignore_codes = {
+				[80001] = "File is a CommonJS module; it may be converted to an ES module.",
+			}
+
 			vim.lsp.config("tsgo", {
 				handlers = {
 					["textDocument/diagnostic"] = function(error, result, ctx)
 						if not result or result.kind ~= "full" then
 							return vim.lsp.diagnostic.on_diagnostic(error, result, ctx)
 						end
-
-						local ignore_codes = {
-							[80001] = "File is a CommonJS module; it may be converted to an ES module.",
-						}
 
 						local idx = 1
 						while idx <= #result.items do
