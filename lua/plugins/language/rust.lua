@@ -34,6 +34,7 @@ return {
 				},
 				server = {
 					standalone = false,
+					---@type lsp.rust_analyzer
 					default_settings = {
 						["rust-analyzer"] = {
 							cargo = { allFeatures = true },
