@@ -25,13 +25,6 @@ return {
 			---@module "rustaceanvim"
 			---@type rustaceanvim.Opts
 			vim.g.rustaceanvim = {
-				tools = {
-					hover_actions = { auto_focus = true },
-					inlay_hints = {
-						auto = true,
-						show_parameter_hints = true,
-					},
-				},
 				server = {
 					standalone = false,
 					---@type lsp.rust_analyzer
