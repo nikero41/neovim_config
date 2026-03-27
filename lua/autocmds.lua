@@ -69,14 +69,18 @@ function Autocmds:setup()
 		desc = "Use LSP folding if available",
 		group = vim.api.nvim_create_augroup("lsp-folding", { clear = true }),
 		callback = function(args)
-			if vim.wo.foldexpr == "v:lua.vim.lsp.foldexpr()" then return end
+			local winid = vim.fn.bufwinid(args.buf)
+			if winid == -1 then return end
 
-			for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
-				if c.server_capabilities and c.server_capabilities.foldingRangeProvider then
-					vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
-					vim.cmd("normal! zx")
-					return
-				end
+			local has_lsp_folding = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
+				function(client) return client:supports_method("textDocument/foldingRange") end
+			)
+
+			local foldexpr = has_lsp_folding and "v:lua.vim.lsp.foldexpr()"
+				or "v:lua.vim.treesitter.foldexpr()"
+			if vim.wo[winid].foldexpr ~= foldexpr then
+				vim.wo[winid].foldexpr = foldexpr
+				vim.cmd("normal! zx")
 			end
 		end,
 	})
