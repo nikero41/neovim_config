@@ -12,6 +12,7 @@ return {
 				{ path = "lazy.nvim", words = { "Lazy" } },
 				{ path = "snacks.nvim", words = { "Snacks" } },
 				{ path = "nvim-chainsaw", words = { "Chainsaw" } },
+				{ path = "nvim-dap-ui" },
 			},
 			integrations = { lspconfig = true },
 		},
