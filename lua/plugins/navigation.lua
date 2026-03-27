@@ -156,7 +156,9 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
 		event = "User File",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
-		keys = { { "<leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find TODO comments" } },
+		keys = {
+			{ "<leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find TODO comments" },
+		},
 		opts = {},
 	},
 	{
