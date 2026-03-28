@@ -130,11 +130,11 @@ return {
 				"<leader>ltl",
 				function()
 					vim.g.enable_golines = not vim.g.enable_golines
-					vim.notify(
-						"goliens " .. (vim.g.enable_golines and "enabled" or "disabled"),
-						vim.log.levels.INFO,
-						{ title = "LSP toggle" }
-					)
+				vim.notify(
+					"golines " .. (vim.g.enable_golines and "enabled" or "disabled"),
+					vim.log.levels.INFO,
+					{ title = "LSP toggle" }
+				)
 				end,
 				desc = "Toggle golines",
 			},
