@@ -96,29 +96,6 @@ return {
 				require("neotest-bun"),
 			}
 
-			opts.consumers = opts.consumers or {}
-			opts.consumers.trouble = function(client)
-				client.listeners.results = function(adapter_id, results, partial)
-					if partial then return end
-					local tree = client:get_position(nil, { adapter = adapter_id })
-					if not tree then return end
-
-					local failed = 0
-					for pos_id, result in pairs(results) do
-						if result.status == "failed" and tree:get_key(pos_id) then failed = failed + 1 end
-					end
-
-					vim.schedule(function()
-						local trouble = require("trouble")
-						if trouble.is_open() then
-							trouble.refresh()
-							if failed == 0 then trouble.close() end
-						end
-					end)
-				end
-				return {}
-			end
-
 			return opts
 		end,
 		config = function(_, opts)
