@@ -425,7 +425,7 @@ return {
 					},
 				},
 				lualine_c = {
-					{ "navic", color_correction = "static" },
+					{ "navic", color_correction = "static", draw_empty = true },
 				},
 				lualine_x = {},
 				lualine_y = {},
