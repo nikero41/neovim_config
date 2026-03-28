@@ -18,8 +18,9 @@ return {
 		{
 			"<leader><space>",
 			function()
+				local in_git = vim.fs.find(".git", { path = vim.fn.getcwd(), upward = true })[1] ~= nil
 				require("snacks").picker.files({
-					hidden = vim.tbl_get(vim.uv.fs_stat(".git") or {}, "type") == "directory",
+					hidden = in_git,
 				})
 			end,
 			desc = "Find files",
