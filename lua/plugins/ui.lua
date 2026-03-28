@@ -66,13 +66,6 @@ return {
 								if hl then icon.highlight = hl end
 							end,
 						},
-						kind_icon = {
-							provider = function(icon, node)
-								local kind = node.extra and node.extra.kind and node.extra.kind.name
-								if not kind then return end
-								icon.text, icon.highlight = require("mini.icons").get("lsp", kind.name)
-							end,
-						},
 					},
 				},
 			},
@@ -355,7 +348,7 @@ return {
 					},
 				},
 				lualine_x = {
-					require("wtf").get_status,
+					{ function() require("wtf").get_status() end },
 					{
 						function()
 							local linters = require("lint").get_running()
