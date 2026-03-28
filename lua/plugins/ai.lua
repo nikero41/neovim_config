@@ -54,7 +54,7 @@ return {
 		},
 		init = function()
 			---@type opencode.Opts
-			vim.g.opencode_opts = { provider = { enabled = "tmux", tmux = {} } }
+			vim.g.opencode_opts = {}
 		end,
 		specs = {
 			{
