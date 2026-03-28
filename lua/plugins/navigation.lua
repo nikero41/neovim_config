@@ -204,8 +204,8 @@ return {
 		---@type SmartSplitsConfig
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
-			ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
-			ignored_buftypes = { "nofile" },
+			ignored_filetypes = { "qf" },
+			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 		},
 	},
 }
