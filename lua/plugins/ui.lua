@@ -284,7 +284,7 @@ return {
 		lazy = false,
 		opts = {
 			options = {
-				theme = "catppuccin-nvim",
+				theme = "auto",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
@@ -309,6 +309,7 @@ return {
 				},
 				lualine_c = {
 					{
+						-- harpoon
 						function(fmt)
 							local current_file = vim.fn.expand("%:p")
 							return vim
@@ -316,7 +317,8 @@ return {
 								:map(function(index, item)
 									local file_path = vim.fn.fnamemodify(item.value, ":p")
 									local icon, hl = require("mini.icons").get("file", file_path)
-									local icon_str = "%#" .. hl .. "#" .. icon .. "%*" .. fmt.default_hl
+									local new_hl = require("nikero.lualine"):statusline_icon_hl(hl, fmt.default_hl)
+									local icon_str = "%#" .. new_hl .. "#" .. icon .. "%*" .. fmt.default_hl
 
 									local value = string.format("%s %d", icon_str, index)
 
@@ -328,7 +330,7 @@ return {
 
 									return value
 								end)
-								:join(" ")
+								:join("")
 						end,
 					},
 					{
