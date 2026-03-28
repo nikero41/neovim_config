@@ -29,10 +29,10 @@ function Autocmds:setup()
 			vim.b[args.buf].file_checked = true
 			vim.schedule(function()
 				if not vim.api.nvim_buf_is_valid(args.buf) then return end
-				local is_valid = vim.bo[args.buf].buflisted
 
 				local current_file = vim.api.nvim_buf_get_name(args.buf)
-				if current_file == "" or vim.bo[args.buf].buftype == "nofile" then return end
+				local buftype = vim.bo[args.buf].buftype
+				if not vim.bo[args.buf].buflisted or current_file == "" or buftype ~= "" then return end
 
 				local skip_augroups = {}
 				for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = args.event })) do
@@ -41,8 +41,6 @@ function Autocmds:setup()
 
 				skip_augroups["filetypedetect"] = false -- don't skip filetypedetect events
 				vim.api.nvim_exec_autocmds("User", { pattern = "File", modeline = false })
-
-				if not is_valid then return end
 
 				vim.schedule(function()
 					for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = args.event })) do
