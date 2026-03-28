@@ -124,7 +124,7 @@ return {
 				"<leader>b",
 				function() require("spider").motion("b") end,
 				mode = { "n", "o", "x" },
-				desc = "Next start of camel case word",
+				desc = "Previous start of camel case word",
 			},
 			{
 				"<leader>ge",
