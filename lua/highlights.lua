@@ -35,20 +35,31 @@ function Highlights:get()
 	local cursor_line_bg = helpers:blend(colors.mauve, "#000000", 0.28)
 
 	local highlights = {
-		Title = { fg = colors.mauve },
 		Visual = { bg = helpers:blend(colors.mauve, "#000000", 0.4) },
 		CursorLine = { bg = cursor_line_bg },
-		FloatBorder = { fg = colors.mauve, bg = "NONE" },
+		FloatBorder = { fg = colors.mauve, bg = colors.mantle },
 		PmenuSel = { bg = cursor_line_bg, bold = true },
+
+		-- Snacks
+		SnacksTitle = { fg = colors.peach, bg = colors.mantle },
+		SnacksPickerTitle = { fg = colors.peach, bg = colors.mantle },
+		SnacksPickerToggle = { fg = colors.mauve, bg = colors.mantle },
+		SnacksPickerInputBorder = { fg = colors.peach },
+		SnacksInputTitle = { fg = colors.peach },
+		SnacksInputIcon = { fg = colors.mauve },
+
+		-- Plugins
 		NeoTreeRootName = { fg = colors.mauve },
 		BlinkCmpMenu = { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) },
 		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
+		NavicText = { link = "lualine_c_inactive" },
+		NavicSeparator = { link = "lualine_c_inactive" },
+
+		-- LSP
+		LspReferenceText = { underline = true },
 		["@tag.builtin"] = { link = "Special" },
 		["@keyword.export"] = { link = "Keyword" },
 		["@markup.list.checked"] = { fg = "#d55fde", bg = "NONE" },
-		LspReferenceText = { underline = true },
-		NavicText = { link = "lualine_c_inactive" },
-		NavicSeparator = { link = "lualine_c_inactive" },
 		["@parameter"] = { link = "@variable.parameter" },
 		["@property.class.css"] = { link = "@property" },
 	}
