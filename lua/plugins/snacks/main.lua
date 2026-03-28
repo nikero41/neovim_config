@@ -44,15 +44,7 @@ return {
 			scope = { char = "▏" },
 			animate = { enabled = false },
 		},
-		input = {
-			enabled = true,
-			win = {
-				relative = "cursor",
-				title_pos = "left",
-				row = -3,
-				col = -5,
-			},
-		},
+		input = { enabled = true },
 		notifier = {
 			icons = {
 				debug = require("icons").Debugger,
