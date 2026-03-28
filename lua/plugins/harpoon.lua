@@ -31,7 +31,7 @@ return {
 			function()
 				local harpoon_list = require("harpoon"):list().items
 				for index, item in pairs(harpoon_list) do
-					if string.find(vim.api.nvim_buf_get_name(0), item.value) then
+					if string.find(vim.api.nvim_buf_get_name(0), item.value, 1, true) then
 						table.remove(harpoon_list, index)
 						require("lualine").refresh()
 						break
