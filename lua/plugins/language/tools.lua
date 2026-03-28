@@ -255,11 +255,11 @@ return {
 				end
 
 				if vim.bo[buffer].modified then
-					vim.api.nvim_create_autocmd("BufWritePost", {
+					vim.api.nvim_create_autocmd("BufWritePre", {
 						group = vim.api.nvim_create_augroup("conform-" .. buffer, { clear = true }),
 						buffer = buffer,
 						callback = function()
-							require("conform").format({ async = true, bufnr = buffer, range = range })
+							require("conform").format({ async = false, bufnr = buffer, range = range })
 						end,
 						once = true,
 					})
