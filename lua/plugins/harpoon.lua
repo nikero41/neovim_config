@@ -43,7 +43,7 @@ return {
 		{
 			"<leader>fh",
 			function()
-				Snacks.input({ prompt = "Harpoon mark index: " }, function(input)
+				vim.ui.input({ prompt = "Harpoon mark index: " }, function(input)
 					local num = tonumber(input)
 					if num then require("harpoon"):list():select(num) end
 				end)
