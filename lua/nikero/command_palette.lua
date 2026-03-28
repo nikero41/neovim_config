@@ -36,7 +36,6 @@ local CommandPalette = {
 							if not input or input == "" then return end
 							Snacks.picker.gh_diff({ pr = assert(tonumber(input), "Invalid PR number") })
 						end)
-
 					end,
 				},
 				{
