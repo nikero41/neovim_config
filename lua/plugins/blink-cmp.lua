@@ -31,7 +31,7 @@ return {
 	{
 		"saghen/blink.cmp",
 		dependencies = { "L3MON4D3/LuaSnip" },
-		event = { "InsertEnter", "CmdlineEnter" },
+		event = { "VeryLazy", "InsertEnter", "CmdlineEnter" },
 		build = "cargo build --release",
 		---@module "blink.cmp"
 		---@type blink.cmp.Config
@@ -143,8 +143,9 @@ return {
 			fuzzy = { sorts = { "exact", "score", "sort_text" } },
 		},
 		config = function(_, opts)
-			require("blink.cmp").setup(opts)
-			vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities() })
+			local cmp = require("blink.cmp")
+			cmp.setup(opts)
+			vim.lsp.config("*", { capabilities = cmp.get_lsp_capabilities() })
 		end,
 	},
 }
