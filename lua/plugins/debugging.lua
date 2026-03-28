@@ -100,7 +100,8 @@ return {
 			opts.consumers.trouble = function(client)
 				client.listeners.results = function(adapter_id, results, partial)
 					if partial then return end
-					local tree = assert(client:get_position(nil, { adapter = adapter_id }))
+					local tree = client:get_position(nil, { adapter = adapter_id })
+					if not tree then return end
 
 					local failed = 0
 					for pos_id, result in pairs(results) do
