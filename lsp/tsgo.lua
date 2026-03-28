@@ -33,8 +33,8 @@ return {
 					local label = hint.label
 
 					-- Handle string label
-					if type(label) == "string" and #label > max_len then
-						hint.label = label:sub(1, max_len) .. "…"
+					if type(label) == "string" and vim.fn.strchars(label) > max_len then
+						hint.label = vim.fn.strcharpart(label, 0, math.max(max_len - 1, 0)) .. "…"
 					-- Handle label parts (array of InlayHintLabelPart)
 					elseif type(label) == "table" then
 						local total_len = 0
@@ -42,15 +42,17 @@ return {
 
 						for _, part in ipairs(label) do
 							local part_text = part.value or ""
+							local part_len = vim.fn.strchars(part_text)
 
-							if total_len + #part_text > max_len then
-								local remaining = max_len - total_len
+							if total_len + part_len > max_len then
+								local remaining = math.max(max_len - total_len - 1, 0)
+								part.value = vim.fn.strcharpart(part_text, 0, remaining) .. "…"
 								part.value = part_text:sub(1, remaining) .. "…"
 								table.insert(truncated, part)
 								break
 							end
 
-							total_len = total_len + #part_text
+							total_len = total_len + part_len
 							table.insert(truncated, part)
 						end
 
