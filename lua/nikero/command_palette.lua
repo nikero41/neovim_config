@@ -38,20 +38,6 @@ local CommandPalette = {
 						end)
 					end,
 				},
-				{
-					"Open PR/Issue in browser",
-					function()
-						vim.ui.select({ "PR", "Issue" }, {}, function(input)
-							vim.ui.input({ prompt = input .. " number: " }, function(number)
-								if input == "PR" then
-									Snacks.picker.gh_diff({ pr = assert(tonumber(number), "Invalid PR number") })
-								else
-									Snacks.picker.gh_diff({ issue = number })
-								end
-							end)
-						end)
-					end,
-				},
 			},
 		},
 		{
