@@ -1,6 +1,30 @@
 ---@class PluginHelpers
+---@field after_load fun(self: PluginHelpers, plugins: string[], callback: fun())
 ---@field auto_close_tag fun(self: PluginHelpers, row: integer, col: integer)
 local PluginHelpers = {}
+
+function PluginHelpers:after_load(plugins, callback)
+	local lazy_config_avail, lazy_config = pcall(require, "lazy.core.config")
+	if not lazy_config_avail then return end
+
+	for _, plugin in ipairs(plugins) do
+		if vim.tbl_get(lazy_config.plugins, plugin, "_", "loaded") then
+			vim.schedule(callback)
+			return
+		end
+	end
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "LazyLoad",
+		desc = ("A function to be ran when one of these plugins runs: %s"):format(vim.inspect(plugins)),
+		callback = function(args)
+			if vim.tbl_contains(plugins, args.data) then
+				callback()
+				return true
+			end
+		end,
+	})
+end
 
 function PluginHelpers:auto_close_tag(row, col)
 	-- move cursor to the beginning of the tag to simulate the behavior of the default behavior of the plugin

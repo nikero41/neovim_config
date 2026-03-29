@@ -1,8 +1,12 @@
 ---
 base: lua51
+lua_versions:
+  - luajit
 
 globals:
   vim:
     any: true
   Snacks:
+    any: true
+  Chainsaw:
     any: true
