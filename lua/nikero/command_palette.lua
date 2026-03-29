@@ -3,7 +3,7 @@
 
 ---@class CommandPalette
 ---@field groups CommandGroup[]
----@field select_command fun(self: CommandPalette, commands: Command[])
+---@field select_command fun(self: CommandPalette, commands: Command[], on_back: fun())
 ---@field show fun(self: CommandPalette)
 local CommandPalette = {
 	groups = {
@@ -62,29 +62,62 @@ local CommandPalette = {
 	},
 }
 
-function CommandPalette:select_command(commands)
-	vim.ui.select(
-		commands,
-		{ prompt = "Select command:", format_item = function(item) return item[1] end },
-		function(command)
-			if command and type(command[2]) == "function" then
-				command[2]()
-			elseif command and type(command[2]) == "string" then
-				vim.cmd(command[2])
-			end
+function CommandPalette:select_command(commands, on_back)
+	local function go_back(picker)
+		picker:close()
+		if on_back then vim.schedule(on_back) end
+	end
+
+	local snacks_opts = {
+		layout = { preset = "vscode" },
+		focus = "list",
+		actions = {
+			back_or_delete = function(picker)
+				if picker.input:get() ~= "" then return "<BS>" end
+				go_back(picker)
+			end,
+			back = go_back,
+		},
+		win = {
+			input = {
+				keys = {
+					["<BS>"] = { "back_or_delete", mode = "i", expr = true },
+					["<C-h>"] = { "back_or_delete", mode = "i", expr = true },
+				},
+			},
+			list = {
+				keys = {
+					["<BS>"] = "back",
+					["<C-h>"] = "back",
+				},
+			},
+		},
+	}
+
+	vim.ui.select(commands, {
+		prompt = "Select command:",
+		snacks = snacks_opts,
+		format_item = function(item) return item[1] end,
+	}, function(command)
+		if not command then return end
+
+		if type(command[2]) == "function" then
+			command[2]()
+		elseif type(command[2]) == "string" then
+			vim.cmd(command[2])
 		end
-	)
+	end)
 end
 
 function CommandPalette:show()
-	vim.ui.select(
-		self.groups,
-		{ prompt = "Select category:", format_item = function(item) return item.name end },
-		function(group)
-			if not group then return end
-			self:select_command(group.commands)
-		end
-	)
+	vim.ui.select(self.groups, {
+		prompt = "Select category:",
+		snacks = { layout = { preset = "vscode" }, focus = "list" },
+		format_item = function(item) return item.name end,
+	}, function(group)
+		if not group then return end
+		self:select_command(group.commands, function() self:show() end)
+	end)
 end
 
 return CommandPalette
