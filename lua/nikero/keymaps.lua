@@ -80,11 +80,7 @@ function Keymaps:apply(seted_keymaps, keymap)
 					:find(function(existing) return existing.lhs == keymap.lhs end) --[[@as Keymap|nil]]
 				if existing_keymap == nil then return true end
 
-				local are_the_same = keymap.opts.desc == existing_keymap.opts.desc
-					and keymap.opts.buffer == existing_keymap.opts.buffer
-				if are_the_same then return false end
-
-				if keymap.opts.optional == nil then
+				if keymap.opts.optional == nil and keymap.opts.buffer == nil then
 					local message = ("`%s` already mapped: %s"):format(
 						keymap.lhs,
 						vim.inspect({ keymap = keymap, existing_keymap = existing_keymap })
