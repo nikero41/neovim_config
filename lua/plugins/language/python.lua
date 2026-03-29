@@ -2,7 +2,7 @@
 return {
 	{
 		"mfussenegger/nvim-dap-python",
-		-- dependencies = "mfussenegger/nvim-dap",
+		dependencies = { "mfussenegger/nvim-dap" },
 		ft = "python",
 		config = function(_, opts)
 			local path = vim.fn.exepath("debugpy-adapter")
