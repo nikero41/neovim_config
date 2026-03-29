@@ -101,9 +101,9 @@ function CommandPalette:select_command(commands, on_back)
 	}, function(command)
 		if not command then return end
 
-		if command and type(command[2]) == "function" then
+		if type(command[2]) == "function" then
 			command[2]()
-		elseif command and type(command[2]) == "string" then
+		elseif type(command[2]) == "string" then
 			vim.cmd(command[2])
 		end
 	end)
