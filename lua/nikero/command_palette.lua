@@ -2,10 +2,15 @@
 ---@alias Command { [1]: string, [2]: string | fun() }
 
 ---@class CommandPalette
+---@field snacks_opts snacks.picker.Config
 ---@field groups CommandGroup[]
----@field select_command fun(self: CommandPalette, commands: Command[], on_back: fun())
+---@field select_command fun(self: CommandPalette, commands: Command[], on_back?: fun())
 ---@field show fun(self: CommandPalette)
 local CommandPalette = {
+	snacks_opts = {
+		layout = { preset = "vscode" },
+		focus = "list",
+	},
 	groups = {
 		{
 			name = "LSP",
@@ -68,9 +73,8 @@ function CommandPalette:select_command(commands, on_back)
 		if on_back then vim.schedule(on_back) end
 	end
 
-	local snacks_opts = {
-		layout = { preset = "vscode" },
-		focus = "list",
+	---@type snacks.picker.Config
+	local select_actions = {
 		actions = {
 			back_or_delete = function(picker)
 				if picker.input:get() ~= "" then return "<BS>" end
@@ -96,7 +100,7 @@ function CommandPalette:select_command(commands, on_back)
 
 	vim.ui.select(commands, {
 		prompt = "Select command:",
-		snacks = snacks_opts,
+		snacks = vim.tbl_extend("force", self.snacks_opts, select_actions),
 		format_item = function(item) return item[1] end,
 	}, function(command)
 		if not command then return end
@@ -112,7 +116,7 @@ end
 function CommandPalette:show()
 	vim.ui.select(self.groups, {
 		prompt = "Select category:",
-		snacks = { layout = { preset = "vscode" }, focus = "list" },
+		snacks = self.snacks_opts,
 		format_item = function(item) return item.name end,
 	}, function(group)
 		if not group then return end
