@@ -68,14 +68,14 @@ return {
 					"n",
 					"<C-v>",
 					function() harpoon.ui:select_menu_item({ vsplit = true }) end,
-					{ buffer = cx.bufnr }
+					{ buf = cx.bufnr }
 				)
 
 				vim.keymap.set(
 					"n",
 					"<C-x>",
 					function() harpoon.ui:select_menu_item({ split = true }) end,
-					{ buffer = cx.bufnr }
+					{ buf = cx.bufnr }
 				)
 			end,
 		})

@@ -116,7 +116,7 @@ function Filetypes:setup()
 				Snacks.keymap.set("n", "q", function()
 					Snacks.bufdelete.delete({ buf = args.buf, force = true })
 					vim.cmd.close()
-				end, { buffer = args.buf, desc = "Quit buffer" })
+				end, { buf = args.buf, desc = "Quit buffer" })
 			end)
 		end,
 	})

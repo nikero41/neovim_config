@@ -105,7 +105,7 @@ return {
 					changedelete = { text = require("icons").GitSign },
 				},
 				on_attach = function(buffer)
-					keymaps:set_opts({ buffer = buffer })
+					keymaps:set_opts({ buf = buffer })
 					keymaps:setup()
 				end,
 			}
