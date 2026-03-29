@@ -88,8 +88,8 @@ return {
 					local lang = vim.treesitter.language.get_lang(args.match)
 					if not lang then return end
 
-					local has_parser = pcall(vim.treesitter.get_parser, args.buf, lang)
-					if not has_parser then return end
+					local parser = vim.treesitter.get_parser(args.buf, lang)
+					if not parser then return end
 
 					vim.treesitter.start(args.buf, lang)
 					if vim.bo[args.buf].buftype == "" then
