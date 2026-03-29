@@ -85,7 +85,12 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.INFO] = require("icons").DiagnosticInfo,
 		},
 	},
-	jump = { border = vim.o.winborder, float = true },
+	jump = {
+		on_jump = function(diagnostic, buffer)
+			if not diagnostic then return end
+			vim.diagnostic.open_float(buffer or 0, { scope = "cursor", focus = false })
+		end,
+	},
 	float = {
 		border = vim.o.winborder,
 		source = true,
