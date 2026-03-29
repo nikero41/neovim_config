@@ -101,7 +101,7 @@ return {
 				"iferr",
 				"impl",
 				"goimports",
-				"golangci-lint-langserver",
+				"golangci-lint",
 				"golines",
 
 				-- Gradle
