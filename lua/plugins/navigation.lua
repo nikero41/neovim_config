@@ -49,6 +49,8 @@ return {
 				".nvim.lua",
 				".neoconf.json",
 				"neoconf.json",
+				"Makefile",
+				"Justfile",
 				-- "package.json",
 				-- "tsconfig.json",
 				"go.mod",
