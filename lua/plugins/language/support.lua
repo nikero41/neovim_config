@@ -13,7 +13,7 @@ return {
 						---@param buffer integer The buffer that the LSP client is attaching to
 						on_attach = function(client, buffer)
 							if client:supports_method("textDocument/codeLens", buffer) then
-								vim.lsp.codelens.refresh({ bufnr = buffer })
+								vim.lsp.codelens.enable(true, { bufnr = buffer })
 							end
 							vim.lsp.inlay_hint.enable()
 						end,

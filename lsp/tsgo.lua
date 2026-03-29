@@ -26,7 +26,7 @@ return {
 	},
 	handlers = {
 		["textDocument/inlayHint"] = function(error, result, ctx)
-			local max_len = 30 -- Set your desired character limit
+			local max_len = 30
 
 			if result ~= nil then
 				for _, hint in ipairs(result) do
@@ -35,6 +35,7 @@ return {
 					-- Handle string label
 					if type(label) == "string" and vim.fn.strchars(label) > max_len then
 						hint.label = vim.fn.strcharpart(label, 0, math.max(max_len - 1, 0)) .. "…"
+
 					-- Handle label parts (array of InlayHintLabelPart)
 					elseif type(label) == "table" then
 						local total_len = 0
@@ -47,7 +48,6 @@ return {
 							if total_len + part_len > max_len then
 								local remaining = math.max(max_len - total_len - 1, 0)
 								part.value = vim.fn.strcharpart(part_text, 0, remaining) .. "…"
-								part.value = part_text:sub(1, remaining) .. "…"
 								table.insert(truncated, part)
 								break
 							end
@@ -61,7 +61,8 @@ return {
 				end
 			end
 
-			vim.lsp.inlay_hint.on_inlayhint(error, result, ctx)
+			local default_handler = vim.lsp.handlers["textDocument/inlayHint"]
+			if default_handler then return default_handler(error, result, ctx) end
 		end,
 	},
 }

@@ -59,7 +59,7 @@ local function from_nvim_keymap(keymap)
 		modes = { keymap.mode },
 		opts = {
 			desc = keymap.desc,
-			buffer = keymap.buffer,
+			buf = keymap.buf,
 			silent = keymap.silent == 1 and true or false,
 			expr = keymap.expr == 1 and true or false,
 			noremap = keymap.noremap == 1 and true or false,
@@ -80,7 +80,7 @@ function Keymaps:apply(seted_keymaps, keymap)
 					:find(function(existing) return existing.lhs == keymap.lhs end) --[[@as Keymap|nil]]
 				if existing_keymap == nil then return true end
 
-				if keymap.opts.optional == nil and keymap.opts.buffer == nil then
+				if keymap.opts.optional == nil and keymap.opts.buf == nil then
 					local message = ("`%s` already mapped: %s"):format(
 						keymap.lhs,
 						vim.inspect({ keymap = keymap, existing_keymap = existing_keymap })
@@ -151,7 +151,7 @@ function Keymaps:setup()
 		:map(function(keymap)
 			local can_set_unique = keymap.opts.lsp == nil
 				and keymap.opts.ft == nil
-				and keymap.opts.buffer == nil
+				and keymap.opts.buf == nil
 				and keymap.opts.optional == nil
 			if keymap.opts.unique == nil and can_set_unique then keymap.opts.unique = true end
 			return keymap
@@ -163,9 +163,9 @@ function Keymaps:setup()
 		:each(function(keymap)
 			local seted_keymaps = global_keymaps
 
-			if keymap.opts.buffer ~= nil then
+			if keymap.opts.buf ~= nil then
 				seted_keymaps = vim.deepcopy(global_keymaps)
-				local buffer_keymaps = get_buffer_keymaps(keymap.opts.buffer)
+				local buffer_keymaps = get_buffer_keymaps(keymap.opts.buf)
 				for mode in pairs(seted_keymaps) do
 					vim.list_extend(seted_keymaps[mode], buffer_keymaps[mode])
 				end

@@ -167,7 +167,7 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>ll",
-		function() vim.lsp.codelens.refresh() end,
+		function() vim.lsp.codelens.enable(true) end,
 		{ desc = "LSP CodeLens refresh", lsp = { method = "textDocument/codeLens" } },
 	},
 	{
