@@ -116,17 +116,17 @@ return {
 		opts = {
 			spec = {
 				-- Groups
-				{ "<leader>f", group = require("icons").Search .. " Find" },
-				{ "<leader>g", group = require("icons").Git .. " Git", mode = { "n", "v" } },
-				{ "<leader>l", group = require("icons").LSP .. " LSP", mode = { "n", "v" } },
-				{ "<leader>u", group = require("icons").Window .. " UI" },
-				{ "<leader>c", group = require("icons").Git .. " Logs" },
-				{ "<leader>d", group = require("icons").Debugger .. " Debugger" },
-				{ "<leader>h", group = require("icons").Harpoon .. " Harpoon" },
-				{ "<leader>T", group = require("icons").Tests .. " Tests" },
-				{ "<leader>TW", group = require("icons").Watch .. " Watch" },
-				{ "<leader>a", group = require("icons").Robot .. " AI", mode = { "n", "v" } },
-				{ "<leader>S", group = require("icons").Session .. " Session" },
+				{ "<leader>f", group = require("icons").misc.search .. " Find" },
+				{ "<leader>g", group = require("icons").git.repo .. " Git", mode = { "n", "v" } },
+				{ "<leader>l", group = require("icons").tools.lsp .. " LSP", mode = { "n", "v" } },
+				{ "<leader>u", group = require("icons").misc.window .. " UI" },
+				{ "<leader>c", group = require("icons").git.repo .. " Logs" },
+				{ "<leader>d", group = require("icons").tools.debugger .. " Debugger" },
+				{ "<leader>h", group = require("icons").tools.harpoon .. " Harpoon" },
+				{ "<leader>T", group = require("icons").tools.tests .. " Tests" },
+				{ "<leader>TW", group = require("icons").tools.watch .. " Watch" },
+				{ "<leader>a", group = require("icons").tools.robot .. " AI", mode = { "n", "v" } },
+				{ "<leader>S", group = require("icons").tools.session .. " Session" },
 
 				-- Naming
 				{ "gra", desc = "Code Actions", mode = { "n", "x" } },
@@ -330,9 +330,9 @@ return {
 						"diff",
 						padding = { left = 2 },
 						symbols = {
-							added = require("icons").GitAdd .. " ",
-							modified = require("icons").GitChange .. " ",
-							removed = require("icons").GitDelete .. " ",
+							added = require("icons").git.add .. " ",
+							modified = require("icons").git.modified .. " ",
+							removed = require("icons").git.removed .. " ",
 						},
 						separator = "",
 					},
@@ -341,7 +341,7 @@ return {
 						function()
 							local reg = vim.fn.reg_recording()
 							if reg == "" then return "" end
-							return require("icons").MacroRecording .. "  " .. reg
+							return require("icons").tools.macro_recording .. "  " .. reg
 						end,
 						cond = function() return vim.fn.reg_recording() ~= "" end,
 						color = "SpecialChar",
@@ -352,8 +352,8 @@ return {
 					{
 						function()
 							local linters = require("lint").get_running()
-							if #linters == 0 then return require("icons").Active .. " " end
-							return require("icons").Working .. "  " .. table.concat(linters, ", ")
+							if #linters == 0 then return require("icons").status.active .. " " end
+							return require("icons").status.working .. "  " .. table.concat(linters, ", ")
 						end,
 						color = function()
 							local linters = require("lint").get_running()
@@ -364,10 +364,10 @@ return {
 						"diagnostics",
 						padding = 2,
 						symbols = {
-							error = require("icons").DiagnosticError .. " ",
-							warn = require("icons").DiagnosticWarn .. " ",
-							info = require("icons").DiagnosticInfo .. " ",
-							hint = require("icons").DiagnosticHint .. " ",
+							error = require("icons").diagnostics.error .. " ",
+							warn = require("icons").diagnostics.warn .. " ",
+							info = require("icons").diagnostics.info .. " ",
+							hint = require("icons").diagnostics.hint .. " ",
 						},
 					},
 				},
@@ -412,10 +412,10 @@ return {
 						newfile_status = true,
 						path = 1,
 						symbols = {
-							modified = require("icons").FileModified,
-							readonly = require("icons").FileReadOnly,
-							unnamed = require("icons").FileNew,
-							newfile = require("icons").FileNew,
+							modified = require("icons").files.modified,
+							readonly = require("icons").files.read_only,
+							unnamed = require("icons").files.new,
+							newfile = require("icons").files.new,
 						},
 					},
 				},
@@ -443,10 +443,10 @@ return {
 						newfile_status = true,
 						path = 1,
 						symbols = {
-							modified = require("icons").FileModified,
-							readonly = require("icons").FileReadOnly,
-							unnamed = require("icons").FileNew,
-							newfile = require("icons").FileNew,
+							modified = require("icons").files.modified,
+							readonly = require("icons").files.read_only,
+							unnamed = require("icons").files.new,
+							newfile = require("icons").files.new,
 						},
 					},
 				},

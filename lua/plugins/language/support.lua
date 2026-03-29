@@ -49,9 +49,9 @@ return {
 			ui = {
 				border = vim.o.winborder,
 				icons = {
-					package_installed = require("icons").Check,
-					package_pending = require("icons").Working .. " ",
-					package_uninstalled = require("icons").Package,
+					package_installed = require("icons").status.check,
+					package_pending = require("icons").status.working .. " ",
+					package_uninstalled = require("icons").tools.package,
 				},
 			},
 		},

@@ -79,10 +79,10 @@ vim.diagnostic.config({
 	virtual_text = true,
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = require("icons").DiagnosticError,
-			[vim.diagnostic.severity.HINT] = require("icons").DiagnosticHint,
-			[vim.diagnostic.severity.WARN] = require("icons").DiagnosticWarn,
-			[vim.diagnostic.severity.INFO] = require("icons").DiagnosticInfo,
+			[vim.diagnostic.severity.ERROR] = require("icons").diagnostics.error,
+			[vim.diagnostic.severity.HINT] = require("icons").diagnostics.hint,
+			[vim.diagnostic.severity.WARN] = require("icons").diagnostics.warn,
+			[vim.diagnostic.severity.INFO] = require("icons").diagnostics.info,
 		},
 	},
 	jump = { border = vim.o.winborder, float = true },
@@ -92,10 +92,10 @@ vim.diagnostic.config({
 		header = "",
 		prefix = function(diagnostic)
 			local icon = {
-				[vim.diagnostic.severity.ERROR] = require("icons").DiagnosticError,
-				[vim.diagnostic.severity.HINT] = require("icons").DiagnosticHint,
-				[vim.diagnostic.severity.WARN] = require("icons").DiagnosticWarn,
-				[vim.diagnostic.severity.INFO] = require("icons").DiagnosticInfo,
+				[vim.diagnostic.severity.ERROR] = require("icons").diagnostics.error,
+				[vim.diagnostic.severity.HINT] = require("icons").diagnostics.hint,
+				[vim.diagnostic.severity.WARN] = require("icons").diagnostics.warn,
+				[vim.diagnostic.severity.INFO] = require("icons").diagnostics.info,
 			}
 
 			local highlight = {

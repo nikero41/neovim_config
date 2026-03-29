@@ -90,19 +90,19 @@ return {
 			---@type Gitsigns.config
 			return {
 				signs = {
-					add = { text = require("icons").GitSign },
-					change = { text = require("icons").GitSign },
-					delete = { text = require("icons").GitSignLine },
-					topdelete = { text = require("icons").GitSignLine },
-					changedelete = { text = require("icons").GitSign },
-					untracked = { text = require("icons").GitSign },
+					add = { text = require("icons").git.sign },
+					change = { text = require("icons").git.sign },
+					delete = { text = require("icons").git.sign_line },
+					topdelete = { text = require("icons").git.sign_line },
+					changedelete = { text = require("icons").git.sign },
+					untracked = { text = require("icons").git.sign },
 				},
 				signs_staged = {
-					add = { text = require("icons").GitSign },
-					change = { text = require("icons").GitSign },
-					delete = { text = require("icons").GitSignLine },
-					topdelete = { text = require("icons").GitSignLine },
-					changedelete = { text = require("icons").GitSign },
+					add = { text = require("icons").git.sign },
+					change = { text = require("icons").git.sign },
+					delete = { text = require("icons").git.sign_line },
+					topdelete = { text = require("icons").git.sign_line },
+					changedelete = { text = require("icons").git.sign },
 				},
 				on_attach = function(buffer)
 					keymaps:set_opts({ buffer = buffer })
@@ -129,8 +129,8 @@ return {
 		opts = {
 			explorer = {
 				icons = {
-					folder_closed = require("icons").FolderClosed,
-					folder_open = require("icons").FolderOpen,
+					folder_closed = require("icons").folders.closed,
+					folder_open = require("icons").folders.open,
 				},
 				focus_on_select = true,
 			},

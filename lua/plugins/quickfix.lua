@@ -24,7 +24,10 @@ return {
 			preview = { border = vim.o.winborder },
 		},
 		init = function()
-			vim.fn.sign_define("BqfSign", { text = " " .. require("icons").Selected, texthl = "BqfSign" })
+			vim.fn.sign_define(
+				"BqfSign",
+				{ text = " " .. require("icons").status.selected, texthl = "BqfSign" }
+			)
 		end,
 	},
 	{
