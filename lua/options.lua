@@ -72,6 +72,8 @@ vim.g.netrw_liststyle = 3
 -- Checkhealth
 vim.g.loaded_perl_provider = 0
 
+vim.opt.diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" }) -- enable linematch diff algorithm
+
 vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
