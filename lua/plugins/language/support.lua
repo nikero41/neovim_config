@@ -134,7 +134,7 @@ return {
 
 				-- Markdown
 				"marksman",
-				-- "markdownlint",
+				"markdownlint",
 
 				-- nginx
 				"nginx-config-formatter",
