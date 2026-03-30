@@ -121,21 +121,7 @@ function Autocmds:setup()
 	vim.api.nvim_create_autocmd("LspProgress", {
 		desc = "Show progress bar for LSP progress on terminal",
 		group = vim.api.nvim_create_augroup("terminal-progress-bar", { clear = true }),
-		callback = function(args)
-			local params = args.data and args.data.params or {}
-			local value = params.value or {}
-
-			local progress_bar = require("nikero.progress_bar")
-
-			if value.kind == "end" then
-				progress_bar:clear()
-				return
-			elseif value.percentage ~= nil then
-				progress_bar:progress(value.percentage)
-			else
-				progress_bar:loading()
-			end
-		end,
+		callback = function(args) require("nikero.progress_bar"):on_lsp_progress(args) end,
 	})
 end
 
