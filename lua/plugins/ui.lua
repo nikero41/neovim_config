@@ -347,7 +347,7 @@ return {
 					},
 				},
 				lualine_x = {
-					{ function() require("wtf").get_status() end },
+					{ function() return require("wtf").get_status() end },
 					{
 						function()
 							local linters = require("lint").get_running()
