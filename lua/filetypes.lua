@@ -60,6 +60,7 @@ function Filetypes:setup()
 			hl = "hyprlang",
 			just = "just",
 			pg = "sql",
+			templ = "templ",
 		},
 		filename = {
 			[".env"] = "dotenv",

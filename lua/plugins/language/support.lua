@@ -103,6 +103,8 @@ return {
 				"goimports",
 				"golangci-lint",
 				"golines",
+				"templ",
+				"prettier", -- for templ
 
 				-- Gradle
 				"gradle-language-server",

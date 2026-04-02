@@ -171,6 +171,7 @@ return {
 				nginx = { "nginxfmt" },
 				python = { "isort", "black" },
 				sql = { "sqlfluff" },
+				templ = { "templ" },
 			})
 
 			for _, filetype in ipairs({
