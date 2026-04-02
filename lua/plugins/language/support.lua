@@ -21,7 +21,6 @@ return {
 				end,
 			},
 		},
-		keys = { { "<leader>li", vim.cmd.LspInfo, desc = "LSP information" } },
 		opts = {
 			automatic_enable = {
 				exclude = { "rust_analyzer" },

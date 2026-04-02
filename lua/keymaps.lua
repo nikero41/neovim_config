@@ -152,6 +152,7 @@ keymaps:add_multiple({
 	{ "n", "gri", false },
 	{ "n", "grt", false },
 	{ "n", "gra", false },
+	{ "n", "<leader>li", function() vim.cmd.checkhealth("lsp") end, { desc = "LSP information" } },
 	{
 		{ "n", "x" },
 		"<leader>la",

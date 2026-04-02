@@ -8,6 +8,12 @@ function Commands:setup()
 		function() require("nikero.command_palette"):show() end,
 		{ desc = "Command Palette" }
 	)
+
+	vim.api.nvim_create_user_command("LspLog", function()
+		local lsp_log_path = vim.fs.joinpath(vim.fn.stdpath("state"), "lsp.log")
+		vim.cmd.tabnew(lsp_log_path)
+		vim.bo.modifiable = false
+	end, { desc = "Command Palette" })
 end
 
 return Commands
