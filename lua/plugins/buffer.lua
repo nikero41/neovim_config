@@ -57,7 +57,11 @@ return {
 		cmd = { "TSContext" },
 		---@module "treesitter-context"
 		---@type TSContext.UserConfig
-		opts = { multiwindow = true, mode = "topline" },
+		opts = {
+			multiwindow = true,
+			mode = "topline",
+			multiline_threshold = 10
+		},
 	},
 	{
 		"kevinhwang91/nvim-hlslens",
