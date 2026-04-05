@@ -29,14 +29,14 @@ return {
 		{
 			"<leader>hd",
 			function()
-				local harpoon_list = require("harpoon"):list().items
-				for index, item in pairs(harpoon_list) do
-					if string.find(vim.api.nvim_buf_get_name(0), item.value, 1, true) then
-						table.remove(harpoon_list, index)
-						require("lualine").refresh()
-						break
-					end
-				end
+				local buf_name = vim.api.nvim_buf_get_name(0)
+				local list = require("harpoon"):list()
+				local index = vim
+					.iter(list.items)
+					:enumerate()
+					:find(function(_, item) return string.find(buf_name, item.value, 1, true) end)
+				list:remove_at(index)
+				require("lualine").refresh()
 			end,
 			desc = "Remove current buffer from Harpoon",
 		},

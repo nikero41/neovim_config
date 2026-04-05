@@ -10,11 +10,10 @@ return {
 				"rcarriga/cmp-dap",
 				config = function()
 					local blink_avail, blink = pcall(require, "blink.cmp")
-					if blink_avail then
-						for _, dap_ft in ipairs({ "dap-repl", "dapui_watches", "dapui_hover" }) do
-							blink.add_filetype_source(dap_ft, "dap")
-						end
-					end
+					if not blink_avail then return end
+					vim
+						.iter({ "dap-repl", "dapui_watches", "dapui_hover" })
+						:each(function(dap_ft) blink.add_filetype_source(dap_ft, "dap") end)
 				end,
 				specs = {
 					{

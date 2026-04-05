@@ -51,7 +51,7 @@ end
 function Keymaps:set_opts(opts) self.opts = opts end
 
 ---@param keymap vim.api.keyset.get_keymap
-local function from_nvim_keymap(keymap)
+local function to_keymap(keymap)
 	---@type Keymap
 	return {
 		lhs = string.gsub(keymap.lhs, "^ ", "<leader>"),
@@ -121,7 +121,7 @@ local function get_global_keymaps()
 	local modes = { n = {}, i = {}, v = {}, x = {}, o = {}, c = {}, t = {}, s = {}, l = {} }
 
 	for mode in pairs(modes) do
-		modes[mode] = vim.iter(vim.api.nvim_get_keymap(mode)):map(from_nvim_keymap):totable()
+		modes[mode] = vim.iter(vim.api.nvim_get_keymap(mode)):map(to_keymap):totable()
 	end
 
 	return modes
@@ -136,7 +136,7 @@ local function get_buffer_keymaps(buffer)
 	local bufnr = (buffer == true or buffer == 0) and vim.api.nvim_get_current_buf() or buffer
 	if type(bufnr) ~= "number" then return modes end
 	for mode in pairs(modes) do
-		modes[mode] = vim.iter(vim.api.nvim_buf_get_keymap(bufnr, mode)):map(from_nvim_keymap):totable()
+		modes[mode] = vim.iter(vim.api.nvim_buf_get_keymap(bufnr, mode)):map(to_keymap):totable()
 	end
 
 	return modes
