@@ -255,18 +255,19 @@ return {
 					}
 				end
 
-				if vim.bo[buffer].modified then
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = vim.api.nvim_create_augroup("conform-" .. buffer, { clear = true }),
-						buffer = buffer,
-						callback = function()
-							require("conform").format({ async = false, bufnr = buffer, range = range })
-						end,
-						once = true,
-					})
-				else
+				if not vim.bo[buffer].modified then
 					require("conform").format({ async = true, bufnr = buffer, range = range })
+					return
 				end
+
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = vim.api.nvim_create_augroup("conform-" .. buffer, { clear = true }),
+					buffer = buffer,
+					callback = function()
+						require("conform").format({ async = false, bufnr = buffer, range = range })
+					end,
+					once = true,
+				})
 			end, { range = true, desc = "Format" })
 		end,
 	},
