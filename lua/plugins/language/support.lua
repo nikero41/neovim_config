@@ -7,7 +7,23 @@ return {
 			{
 				"neovim/nvim-lspconfig",
 				config = function()
-					vim.lsp.enable("sourcekit")
+					local extra_filetypes = {
+						html = { "templ" },
+						emmet_language_server = { "templ" },
+						tailwindcss = { "templ" },
+					}
+
+					for server, extra in pairs(extra_filetypes) do
+						local config = vim.lsp.config[server]
+						if not config then return end
+						vim.lsp.config(server, {
+							filetypes = vim
+								.iter(vim.tbl_extend("force", config.filetypes or {}, extra))
+								:unique()
+								:totable(),
+						})
+					end
+
 					vim.lsp.config("*", {
 						---@param client vim.lsp.Client The LSP client details when attaching
 						---@param buffer integer The buffer that the LSP client is attaching to
@@ -21,6 +37,7 @@ return {
 				end,
 			},
 		},
+		---@type MasonLspconfigSettings
 		opts = {
 			automatic_enable = {
 				exclude = { "rust_analyzer" },
@@ -30,6 +47,7 @@ return {
 	{
 		"mrjones2014/codesettings.nvim",
 		lazy = false, -- this plugin since it already lazy loads
+		---@type CodesettingsConfigOverrides
 		opts = {
 			loader_extensions = {
 				"codesettings.extensions.vscode",
