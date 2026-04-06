@@ -13,16 +13,18 @@ return {
 						tailwindcss = { "templ" },
 					}
 
-					for server, extra in pairs(extra_filetypes) do
-						local config = vim.lsp.config[server]
-						if not config then return end
-						vim.lsp.config(server, {
-							filetypes = vim
-								.iter(vim.tbl_extend("force", config.filetypes or {}, extra))
-								:unique()
-								:totable(),
-						})
-					end
+					vim
+						.iter(extra_filetypes)
+						:enumerate()
+						:filter(function(server) return not not vim.lsp.config[server] end)
+						:each(function(server)
+							local config = vim.lsp.config[server] or {}
+							vim.lsp.config(server, {
+								filetypes = vim.list.unique(
+									vim.tbl_extend("force", config.filetypes or {}, extra_filetypes[server])
+								),
+							})
+						end)
 
 					vim.lsp.config("*", {
 						---@param client vim.lsp.Client The LSP client details when attaching
