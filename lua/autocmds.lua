@@ -27,32 +27,36 @@ function Autocmds:setup()
 		callback = function(args)
 			if vim.b[args.buf].file_checked then return end
 			vim.b[args.buf].file_checked = true
-			vim.schedule(function()
-				if not vim.api.nvim_buf_is_valid(args.buf) then return end
+			if not vim.api.nvim_buf_is_valid(args.buf) then return end
 
-				local current_file = vim.api.nvim_buf_get_name(args.buf)
-				local buftype = vim.bo[args.buf].buftype
-				if not vim.bo[args.buf].buflisted or current_file == "" or buftype ~= "" then return end
+			local current_file = vim.api.nvim_buf_get_name(args.buf)
+			local buftype = vim.bo[args.buf].buftype
+			if not vim.bo[args.buf].buflisted or current_file == "" or buftype ~= "" then return end
 
-				local skip_augroups = {}
-				for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = args.event })) do
-					if autocmd.group_name then skip_augroups[autocmd.group_name] = true end
-				end
-
-				skip_augroups["filetypedetect"] = false -- don't skip filetypedetect events
-				vim.api.nvim_exec_autocmds("User", { pattern = "File", modeline = false })
-
-				vim.schedule(function()
-					for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = args.event })) do
-						if autocmd.group_name and not skip_augroups[autocmd.group_name] then
-							vim.api.nvim_exec_autocmds(
-								args.event,
-								{ group = autocmd.group_name, buffer = args.buf, data = args.data }
-							)
-							skip_augroups[autocmd.group_name] = true
-						end
-					end
+			local skip_augroups = vim
+				.iter(vim.api.nvim_get_autocmds({ event = args.event }))
+				:filter(function(autocmd) return autocmd.group_name end)
+				:fold({}, function(acc, autocmd)
+					acc[autocmd.group_name] = true
+					return acc
 				end)
+
+			skip_augroups["filetypedetect"] = false -- don't skip filetypedetect events
+			vim.api.nvim_exec_autocmds("User", { pattern = "File", modeline = false })
+
+			vim.schedule(function()
+				vim
+					.iter(vim.api.nvim_get_autocmds({ event = args.event }))
+					:filter(
+						function(autocmd) return autocmd.group_name and not skip_augroups[autocmd.group_name] end
+					)
+					:each(function(autocmd)
+						vim.api.nvim_exec_autocmds(
+							args.event,
+							{ group = autocmd.group_name, buffer = args.buf, data = args.data }
+						)
+						skip_augroups[autocmd.group_name] = true
+					end)
 			end)
 		end,
 	})
