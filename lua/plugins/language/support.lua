@@ -25,17 +25,6 @@ return {
 								),
 							})
 						end)
-
-					vim.lsp.config("*", {
-						---@param client vim.lsp.Client The LSP client details when attaching
-						---@param buffer integer The buffer that the LSP client is attaching to
-						on_attach = function(client, buffer)
-							if client:supports_method("textDocument/codeLens", buffer) then
-								vim.lsp.codelens.enable(true, { bufnr = buffer })
-							end
-							vim.lsp.inlay_hint.enable()
-						end,
-					})
 				end,
 			},
 		},
