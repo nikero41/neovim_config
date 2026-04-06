@@ -46,7 +46,7 @@ return {
 						"diff",
 						diff_color = {
 							added = "@diff.plus",
-							modified = "@diff.delta",
+							modified = "NeoTreeGitModified",
 							removed = "@diff.minus",
 						},
 						symbols = {
