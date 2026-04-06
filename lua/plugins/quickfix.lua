@@ -98,8 +98,7 @@ return {
 
 								local should_close = vim.tbl_count(
 									vim
-										.iter(results)
-										:enumerate()
+										.iter(ipairs(results))
 										:filter(
 											function(pos_id, result)
 												return result.status ~= "failed" and tree:get_key(pos_id)
