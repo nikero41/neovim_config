@@ -15,27 +15,14 @@ return {
 
 					vim
 						.iter(extra_filetypes)
-						:enumerate()
 						:filter(function(server) return not not vim.lsp.config[server] end)
-						:each(function(server)
+						:each(function(server, extra)
 							local config = vim.lsp.config[server] or {}
+							local filetypes = vim.deepcopy(config.filetypes or {})
 							vim.lsp.config(server, {
-								filetypes = vim.list.unique(
-									vim.tbl_extend("force", config.filetypes or {}, extra_filetypes[server])
-								),
+								filetypes = vim.list.unique(vim.list_extend(filetypes, extra)),
 							})
 						end)
-
-					vim.lsp.config("*", {
-						---@param client vim.lsp.Client The LSP client details when attaching
-						---@param buffer integer The buffer that the LSP client is attaching to
-						on_attach = function(client, buffer)
-							if client:supports_method("textDocument/codeLens", buffer) then
-								vim.lsp.codelens.enable(true, { bufnr = buffer })
-							end
-							vim.lsp.inlay_hint.enable()
-						end,
-					})
 				end,
 			},
 		},
