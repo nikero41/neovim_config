@@ -70,15 +70,16 @@ function Autocmds:setup()
 			local has_lsp_folding = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
 				function(client) return client:supports_method("textDocument/foldingRange") end
 			)
-
 			local foldexpr = has_lsp_folding and "v:lua.vim.lsp.foldexpr()"
 				or "v:lua.vim.treesitter.foldexpr()"
-			for _, winid in ipairs(vim.fn.win_findbuf(args.buf)) do
-				if vim.wo[winid].foldexpr ~= foldexpr then
+
+			vim
+				.iter(vim.fn.win_findbuf(args.buf))
+				:filter(function(winid) return vim.wo[winid].foldexpr ~= foldexpr end)
+				:each(function(winid)
 					vim.wo[winid].foldexpr = foldexpr
 					vim.api.nvim_win_call(winid, function() vim.cmd("normal! zx") end)
-				end
-			end
+				end)
 		end,
 	})
 
