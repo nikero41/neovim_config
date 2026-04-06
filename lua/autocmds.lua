@@ -87,6 +87,43 @@ function Autocmds:setup()
 		end,
 	})
 
+	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+		desc = "Don't use LSP document colors if available",
+		group = vim.api.nvim_create_augroup("lsp-document-colors", { clear = true }),
+		callback = function(args)
+			local has_document_color = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
+				function(client) return client:supports_method("textDocument/documentColor") end
+			)
+			if has_document_color then
+				vim.lsp.document_color.enable(false, { bufnr = args.buf }, { style = "virtual" })
+			end
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+		desc = "Enable inlay hints",
+		group = vim.api.nvim_create_augroup("lsp-inlay-hints", { clear = true }),
+		callback = function(args)
+			local has_inlay_hints = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
+				function(client) return client:supports_method("textDocument/inlayHint") end
+			)
+			if has_inlay_hints then vim.lsp.inlay_hint.enable(true, { bufnr = args.buf }) end
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+		desc = "Enable code lens",
+		group = vim.api.nvim_create_augroup("lsp-code-lens", { clear = true }),
+		callback = function(args)
+			local has_code_lens = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
+				function(client) return client:supports_method("textDocument/codeLens") end
+			)
+			local should_enable =
+				not vim.tbl_contains(require("nikero.config").hide_code_lens_ft, vim.bo[args.buf].filetype)
+			if has_code_lens then vim.lsp.codelens.enable(should_enable, { bufnr = args.buf }) end
+		end,
+	})
+
 	vim.api.nvim_create_autocmd("VimResized", {
 		desc = "Resize splits if window got resized",
 		group = vim.api.nvim_create_augroup("resize-splits", { clear = true }),
