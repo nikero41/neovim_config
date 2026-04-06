@@ -26,6 +26,7 @@ return {
 							"project",
 							format = "short",
 							no_project = "N/A",
+							on_click = function() vim.cmd.Project() end,
 							color = { fg = colors.blue },
 						},
 						{
