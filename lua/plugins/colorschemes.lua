@@ -126,7 +126,7 @@ return {
 					all = function(colors)
 						return {
 							normal = {
-								c = { bg = colors.base, fg = colors.text },
+								c = { bg = colors.mantle, fg = colors.text },
 							},
 							inactive = {
 								a = { bg = colors.base, fg = colors.blue },

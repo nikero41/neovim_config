@@ -6,8 +6,8 @@ return {
 		opts = {
 			options = {
 				theme = "auto",
-				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {},
 					winbar = { "neo-tree", "snacks_dashboard", "qf", "noice", "trouble", "help" },
@@ -17,61 +17,54 @@ return {
 			},
 			sections = {
 				lualine_a = {},
-				lualine_b = {
-					{
-						-- Separator to set the left edge
-						function() return "" end,
-						draw_empty = true,
-						separator = { left = "" },
-					},
-					{ "project", format = "short", no_project = "N/A" },
-					{ "branch", on_click = function() Snacks.lazygit() end },
-					"filetype",
-				},
+				lualine_b = {},
 				lualine_c = {
 					{
-						-- harpoon
-						function(fmt)
-							local current_file = vim.fn.expand("%:p")
-							return vim
-								.iter(ipairs(require("harpoon"):list().items))
-								:map(function(index, item)
-									local file_path = vim.fn.fnamemodify(item.value, ":p")
-									local icon, hl = require("mini.icons").get("file", file_path)
-									local new_hl = require("nikero.lualine"):statusline_icon_hl(hl, fmt.default_hl)
-									local icon_str = "%#" .. new_hl .. "#" .. icon .. "%*" .. fmt.default_hl
-
-									local value = string.format("%s %d", icon_str, index)
-
-									if file_path == current_file then
-										value = string.format("(%s)", value)
-									else
-										value = string.format(" %s ", value)
-									end
-
-									return value
-								end)
-								:join("")
+						"project",
+						format = "short",
+						no_project = "N/A",
+						color = function()
+							return { fg = require("catppuccin.palettes").get_palette("mocha").blue }
 						end,
 					},
 					{
+						"branch",
+						icon = require("icons").git.branch,
+						on_click = function() Snacks.lazygit() end,
+						color = function()
+							return { fg = require("catppuccin.palettes").get_palette("mocha").green }
+						end,
+					},
+					{ "filetype", separator = "│" },
+					{
+						function(fmt) return require("nikero.lualine"):harpoon_widget(fmt.default_hl) end,
+						condition = function() return #require("harpoon"):list().items ~= 0 end,
+						separator = "│",
+						padding = 0,
+					},
+					{
 						"diff",
-						padding = { left = 2 },
+						diff_color = {
+							added = "@diff.plus",
+							modified = "@diff.delta",
+							removed = "@diff.minus",
+						},
 						symbols = {
 							added = require("icons").git.add .. " ",
 							modified = require("icons").git.modified .. " ",
 							removed = require("icons").git.removed .. " ",
 						},
-						separator = "",
 					},
-					{ "%=", separator = "" },
 					{
+						-- q recording
 						function()
 							local reg = vim.fn.reg_recording()
 							if reg == "" then return "" end
-							return require("icons").tools.macro_recording .. "  " .. reg
+							return "%=" .. require("icons").tools.macro_recording .. "  " .. reg
 						end,
 						cond = function() return vim.fn.reg_recording() ~= "" end,
+						-- TODO:
+						color = "SpecialChar",
 					},
 				},
 				lualine_x = {
@@ -79,17 +72,15 @@ return {
 					{
 						function()
 							local linters = require("lint").get_running()
-							if #linters == 0 then return require("icons").status.active .. " " end
 							return require("icons").status.working .. "  " .. table.concat(linters, ", ")
 						end,
+						cond = function() return #require("lint").get_running() ~= 0 end,
 						color = function()
-							local linters = require("lint").get_running()
-							return { fg = #linters == 0 and "#33aa88" or nil }
+							return { fg = require("catppuccin.palettes").get_palette("mocha").peach }
 						end,
 					},
 					{
 						"diagnostics",
-						padding = 2,
 						symbols = {
 							error = require("icons").diagnostics.error .. " ",
 							warn = require("icons").diagnostics.warn .. " ",
@@ -97,11 +88,20 @@ return {
 							hint = require("icons").diagnostics.hint .. " ",
 						},
 					},
+					{
+						"progress",
+						color = function()
+							return { fg = require("catppuccin.palettes").get_palette("mocha").flamingo }
+						end,
+					},
+					{
+						"location",
+						color = function()
+							return { fg = require("catppuccin.palettes").get_palette("mocha").mauve }
+						end,
+					},
 				},
-				lualine_y = {
-					{ "progress", padding = { left = 1, right = 2 } },
-					{ "location", separator = { right = "" } },
-				},
+				lualine_y = {},
 				lualine_z = {},
 			},
 			tabline = {
@@ -126,14 +126,10 @@ return {
 			winbar = {
 				lualine_a = {},
 				lualine_b = {
-					{
-						"filetype",
-						separator = { left = "" },
-						padding = { left = 1, right = 0 },
-						icon_only = true,
-					},
+					{ "filetype", icon_only = true },
 					{
 						"filename",
+						separator = { right = "" },
 						padding = { left = 0, right = 1 },
 						file_status = true,
 						newfile_status = true,
@@ -156,15 +152,10 @@ return {
 			inactive_winbar = {
 				lualine_a = {},
 				lualine_b = {
-					{
-						"filetype",
-						separator = "",
-						padding = { left = 2, right = 0 },
-						colored = false,
-						icon_only = true,
-					},
+					{ "filetype", colored = false, icon_only = true },
 					{
 						"filename",
+						separator = { right = "" },
 						padding = { left = 0, right = 1 },
 						file_status = true,
 						newfile_status = true,
