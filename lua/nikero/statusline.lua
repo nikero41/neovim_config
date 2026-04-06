@@ -6,7 +6,8 @@ function StatusLine:statusline_icon_hl(icon_hl, default_hl_token)
 	local base_hl = default_hl_token:match("%%#(.-)#") or default_hl_token
 	local group = ("LualineIcon_%s_%s"):format(base_hl, icon_hl):gsub("[^%w_]", "_")
 	local icon = vim.api.nvim_get_hl(0, { name = group, link = false })
-	if icon == vim.empty_dict() then return group end
+
+	if next(icon) ~= nil then return group end
 
 	local base = vim.api.nvim_get_hl(0, { name = base_hl, link = false })
 	local new_icon = vim.api.nvim_get_hl(0, { name = icon_hl, link = false })
