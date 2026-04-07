@@ -207,7 +207,6 @@ keymaps:add_multiple({
 		"n",
 		"<leader>lr",
 		function()
-			vim.notify("🪚 ⭐")
 			vim.lsp.buf.rename(nil, {
 				---@type snacks.input.Config
 				snacks = {
