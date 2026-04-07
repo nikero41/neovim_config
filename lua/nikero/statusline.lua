@@ -53,7 +53,11 @@ function StatusLine:harpoon_widget(default_hl)
 	)
 
 	local start_index = 1
-	if #items > MAX_DISPLAYED_WIDGETS and active_index ~= nil and active_index >= MAX_DISPLAYED_WIDGETS - 1 then
+	if
+		#items > MAX_DISPLAYED_WIDGETS
+		and active_index ~= nil
+		and active_index >= MAX_DISPLAYED_WIDGETS - 1
+	then
 		start_index = math.min(math.max(active_index - 1, 0), #items - MAX_DISPLAYED_WIDGETS + 1)
 	end
 
