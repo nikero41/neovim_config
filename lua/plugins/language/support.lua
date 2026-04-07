@@ -26,6 +26,7 @@ return {
 				end,
 			},
 		},
+		---@module "mason-lspconfig"
 		---@type MasonLspconfigSettings
 		opts = {
 			automatic_enable = {
@@ -49,7 +50,7 @@ return {
 		"mason-org/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
 		build = ":MasonUpdate",
-		---@module 'mason'
+		---@module "mason"
 		---@type MasonSettings
 		opts = {
 			ui = {
