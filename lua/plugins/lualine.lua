@@ -51,12 +51,6 @@ return {
 							on_click = function() Snacks.lazygit() end,
 						},
 						{
-							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
-							cond = function() return #require("harpoon"):list().items ~= 0 end,
-							separator = "│",
-							padding = 0,
-						},
-						{
 							"diff",
 							diff_color = {
 								added = "@diff.plus",
@@ -89,6 +83,12 @@ return {
 							end,
 							cond = function() return #require("lint").get_running() ~= 0 end,
 							color = { fg = colors.peach },
+						},
+						{
+							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
+							cond = function() return #require("harpoon"):list().items ~= 0 end,
+							separator = "│",
+							padding = 0,
 						},
 						{ "progress", color = { fg = colors.flamingo } },
 						{ "location", color = { fg = colors.mauve } },
