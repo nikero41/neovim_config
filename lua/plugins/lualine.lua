@@ -1,3 +1,17 @@
+local function print_filetype()
+	local winid = vim.fn.getmousepos().winid
+	if winid == 0 or not vim.api.nvim_win_is_valid(winid) then return end
+
+	local bufnr = vim.api.nvim_win_get_buf(winid)
+	local file_path = vim.api.nvim_buf_get_name(bufnr)
+	local icon, hl = require("mini.icons").get("file", file_path)
+	vim.notify(("%s %s"):format(icon, vim.bo[bufnr].filetype), vim.log.levels.INFO, {
+		title = vim.fs.basename(file_path),
+		---@diagnostic disable-next-line: missing-fields
+		hl = { msg = hl },
+	})
+end
+
 ---@type LazySpec
 return {
 	{
@@ -32,10 +46,10 @@ return {
 						{
 							"branch",
 							icon = require("icons").git.branch,
-							on_click = function() Snacks.lazygit() end,
 							color = { fg = colors.green },
+							separator = "│",
+							on_click = function() Snacks.lazygit() end,
 						},
-						{ "filetype", separator = "│" },
 						{
 							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
 							cond = function() return #require("harpoon"):list().items ~= 0 end,
@@ -113,7 +127,7 @@ return {
 				winbar = {
 					lualine_a = {},
 					lualine_b = {
-						{ "filetype", icon_only = true },
+						{ "filetype", icon_only = true, on_click = print_filetype },
 						{
 							"filename",
 							separator = { right = "" },
@@ -139,7 +153,7 @@ return {
 				inactive_winbar = {
 					lualine_a = {},
 					lualine_b = {
-						{ "filetype", colored = false, icon_only = true },
+						{ "filetype", colored = false, icon_only = true, on_click = print_filetype },
 						{
 							"filename",
 							separator = { right = "" },
