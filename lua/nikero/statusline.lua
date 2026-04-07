@@ -4,7 +4,7 @@ local StatusLine = {}
 
 function StatusLine:statusline_icon_hl(icon_hl, default_hl_token)
 	local base_hl = default_hl_token:match("%%#(.-)#") or default_hl_token
-	local group = ("LualineIcon_%s_%s"):format(base_hl, icon_hl):gsub("[^%w_]", "_")
+	local group = ("Nikero_%s_%s"):format(base_hl, icon_hl):gsub("[^%w_]", "_")
 	local icon = vim.api.nvim_get_hl(0, { name = group, link = false })
 
 	if next(icon) ~= nil then return group end
