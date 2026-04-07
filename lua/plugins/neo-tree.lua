@@ -22,8 +22,8 @@ return {
 			vim.lsp.config("*", { capabilities = require(plugin.main).default_capabilities() })
 		end,
 		init = function(plugin)
-			require("nikero.plugin_helpers"):after_load(
-				{ "neo-tree.nvim" },
+			require("snacks").util.on_module(
+				"neo-tree",
 				function() require("lazy").load({ plugins = { plugin.name } }) end
 			)
 		end,

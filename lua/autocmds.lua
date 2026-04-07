@@ -3,67 +3,6 @@
 ---@field lsp_setup fun(self: Autocmds)
 local Autocmds = {}
 
-function Autocmds:lsp_setup()
-	local events = { "BufEnter", "LspAttach" }
-
-	vim.api.nvim_create_autocmd(events, {
-		desc = "Use LSP folding if available",
-		group = vim.api.nvim_create_augroup("lsp-folding", { clear = true }),
-		callback = function(args)
-			local has_lsp_folding = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
-				function(client) return client:supports_method("textDocument/foldingRange") end
-			)
-			local foldexpr = has_lsp_folding and "v:lua.vim.lsp.foldexpr()"
-				or "v:lua.vim.treesitter.foldexpr()"
-
-			vim
-				.iter(vim.fn.win_findbuf(args.buf))
-				:filter(function(winid) return vim.wo[winid].foldexpr ~= foldexpr end)
-				:each(function(winid)
-					vim.wo[winid].foldexpr = foldexpr
-					vim.api.nvim_win_call(winid, function() vim.cmd("normal! zx") end)
-				end)
-		end,
-	})
-
-	vim.api.nvim_create_autocmd(events, {
-		desc = "Don't use LSP document colors if available",
-		group = vim.api.nvim_create_augroup("lsp-document-colors", { clear = true }),
-		callback = function(args)
-			local has_document_color = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
-				function(client) return client:supports_method("textDocument/documentColor") end
-			)
-			if has_document_color then
-				vim.lsp.document_color.enable(false, { bufnr = args.buf }, { style = "virtual" })
-			end
-		end,
-	})
-
-	vim.api.nvim_create_autocmd(events, {
-		desc = "Enable inlay hints",
-		group = vim.api.nvim_create_augroup("lsp-inlay-hints", { clear = true }),
-		callback = function(args)
-			local has_inlay_hints = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
-				function(client) return client:supports_method("textDocument/inlayHint") end
-			)
-			if has_inlay_hints then vim.lsp.inlay_hint.enable(true, { bufnr = args.buf }) end
-		end,
-	})
-
-	vim.api.nvim_create_autocmd(events, {
-		desc = "Enable code lens",
-		group = vim.api.nvim_create_augroup("lsp-code-lens", { clear = true }),
-		callback = function(args)
-			local has_code_lens = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):any(
-				function(client) return client:supports_method("textDocument/codeLens") end
-			)
-			local should_enable =
-				not vim.tbl_contains(require("nikero.config").hide_code_lens_ft, vim.bo[args.buf].filetype)
-			if has_code_lens then vim.lsp.codelens.enable(should_enable, { bufnr = args.buf }) end
-		end,
-	})
-end
-
 function Autocmds:setup()
 	-- Custom "User File" Event
 	--
@@ -120,6 +59,49 @@ function Autocmds:setup()
 						skip_augroups[autocmd.group_name] = true
 					end)
 			end)
+		end,
+	})
+
+	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
+		desc = "Use LSP folding if available",
+		group = vim.api.nvim_create_augroup("lsp-folding", { clear = true }),
+		callback = function(args)
+			local functionality = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):fold(
+				{ folding = false, document_color = false, inlay_hints = false, code_lens = false },
+				---@param client vim.lsp.Client
+				function(acc, client)
+					return {
+						folding = client:supports_method("textDocument/foldingRange") or acc.folding,
+						document_color = client:supports_method("textDocument/documentColor") or acc.folding,
+						inlay_hints = client:supports_method("textDocument/inlayHint") or acc.folding,
+						code_lens = client:supports_method("textDocument/codeLens") or acc.folding,
+					}
+				end
+			)
+
+			local foldexpr = functionality.folding and "v:lua.vim.lsp.foldexpr()"
+				or "v:lua.vim.treesitter.foldexpr()"
+			vim
+				.iter(vim.fn.win_findbuf(args.buf))
+				:filter(function(winid) return vim.wo[winid].foldexpr ~= foldexpr end)
+				:each(function(winid)
+					vim.wo[winid].foldexpr = foldexpr
+					vim.api.nvim_win_call(winid, function() vim.cmd("normal! zx") end)
+				end)
+
+			if functionality.inlay_hints then vim.lsp.inlay_hint.enable(true, { bufnr = args.buf }) end
+
+			if functionality.code_lens then
+				local should_enable = not vim.tbl_contains(
+					require("nikero.config").hide_code_lens_ft,
+					vim.bo[args.buf].filetype
+				)
+				vim.lsp.codelens.enable(should_enable, { bufnr = args.buf })
+			end
+
+			if functionality.document_color then
+				vim.lsp.document_color.enable(false, { bufnr = args.buf }, { style = "virtual" })
+			end
 		end,
 	})
 
