@@ -12,14 +12,7 @@ return {
 			end,
 			desc = "Toggle Harpoon",
 		},
-		{
-			"<leader>ha",
-			function()
-				require("harpoon"):list():add()
-				require("lualine").refresh()
-			end,
-			desc = "Add file to Harpoon",
-		},
+		{ "<leader>ha", function() require("harpoon"):list():add() end, desc = "Add file to Harpoon" },
 		{ "<C-p>", function() require("harpoon"):list():prev() end, desc = "Previous Harpoon file" },
 		{ "<C-n>", function() require("harpoon"):list():next() end, desc = "Next Harpoon file" },
 		{ "<M-z>", function() require("harpoon"):list():select(1) end, desc = "Goto 1 of mark" },
@@ -36,7 +29,6 @@ return {
 					:enumerate()
 					:find(function(_, item) return string.find(buf_name, item.value, 1, true) end)
 				list:remove_at(index)
-				require("lualine").refresh()
 			end,
 			desc = "Remove current buffer from Harpoon",
 		},
@@ -78,6 +70,11 @@ return {
 					{ buf = cx.bufnr }
 				)
 			end,
+			ADD = function() require("lualine").refresh() end,
+			REMOVE = function() require("lualine").refresh() end,
+			REORDER = function() require("lualine").refresh() end,
+			POSITION_UPDATED = function() require("lualine").refresh() end,
+			LIST_CHANGE = function() require("lualine").refresh() end,
 		})
 	end,
 }
