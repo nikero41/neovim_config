@@ -38,7 +38,7 @@ return {
 						{ "filetype", separator = "│" },
 						{
 							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
-							condition = function() return #require("harpoon"):list().items ~= 0 end,
+							cond = function() return #require("harpoon"):list().items ~= 0 end,
 							separator = "│",
 							padding = 0,
 						},
