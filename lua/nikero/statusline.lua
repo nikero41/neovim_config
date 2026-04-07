@@ -58,7 +58,7 @@ function StatusLine:harpoon_widget(default_hl)
 		and active_index ~= nil
 		and active_index >= MAX_DISPLAYED_WIDGETS - 1
 	then
-		start_index = math.min(math.max(active_index - 1, 0), #items - MAX_DISPLAYED_WIDGETS + 1)
+		start_index = math.max(math.min(active_index - 1, #items - MAX_DISPLAYED_WIDGETS + 1), 0)
 	end
 
 	local widgets = vim
@@ -69,7 +69,7 @@ function StatusLine:harpoon_widget(default_hl)
 		:join("")
 
 	if start_index ~= 1 then widgets = string.gsub(widgets, "^%s", "<") end
-	if start_index ~= #items - MAX_DISPLAYED_WIDGETS + 1 then
+	if #items > MAX_DISPLAYED_WIDGETS and start_index ~= #items - MAX_DISPLAYED_WIDGETS + 1 then
 		widgets = string.gsub(widgets, "%s$", ">")
 	end
 
