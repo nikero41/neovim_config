@@ -90,15 +90,6 @@ return {
 							cond = function() return #require("lint").get_running() ~= 0 end,
 							color = { fg = colors.peach },
 						},
-						{
-							"diagnostics",
-							symbols = {
-								error = require("icons").diagnostics.error .. " ",
-								warn = require("icons").diagnostics.warn .. " ",
-								info = require("icons").diagnostics.info .. " ",
-								hint = require("icons").diagnostics.hint .. " ",
-							},
-						},
 						{ "progress", color = { fg = colors.flamingo } },
 						{ "location", color = { fg = colors.mauve } },
 					},
@@ -147,7 +138,18 @@ return {
 						{ "navic", color_correction = "static", draw_empty = true },
 					},
 					lualine_x = {},
-					lualine_y = {},
+					lualine_y = {
+						{
+							"diagnostics",
+							symbols = {
+								error = require("icons").diagnostics.error .. " ",
+								warn = require("icons").diagnostics.warn .. " ",
+								info = require("icons").diagnostics.info .. " ",
+								hint = require("icons").diagnostics.hint .. " ",
+							},
+							separator = { left = "" },
+						},
+					},
 					lualine_z = {},
 				},
 				inactive_winbar = {
@@ -170,7 +172,18 @@ return {
 						},
 					},
 					lualine_c = {},
-					lualine_x = {},
+					lualine_x = {
+						{
+							"diagnostics",
+							symbols = {
+								error = require("icons").diagnostics.error .. " ",
+								warn = require("icons").diagnostics.warn .. " ",
+								info = require("icons").diagnostics.info .. " ",
+								hint = require("icons").diagnostics.hint .. " ",
+							},
+							separator = { left = "" },
+						},
+					},
 					lualine_y = {},
 					lualine_z = {},
 				},
