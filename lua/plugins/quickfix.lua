@@ -87,6 +87,7 @@ return {
 			},
 			{
 				"nvim-neotest/neotest",
+				---@module "neotest"
 				---@type neotest.Config
 				---@diagnostic disable-next-line: missing-fields
 				opts = {
@@ -101,7 +102,7 @@ return {
 										.iter(results)
 										:filter(
 											function(pos_id, result)
-												return result.status ~= "failed" and tree:get_key(pos_id)
+												return result.status ~= "failed" and tree:get_key(pos_id) ~= nil
 											end
 										)
 										:totable()
