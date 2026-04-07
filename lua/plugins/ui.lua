@@ -215,6 +215,7 @@ return {
 		keys = {
 			{
 				"<leader>fy",
+				---@diagnostic disable-next-line: undefined-field
 				function() Snacks.picker.yanky() end,
 				desc = "Open Yank History",
 				mode = { "n", "x" },

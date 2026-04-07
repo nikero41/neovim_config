@@ -73,6 +73,7 @@ return {
 			callback = function()
 				_G.dd = function(...) Snacks.debug.inspect(...) end
 				_G.bt = function() Snacks.debug.backtrace() end
+				---@diagnostic disable-next-line: duplicate-set-field
 				vim._print = function(_, ...) Snacks.debug.inspect(...) end
 
 				Snacks.toggle.inlay_hints():map("<leader>uh")

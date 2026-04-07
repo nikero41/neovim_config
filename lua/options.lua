@@ -88,7 +88,7 @@ vim.diagnostic.config({
 	jump = {
 		on_jump = function(diagnostic, buffer)
 			if not diagnostic then return end
-			vim.diagnostic.open_float(buffer or 0, { scope = "cursor", focus = false })
+			vim.diagnostic.open_float({ bufnr = buffer, scope = "cursor", focus = false })
 		end,
 	},
 	float = {

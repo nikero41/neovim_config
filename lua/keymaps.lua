@@ -122,25 +122,33 @@ keymaps:add_multiple({
 	{
 		"n",
 		"[e",
-		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "ERROR" }) end,
+		function()
+			vim.diagnostic.jump({ count = -vim.v.count1, severity = vim.diagnostic.severity.ERROR })
+		end,
 		{ desc = "Previous error" },
 	},
 	{
 		"n",
 		"]e",
-		function() vim.diagnostic.jump({ count = vim.v.count1, severity = "ERROR" }) end,
+		function()
+			vim.diagnostic.jump({ count = vim.v.count1, severity = vim.diagnostic.severity.ERROR })
+		end,
 		{ desc = "Next error" },
 	},
 	{
 		"n",
 		"[w",
-		function() vim.diagnostic.jump({ count = -vim.v.count1, severity = "WARN" }) end,
+		function()
+			vim.diagnostic.jump({ count = -vim.v.count1, severity = vim.diagnostic.severity.WARN })
+		end,
 		{ desc = "Previous warning" },
 	},
 	{
 		"n",
 		"]w",
-		function() vim.diagnostic.jump({ count = vim.v.count1, severity = "WARN" }) end,
+		function()
+			vim.diagnostic.jump({ count = vim.v.count1, severity = vim.diagnostic.severity.WARN })
+		end,
 		{ desc = "Next warning" },
 	},
 })
@@ -198,7 +206,17 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>lr",
-		function() vim.lsp.buf.rename() end,
+		function()
+			vim.notify("🪚 ⭐")
+			vim.lsp.buf.rename(nil, {
+				---@type snacks.input.Config
+				snacks = {
+					win = {
+						relative = "cursor",
+					},
+				},
+			})
+		end,
 		{ desc = "Rename current symbol", lsp = { method = "textDocument/rename" } },
 	},
 	{
