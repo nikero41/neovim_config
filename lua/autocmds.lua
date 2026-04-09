@@ -63,8 +63,8 @@ function Autocmds:setup()
 	})
 
 	vim.api.nvim_create_autocmd({ "BufEnter", "LspAttach" }, {
-		desc = "Use LSP folding if available",
-		group = vim.api.nvim_create_augroup("lsp-folding", { clear = true }),
+		desc = "Set LSP functionality",
+		group = vim.api.nvim_create_augroup("lsp-functionality", { clear = true }),
 		callback = function(args)
 			local functionality = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):fold(
 				{ folding = false, document_color = false, inlay_hints = false, code_lens = false },
@@ -75,6 +75,8 @@ function Autocmds:setup()
 						document_color = client:supports_method("textDocument/documentColor") or acc.folding,
 						inlay_hints = client:supports_method("textDocument/inlayHint") or acc.folding,
 						code_lens = client:supports_method("textDocument/codeLens") or acc.folding,
+						semantic_token = client:supports_method("textDocument/semanticTokens/full")
+							or acc.semantic_token,
 					}
 				end
 			)
@@ -101,6 +103,10 @@ function Autocmds:setup()
 
 			if functionality.document_color then
 				vim.lsp.document_color.enable(false, { bufnr = args.buf }, { style = "virtual" })
+			end
+
+			if functionality.semantic_token then
+				vim.lsp.semantic_tokens.enable(true, { bufnr = args.buf })
 			end
 		end,
 	})
