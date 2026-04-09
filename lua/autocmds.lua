@@ -152,8 +152,6 @@ function Autocmds:setup()
 		group = vim.api.nvim_create_augroup("terminal-progress-bar", { clear = true }),
 		callback = function(args) require("nikero.progress_bar"):on_lsp_progress(args) end,
 	})
-
-	self:lsp_setup()
 end
 
 return Autocmds
