@@ -159,6 +159,7 @@ return {
 		event = "User File",
 		cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 		keys = {
+			---@diagnostic disable-next-line: undefined-field
 			{ "<leader>ft", function() Snacks.picker.todo_comments() end, desc = "Find TODO comments" },
 		},
 		opts = {},

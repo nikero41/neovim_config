@@ -34,6 +34,7 @@ function Highlights:get()
 	local colors = require("catppuccin.palettes").get_palette("mocha")
 	local cursor_line_bg = helpers:blend(colors.mauve, "#000000", 0.28)
 
+	---@type table<string, vim.api.keyset.highlight>
 	local highlights = {
 		Visual = { bg = helpers:blend(colors.mauve, "#000000", 0.4) },
 		CursorLine = { bg = cursor_line_bg },
@@ -54,6 +55,10 @@ function Highlights:get()
 		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
 		NavicText = { link = "lualine_c_inactive" },
 		NavicSeparator = { link = "lualine_c_inactive" },
+
+		-- Statusline
+		OverlayActive = { bg = colors.surface1 },
+		OverlayActiveInverted = { fg = colors.surface1 },
 
 		-- LSP
 		LspReferenceText = { underline = true },

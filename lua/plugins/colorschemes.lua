@@ -121,22 +121,6 @@ return {
 		opts = {
 			flavour = "mocha",
 			auto_integrations = true,
-			integrations = {
-				lualine = {
-					all = function(colors)
-						return {
-							normal = {
-								c = { bg = colors.base, fg = colors.text },
-							},
-							inactive = {
-								a = { bg = colors.base, fg = colors.blue },
-								b = { bg = colors.base, fg = colors.surface1, gui = "bold" },
-								c = { bg = colors.base, fg = colors.overlay0 },
-							},
-						}
-					end,
-				},
-			},
 			transparent_background = require("nikero.config").transparency,
 			dim_inactive = {
 				enabled = true,
