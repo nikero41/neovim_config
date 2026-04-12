@@ -22,7 +22,15 @@ vim.o.cmdheight = 0
 vim.opt.linebreak = true
 vim.o.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
-vim.opt.fillchars = { eob = " " }
+vim.opt.fillchars = {
+	eob = " ",
+	vert = "|",
+	horiz = "_",
+	foldopen = require("icons").folds.open,
+	foldclose = require("icons").folds.closed,
+	foldsep = " ",
+	foldinner = " ",
+}
 
 -- Indentation
 vim.o.tabstop = 2
