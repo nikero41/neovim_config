@@ -123,5 +123,12 @@ return {
 				emojiLog = { go = { 'slog.Debug("{{marker}} {{emoji}}")' } },
 			},
 		},
+		init = function()
+			---@diagnostic disable-next-line: duplicate-set-field
+			_G.Chainsaw = function(name)
+				require("chainsaw")
+				Chainsaw(name)
+			end
+		end,
 	},
 }
