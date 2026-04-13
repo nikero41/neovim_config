@@ -46,7 +46,7 @@ return {
 				desc = "Explain this code",
 			},
 			{
-				"<leader>Os",
+				"<leader>ap",
 				function() require("opencode").select() end,
 				desc = "Select prompt",
 				mode = { "n", "v" },
@@ -71,47 +71,19 @@ return {
 		},
 	},
 	{
-		"piersolenski/wtf.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "folke/snacks.nvim" },
-		cmd = { "Wtf", "WtfFix", "WtfPickProvider", "WtfSearch", "WtfHistory", "WtfGrepHistory" },
+		"ThePrimeagen/99",
 		keys = {
+			{ "<leader>as", function() require("99").search({}) end, desc = "Search" },
 			{
-				"<leader>ad",
-				function() require("wtf").diagnose() end,
-				desc = "Debug diagnostic with AI",
-				mode = { "n", "x" },
+				"<leader>ax",
+				function() require("99").stop_all_requests() end,
+				desc = "Stop all requests",
 			},
-			{
-				"<leader>af",
-				function() require("wtf").fix() end,
-				desc = "Fix diagnostic with AI",
-				mode = { "n", "x" },
-			},
-			{
-				"<leader>as",
-				function() require("wtf").search() end,
-				desc = "Search diagnostic with Google",
-			},
-			{
-				"<leader>ap",
-				function() require("wtf").pick_provider() end,
-				desc = "Pick provider",
-			},
-			{
-				"<leader>ah",
-				function() require("wtf").history() end,
-				desc = "Populate the quickfix list with previous chat history",
-			},
-			{
-				"<leader>ag",
-				function() require("wtf").grep_history() end,
-				desc = "Grep previous chat history",
-			},
+			{ "<leader>ai", function() require("99").visual({}) end, desc = "Visual", mode = "v" },
 		},
 		opts = {
-			popup_type = "popup",
-			provider = "copilot",
-			picker = "snacks",
+			model = "gpt-5.4",
+			completion = { source = "blink" },
 		},
 	},
 }
