@@ -117,6 +117,12 @@ keymaps:add_multiple({
 
 -- Diagnostics
 keymaps:add_multiple({
+	{
+		"n",
+		"<Leader>lw",
+		function() vim.lsp.buf.workspace_diagnostics() end,
+		{ desc = "Workspace diagnostics", lsp = { method = "workspace/diagnostic" } },
+	},
 	{ "n", "gl", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
 	{ "n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Hover diagnostics" } },
 	{
