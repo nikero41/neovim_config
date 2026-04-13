@@ -51,17 +51,10 @@ return {
 							on_click = function() Snacks.lazygit() end,
 						},
 						{
-							"diff",
-							diff_color = {
-								added = "@diff.plus",
-								modified = "NeoTreeGitModified",
-								removed = "@diff.minus",
-							},
-							symbols = {
-								added = require("icons").git.add .. " ",
-								modified = require("icons").git.modified .. " ",
-								removed = require("icons").git.removed .. " ",
-							},
+							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
+							cond = function() return #require("harpoon"):list().items ~= 0 end,
+							separator = "│",
+							padding = 0,
 						},
 						{
 							-- q recording
@@ -85,10 +78,17 @@ return {
 							color = { fg = colors.peach },
 						},
 						{
-							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
-							cond = function() return #require("harpoon"):list().items ~= 0 end,
-							separator = "│",
-							padding = 0,
+							"diff",
+							diff_color = {
+								added = "@diff.plus",
+								modified = "NeoTreeGitModified",
+								removed = "@diff.minus",
+							},
+							symbols = {
+								added = require("icons").git.add .. " ",
+								modified = require("icons").git.modified .. " ",
+								removed = require("icons").git.removed .. " ",
+							},
 						},
 						{ "progress", color = { fg = colors.flamingo } },
 						{ "location", color = { fg = colors.mauve } },
