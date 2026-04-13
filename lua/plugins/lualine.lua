@@ -135,7 +135,12 @@ return {
 						},
 					},
 					lualine_c = {
-						{ "navic", color_correction = "static", draw_empty = true },
+						{
+							"navic",
+							fmt = function(self) return string.sub(self, 1, -3) .. "%#lualine_c_normal#" end,
+							color_correction = "dynamic",
+							draw_empty = false,
+						},
 					},
 					lualine_x = {},
 					lualine_y = {
