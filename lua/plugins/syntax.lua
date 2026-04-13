@@ -104,298 +104,80 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		keys = {
-			{
-				"ak",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@block.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around block",
-				mode = { "x", "o" },
-			},
-			{
-				"ik",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@block.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside block",
-				mode = { "x", "o" },
-			},
-			{
-				"ac",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@class.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around class",
-				mode = { "x", "o" },
-			},
-			{
-				"ic",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@class.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside class",
-				mode = { "x", "o" },
-			},
-			{
-				"a?",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@conditional.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around conditional",
-				mode = { "x", "o" },
-			},
-			{
-				"i?",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@conditional.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside conditional",
-				mode = { "x", "o" },
-			},
-			{
-				"af",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@function.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around function",
-				mode = { "x", "o" },
-			},
-			{
-				"if",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@function.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside function",
-				mode = { "x", "o" },
-			},
-			{
-				"ao",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@loop.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around loop",
-				mode = { "x", "o" },
-			},
-			{
-				"io",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@loop.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside loop",
-				mode = { "x", "o" },
-			},
-			{
-				"aa",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@parameter.outer",
-						"textobjects"
-					)
-				end,
-				desc = "around argument",
-				mode = { "x", "o" },
-			},
-			{
-				"ia",
-				function()
-					require("nvim-treesitter-textobjects.select").select_textobject(
-						"@parameter.inner",
-						"textobjects"
-					)
-				end,
-				desc = "inside argument",
-				mode = { "x", "o" },
-			},
+		keys = function()
+			local config = {
+				select = {
+					select_textobject = {
+						["ak"] = { query = "@block.outer", desc = "around block" },
+						["ik"] = { query = "@block.inner", desc = "inside block" },
+						["ac"] = { query = "@class.outer", desc = "around class" },
+						["ic"] = { query = "@class.inner", desc = "inside class" },
+						["a?"] = { query = "@conditional.outer", desc = "around conditional" },
+						["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+						["af"] = { query = "@function.outer", desc = "around function" },
+						["if"] = { query = "@function.inner", desc = "inside function" },
+						["ao"] = { query = "@loop.outer", desc = "around loop" },
+						["io"] = { query = "@loop.inner", desc = "inside loop" },
+						["aa"] = { query = "@parameter.outer", desc = "around argument" },
+						["ia"] = { query = "@parameter.inner", desc = "inside argument" },
+					},
+				},
+				move = {
+					goto_next_start = {
+						["]k"] = { query = "@block.outer", desc = "Next block start" },
+						["]f"] = { query = "@function.outer", desc = "Next function start" },
+						["]a"] = { query = "@parameter.inner", desc = "Next argument start" },
+					},
+					goto_next_end = {
+						["]K"] = { query = "@block.outer", desc = "Next block end" },
+						["]F"] = { query = "@function.outer", desc = "Next function end" },
+						["]A"] = { query = "@parameter.inner", desc = "Next argument end" },
+					},
+					goto_previous_start = {
+						["[k"] = { query = "@block.outer", desc = "Previous block start" },
+						["[f"] = { query = "@function.outer", desc = "Previous function start" },
+						["[a"] = { query = "@parameter.inner", desc = "Previous argument start" },
+					},
+					goto_previous_end = {
+						["[K"] = { query = "@block.outer", desc = "Previous block end" },
+						["[F"] = { query = "@function.outer", desc = "Previous function end" },
+						["[A"] = { query = "@parameter.inner", desc = "Previous argument end" },
+					},
+				},
+				swap = {
+					swap_next = {
+						[">K"] = { query = "@block.outer", desc = "Swap next block" },
+						[">F"] = { query = "@function.outer", desc = "Swap next function" },
+						[">A"] = { query = "@parameter.inner", desc = "Swap next argument" },
+					},
+					swap_previous = {
+						["<K"] = { query = "@block.outer", desc = "Swap previous block" },
+						["<F"] = { query = "@function.outer", desc = "Swap previous function" },
+						["<A"] = { query = "@parameter.inner", desc = "Swap previous argument" },
+					},
+				},
+			}
 
-			{
-				"]k",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_start("@block.outer", "textobjects")
-				end,
-				desc = "Next block start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"]f",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_start(
-						"@function.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Next function start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"]a",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_start(
-						"@parameter.inner",
-						"textobjects"
-					)
-				end,
-				desc = "Next argument start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"]K",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_end("@block.outer", "textobjects")
-				end,
-				desc = "Next block end",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"]F",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_end(
-						"@function.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Next function end",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"]A",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_next_end(
-						"@parameter.inner",
-						"textobjects"
-					)
-				end,
-				desc = "Next argument end",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[k",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_start(
-						"@block.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Previous block start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[f",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_start(
-						"@function.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Previous function start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[a",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_start(
-						"@parameter.inner",
-						"textobjects"
-					)
-				end,
-				desc = "Previous argument start",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[K",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_end(
-						"@block.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Previous block end",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[F",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_end(
-						"@function.outer",
-						"textobjects"
-					)
-				end,
-				desc = "Previous function end",
-				mode = { "n", "x", "o" },
-			},
-			{
-				"[A",
-				function()
-					require("nvim-treesitter-textobjects.move").goto_previous_end(
-						"@parameter.inner",
-						"textobjects"
-					)
-				end,
-				desc = "Previous argument end",
-				mode = { "n", "x", "o" },
-			},
+			local keys = {}
+			for module, methods in pairs(config) do
+				for method, textobjects in pairs(methods) do
+					for key, textobject in pairs(textobjects) do
+						table.insert(keys, {
+							key,
+							function()
+								require("nvim-treesitter-textobjects" .. module)[method](
+									textobject.query("textobjects")
+								)
+							end,
+							desc = textobject.desc,
+							mode = module == "select" and { "n", "x", "o" } or { "x", "o" },
+						})
+					end
+				end
+			end
 
-			{
-				">K",
-				function() require("nvim-treesitter-textobjects.swap").swap_next("@block.outer") end,
-				desc = "Swap next block",
-			},
-			{
-				">F",
-				function() require("nvim-treesitter-textobjects.swap").swap_next("@function.outer") end,
-				desc = "Swap next function",
-			},
-			{
-				">A",
-				function() require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner") end,
-				desc = "Swap next argument",
-			},
-			{
-				"<K",
-				function() require("nvim-treesitter-textobjects.swap").swap_previous("@block.outer") end,
-				desc = "Swap previous block",
-			},
-			{
-				"<F",
-				function() require("nvim-treesitter-textobjects.swap").swap_previous("@function.outer") end,
-				desc = "Swap previous function",
-			},
-			{
-				"<A",
-				function() require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner") end,
-				desc = "Swap previous argument",
-			},
-		},
+			return keys
+		end,
 		opts = {
 			select = { lookahead = true },
 			move = { set_jumps = true },
