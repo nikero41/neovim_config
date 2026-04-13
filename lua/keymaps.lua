@@ -164,7 +164,7 @@ keymaps:add_multiple({
 	{
 		{ "n", "x" },
 		"<leader>la",
-		function() vim.lsp.buf.code_action() end,
+		vim.lsp.buf.code_action,
 		{ desc = "LSP code action", lsp = { method = "textDocument/codeAction" }, optional = true },
 	},
 	{
@@ -182,7 +182,7 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>lL",
-		function() vim.lsp.codelens.run() end,
+		vim.lsp.codelens.run,
 		{ desc = "LSP CodeLens run", lsp = { method = "textDocument/codeLens" } },
 	},
 	{
@@ -200,7 +200,7 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>lR",
-		function() vim.lsp.buf.references() end,
+		vim.lsp.buf.references,
 		{ desc = "Search references", lsp = { method = "textDocument/references" } },
 	},
 	{
@@ -221,19 +221,19 @@ keymaps:add_multiple({
 	{
 		"n",
 		"<leader>lh",
-		function() vim.lsp.buf.signature_help() end,
+		vim.lsp.buf.signature_help,
 		{ desc = "Signature help", lsp = { method = "textDocument/signatureHelp" } },
 	},
 	{
 		"n",
 		"gK",
-		function() vim.lsp.buf.signature_help() end,
+		vim.lsp.buf.signature_help,
 		{ desc = "Signature help", lsp = { method = "textDocument/signatureHelp" } },
 	},
 	{
 		"n",
 		"<leader>lG",
-		function() vim.lsp.buf.workspace_symbol() end,
+		vim.lsp.buf.workspace_symbol,
 		{ desc = "Search workspace symbols", lsp = { method = "workspace/symbol" } },
 	},
 })
