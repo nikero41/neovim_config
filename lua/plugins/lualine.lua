@@ -158,8 +158,7 @@ return {
 					lualine_z = {},
 				},
 				inactive_winbar = {
-					lualine_a = {},
-					lualine_b = {
+					lualine_a = {
 						{ "filetype", colored = false, icon_only = true, on_click = print_filetype },
 						{
 							"filename",
@@ -176,6 +175,7 @@ return {
 							},
 						},
 					},
+					lualine_b = {},
 					lualine_c = {},
 					lualine_x = {
 						{
