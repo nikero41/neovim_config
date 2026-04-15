@@ -170,7 +170,7 @@ return {
 								)
 							end,
 							desc = textobject.desc,
-							mode = module == "select" and { "n", "x", "o" } or { "x", "o" },
+							mode = module == "select" and { "x", "o" } or { "n", "x", "o" },
 						})
 					end
 				end
