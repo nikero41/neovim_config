@@ -53,7 +53,6 @@ return {
 						{
 							function(fmt) return require("nikero.statusline"):harpoon_widget(fmt.default_hl) end,
 							cond = function() return #require("harpoon"):list().items ~= 0 end,
-							separator = "│",
 							padding = 0,
 						},
 						{
@@ -89,6 +88,7 @@ return {
 								modified = require("icons").git.modified .. " ",
 								removed = require("icons").git.removed .. " ",
 							},
+							separator = "│",
 						},
 						{ "progress", color = { fg = colors.flamingo } },
 						{ "location", color = { fg = colors.mauve } },
