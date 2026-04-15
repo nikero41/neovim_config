@@ -34,7 +34,21 @@ return {
 	},
 	---@type snacks.Config
 	opts = {
-		bigfile = { enabled = true },
+		bigfile = {
+			enabled = true,
+			---@param ctx {buf: number, ft:string}
+			setup = function(ctx)
+				Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
+				vim.b[ctx.buf].completion = false
+				vim.b[ctx.buf].snacks_indent = false
+				vim.b[ctx.buf].snacks_scope = false
+				vim.b[ctx.buf].snacks_words = false
+
+				vim.schedule(function()
+					if vim.api.nvim_buf_is_valid(ctx.buf) then vim.bo[ctx.buf].syntax = ctx.ft end
+				end)
+			end,
+		},
 		image = { enabled = true },
 		quickfile = { enabled = true },
 		scroll = { enabled = false },

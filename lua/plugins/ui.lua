@@ -195,6 +195,7 @@ return {
 			hide_if_all_visible = true,
 			excluded_buftypes = { "nofile" },
 			excluded_filetypes = {
+				"bigfile",
 				"prompt",
 				"noice",
 				"neo-tree",

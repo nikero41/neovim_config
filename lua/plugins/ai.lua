@@ -12,6 +12,7 @@ return {
 			ignore_filetypes = {
 				"neo-tree-popup",
 				"DressingInput",
+				"bigfile",
 				"snacks_input",
 			},
 		},
