@@ -82,7 +82,7 @@ return {
 			{ "<leader>ai", function() require("99").visual({}) end, desc = "Visual", mode = "v" },
 		},
 		opts = {
-			model = "gpt-5.4",
+			model = "opencode/gpt-5.4",
 			completion = { source = "blink" },
 		},
 	},
