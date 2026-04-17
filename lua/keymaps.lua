@@ -213,14 +213,19 @@ keymaps:add_multiple({
 		"n",
 		"<leader>lr",
 		function()
-			vim.lsp.buf.rename(nil, {
-				---@type snacks.input.Config
-				snacks = {
-					win = {
-						relative = "cursor",
-					},
+			vim.ui.input({
+				prompt = "Rename to:",
+				default = vim.fn.expand("<cword>"),
+				win = {
+					relative = "cursor",
+					title_pos = "left",
+					row = -3,
+					col = -5,
 				},
-			})
+			}, function(input)
+				if not input or input == "" then return end
+				vim.lsp.buf.rename(input)
+			end)
 		end,
 		{ desc = "Rename current symbol", lsp = { method = "textDocument/rename" } },
 	},
