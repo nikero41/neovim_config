@@ -23,7 +23,7 @@ return {
 			"ProjectSnacks",
 		},
 		---@module "project"
-		---@type Project.Config.Options
+		---@type ProjectOpts
 		opts = {
 			lsp = {
 				enabled = true,
