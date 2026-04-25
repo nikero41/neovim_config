@@ -30,9 +30,9 @@ return {
 	{ "Kaiser-Yang/blink-cmp-git", ft = "gitcommit", dependencies = { "nvim-lua/plenary.nvim" } },
 	{
 		"saghen/blink.cmp",
-		dependencies = { "L3MON4D3/LuaSnip" },
+		dependencies = { "saghen/blink.lib", "L3MON4D3/LuaSnip" },
 		event = { "VeryLazy", "InsertEnter", "CmdlineEnter" },
-		build = "cargo build --release",
+		build = function() require("blink.cmp").build():wait(60000) end,
 		---@module "blink.cmp"
 		---@type blink.cmp.Config
 		opts = {
