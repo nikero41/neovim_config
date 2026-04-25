@@ -25,6 +25,7 @@ return {
 		---@module "project"
 		---@type ProjectOpts
 		opts = {
+			manual_mode = true,
 			lsp = {
 				enabled = true,
 				ignore = { "tailwindcss" },
