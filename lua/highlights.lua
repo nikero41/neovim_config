@@ -55,6 +55,7 @@ function Highlights:get()
 		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
 		NavicText = { link = "lualine_c_inactive" },
 		NavicSeparator = { link = "lualine_c_inactive" },
+		AgenticTitle = { fg = colors.peach },
 
 		-- Statusline
 		OverlayActive = { bg = colors.surface1 },

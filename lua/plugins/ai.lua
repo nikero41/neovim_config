@@ -1,6 +1,56 @@
 ---@type LazySpec
 return {
 	{
+		"carlos-algms/agentic.nvim",
+		dependencies = {
+			{ "hakonharnes/img-clip.nvim", opts = {} },
+		},
+		keys = {
+			{
+				"<leader>ac",
+				function() require("agentic").toggle() end,
+				mode = { "n", "v" },
+				desc = "Toggle Agentic Chat",
+			},
+			{
+				"<leader>aB",
+				function() require("agentic").add_selection_or_file_to_context() end,
+				mode = { "n", "v" },
+				desc = "Add file or selection to Agentic to Context",
+			},
+			{
+				"<leader>an",
+				function() require("agentic").new_session() end,
+				mode = { "n", "v" },
+				ft = { "AgenticChat", "AgenticFiles", "AgenticInput" },
+				desc = "New Agentic Session",
+			},
+			{
+				"<leader>ar",
+				function() require("agentic").restore_session() end,
+				ft = { "AgenticChat", "AgenticFiles", "AgenticInput" },
+				mode = { "n", "v" },
+				desc = "Agentic Restore session",
+				silent = true,
+			},
+			{
+				"<leader>ad",
+				function() require("agentic").add_current_line_diagnostics() end,
+				desc = "Add current line diagnostic to Agentic",
+			},
+			{
+				"<leader>aD",
+				function() require("agentic").add_buffer_diagnostics() end,
+				desc = "Add all buffer diagnostics to Agentic",
+			},
+		},
+		--- @type agentic.PartialUserConfig
+		opts = {
+			provider = "opencode-acp",
+			headers = {},
+		},
+	},
+	{
 		"supermaven-inc/supermaven-nvim",
 		event = "VeryLazy",
 		opts = {

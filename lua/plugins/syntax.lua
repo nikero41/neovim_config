@@ -218,6 +218,7 @@ return {
 		---@module "render-markdown"
 		---@type render.md.UserConfig
 		opts = {
+			file_types = { "markdown", "md", "AgenticChat" },
 			completions = { blink = { enabled = true } },
 			heading = {
 				render_modes = true,
