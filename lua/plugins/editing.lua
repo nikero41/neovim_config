@@ -115,12 +115,29 @@ return {
 					typescript = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
 					typescriptreact = 'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2));',
 					nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
+					rust = 'println!("{{marker}} {{var}}: {:?}", {{var}});',
 				},
 				variableLog = {
 					go = { 'slog.Debug("{{marker}} {{filename}}", "{{var}}", {{var}})' },
+					rust = 'println!("{{marker}} {{var}}: {:?}", {{var}});',
 				},
-				messageLog = { go = { 'slog.Debug("{{marker}} {{insert}}")' } },
-				emojiLog = { go = { 'slog.Debug("{{marker}} {{emoji}}")' } },
+				messageLog = {
+					go = { 'slog.Debug("{{marker}} {{insert}}")' },
+					rust = 'println!("{{marker}} {{insert}}");',
+				},
+				emojiLog = {
+					go = { 'slog.Debug("{{marker}} {{emoji}}")' },
+					rust = 'println!("{{marker}} {{emoji}}");',
+				},
+				assertLog = {
+					rust = 'assert!({{var}}, "{{marker}} {{var}} {{insert}}");',
+				},
+				stacktraceLog = {
+					rust = 'println!("{{marker}} stacktrace: {}", std::backtrace::Backtrace::force_capture());',
+				},
+				timeLogStop = {
+					rust = 'println!("{{marker}} #{{index}}: {}", timelog_start_{{index}}.elapsed().as_millis());',
+				},
 			},
 		},
 		init = function()
