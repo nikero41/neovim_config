@@ -3,6 +3,63 @@
 ---@type LazySpec
 return {
 	{
+		"dmtrKovalenko/fff.nvim",
+		lazy = false,
+		build = function() require("fff.download").download_or_build_binary() end,
+		keys = {
+			{
+				"<leader><space>",
+				function() require("fff").find_files() end,
+				desc = "Find files",
+			},
+			{
+				"<leader>fw",
+				function() require("fff").live_grep() end,
+				desc = "Find words",
+			},
+			{
+				"<leader>fz",
+				function()
+					require("fff").live_grep({
+						grep = {
+							modes = { "fuzzy", "plain" },
+						},
+					})
+				end,
+				desc = "Live fffuzy grep",
+			},
+			{
+				"<leader>fc",
+				function() require("fff").live_grep({ query = vim.fn.expand("<cword>") }) end,
+				desc = "Search current word",
+			},
+		},
+		---@type FffConfig
+		---@diagnostic disable-next-line: missing-fields
+		opts = {
+			debug = {
+				enabled = false,
+				show_scores = true,
+			},
+			title = "Files",
+			prompt = " " .. require("icons").status.selected .. " ",
+			prompt_vim_mode = true,
+			---@diagnostic disable-next-line: missing-fields
+			layout = { prompt_position = "top" },
+			---@diagnostic disable-next-line: missing-fields
+			keymaps = {
+				select_split = "<C-x>",
+				move_up = { "<Up>", "<C-p>", "<C-k>" },
+				move_down = { "<Down>", "<C-n>", "<C-j>" },
+				cycle_grep_modes = "<S-Tab>",
+				cycle_previous_query = "<M-Up>",
+			},
+			hl = {
+				title = "SpecialChar",
+			},
+		},
+	},
+	{
 		"nvim-mini/mini.icons",
 		opts = function(_, opts)
 			opts = opts or {}

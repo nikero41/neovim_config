@@ -13,14 +13,14 @@ return {
 						icon = " ",
 						key = "f",
 						desc = "Find File",
-						action = function() Snacks.dashboard.pick("files") end,
+						action = function() require("fff").find_files() end,
 					},
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
 						key = "w",
 						desc = "Find Text",
-						action = function() Snacks.dashboard.pick("live_grep") end,
+						action = function() require("fff").live_grep() end,
 					},
 					{
 						icon = " ",

@@ -9,41 +9,30 @@ return {
 		},
 		{ "<leader>f'", function() require("snacks").picker.marks() end, desc = "Find marks" },
 		{ "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Find buffers" },
-		{
-			"<leader>fc",
-			function() require("snacks").picker.grep_word() end,
-			desc = "Find word under cursor",
-		},
 		{ "<leader>fC", function() require("snacks").picker.commands() end, desc = "Find commands" },
-		{
-			"<leader><space>",
-			function()
-				local in_git = vim.fs.find(".git", { path = vim.fn.getcwd(), upward = true })[1] ~= nil
-				require("snacks").picker.files({ hidden = in_git })
-			end,
-			desc = "Find files",
-		},
 		{
 			"<leader>fF",
 			function() require("snacks").picker.files({ hidden = true, ignored = true }) end,
 			desc = "Find all files",
 		},
-		{ "<leader>fg", function() require("snacks").picker.git_files() end, desc = "Find git files" },
 		{ "<leader>fk", function() require("snacks").picker.keymaps() end, desc = "Find keymaps" },
 		{
 			"<leader>fn",
 			function() require("snacks").picker.notifications() end,
 			desc = "Find notifications",
 		},
-		{ "<leader>fo", function() require("snacks").picker.recent() end, desc = "Find old files" },
 		{
 			"<leader>fO",
+			function() require("snacks").picker.recent() end,
+			desc = "Find recent files (global)",
+		},
+		{
+			"<leader>fo",
 			function() require("snacks").picker.recent({ filter = { cwd = true } }) end,
-			desc = "Find old files (cwd)",
+			desc = "Find recent files",
 		},
 		{ "<leader>fp", function() require("snacks").picker.projects() end, desc = "Find projects" },
 		{ "<leader>fr", function() require("snacks").picker.registers() end, desc = "Find registers" },
-		{ "<leader>fw", function() require("snacks").picker.grep() end, desc = "Find words" },
 		{
 			"<leader>fW",
 			function() require("snacks").picker.grep({ hidden = true, ignored = true }) end,
