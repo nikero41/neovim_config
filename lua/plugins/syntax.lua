@@ -20,6 +20,7 @@ return {
 				"c_sharp",
 
 				"dockerfile",
+				"devicetree",
 
 				-- Go
 				"go",
