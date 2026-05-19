@@ -1,3 +1,16 @@
+---@return string[]
+function slqlfluff_args()
+	local project_configs = { "setup.cfg", "tox.ini", "pep8.ini", ".sqlfluff", "pyproject.toml" }
+	local has_project_config = vim
+		.iter(project_configs)
+		:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end)
+	if has_project_config then return {} end
+	return {
+		"--config",
+		vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".sqlfluff"),
+	}
+end
+
 ---@type LazySpec
 return {
 	{
@@ -54,9 +67,11 @@ return {
 				local has_project_config = vim.iter(project_configs):any(
 					function(filename) return vim.uv.fs_stat(filename) ~= nil end
 				)
-				if has_project_config then return "" end
-				return "--config="
-					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".selene.toml")
+				if has_project_config then return {} end
+				return {
+					"--config",
+					vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".selene.toml"),
+				}
 			end)
 
 			table.insert(lint.linters.stylelint.args, function()
@@ -75,23 +90,14 @@ return {
 					:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end) or require(
 					"nikero.helpers"
 				):check_json_key_exists(vim.fs.joinpath(vim.uv.cwd(), "package.json"), "stylelint")
-				if has_project_config then return "" end
-				return "--config="
-					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", "stylelint.config.js")
+				if has_project_config then return {} end
+				return {
+					"--config",
+					vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", "stylelint.config.js"),
+				}
 			end)
 
-			table.insert(lint.linters.sqlfluff.args, function()
-				local args = "--dialect=postgres"
-				local project_configs =
-					{ "setup.cfg", "tox.ini", "pep8.ini", ".sqlfluff", "pyproject.toml" }
-				local has_project_config = vim.iter(project_configs):any(
-					function(filename) return vim.uv.fs_stat(filename) ~= nil end
-				)
-				if has_project_config then return args end
-				return args
-					.. " --config="
-					.. vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".sqlfluff")
-			end)
+			table.insert(lint.linters.sqlfluff.args, slqlfluff_args)
 
 			lint.linters.yamllint.env = {
 				YAMLLINT_CONFIG_FILE = vim.fs.joinpath(
@@ -170,7 +176,7 @@ return {
 				markdown = { "markdownlint" },
 				nginx = { "nginxfmt" },
 				python = { "isort", "black" },
-				sql = { "sqlfluff" },
+				sql = { "sqlfluff", lsp_format = "never" },
 				templ = { "templ" },
 			})
 
@@ -207,7 +213,7 @@ return {
 			end
 
 			opts.formatters = {
-				sqlfluff = { append_args = { "--dialect", "postgres" } },
+				sqlfluff = { append_args = slqlfluff_args },
 				prettierd = {
 					env = {
 						PRETTIERD_DEFAULT_CONFIG = vim.fs.joinpath(
