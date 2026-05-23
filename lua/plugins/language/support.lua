@@ -85,6 +85,8 @@ return {
 				"shfmt",
 				"bash-debug-adapter",
 
+				"buf",
+
 				-- C/C++
 				"clangd",
 				"clang-format",
@@ -149,9 +151,6 @@ return {
 				"nginx-config-formatter",
 				"nginx-language-server",
 
-				"prettierd",
-				"prisma-language-server",
-
 				-- Python
 				"debugpy",
 				"basedpyright",
@@ -159,7 +158,6 @@ return {
 				"black",
 				"isort",
 
-				-- Rust
 				"rust-analyzer",
 				"codelldb", -- and C
 
@@ -173,10 +171,12 @@ return {
 				"tailwindcss-language-server",
 				"taplo",
 
-				-- Javascript
+				-- Typescript
 				"js-debug-adapter",
 				"tsgo",
 				"eslint_d",
+				"prettierd",
+				"prisma-language-server",
 
 				-- XML
 				"lemminx",

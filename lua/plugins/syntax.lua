@@ -15,7 +15,6 @@ return {
 				"c",
 				"objc",
 				"cuda",
-				"proto",
 
 				"c_sharp",
 
@@ -50,6 +49,7 @@ return {
 
 				"nginx",
 				"prisma",
+				"proto",
 				"python",
 				"rust",
 				"sql",
