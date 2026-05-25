@@ -11,42 +11,6 @@ local Filetypes = {
 		"javascript.jsx",
 		"jsx",
 	},
-	prettier_config = {
-		".prettierrc",
-		".prettierrc.cjs",
-		".prettierrc.cts",
-		".prettierrc.js",
-		".prettierrc.json",
-		".prettierrc.json5",
-		".prettierrc.mjs",
-		".prettierrc.mts",
-		".prettierrc.toml",
-		".prettierrc.ts",
-		".prettierrc.yaml",
-		".prettierrc.yml",
-		"prettier.config.cjs",
-		"prettier.config.js",
-		"prettier.config.mjs",
-		"prettier.config.mts",
-		"prettier.config.ts",
-	},
-	eslint_config = {
-		-- ESLint <=8 (Deprecated)
-		".eslintignore",
-		".eslintrc",
-		".eslintrc.cjs",
-		".eslintrc.js",
-		".eslintrc.json",
-		".eslintrc.yaml",
-		".eslintrc.yml",
-		-- ESLint >=9
-		"eslint.config.cjs",
-		"eslint.config.cts",
-		"eslint.config.js",
-		"eslint.config.mjs",
-		"eslint.config.mts",
-		"eslint.config.ts",
-	},
 }
 
 function Filetypes:setup()

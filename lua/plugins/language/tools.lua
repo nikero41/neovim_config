@@ -1,14 +1,10 @@
+local tools = require("nikero.tools")
+
 ---@return string[]
-function slqlfluff_args()
-	local project_configs = { "setup.cfg", "tox.ini", "pep8.ini", ".sqlfluff", "pyproject.toml" }
-	local has_project_config = vim
-		.iter(project_configs)
-		:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end)
+local function slqlfluff_args()
+	local has_project_config = tools:find_config_file(tools.configs.sqlfluff)
 	if has_project_config then return {} end
-	return {
-		"--config",
-		vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".sqlfluff"),
-	}
+	return { "--config", tools:default_config_path(".sqlfluff") }
 end
 
 ---@type LazySpec
@@ -63,53 +59,25 @@ return {
 			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
 
 			table.insert(lint.linters.selene.args, function()
-				local project_configs = { ".selene.toml", "selene.toml" }
-				local has_project_config = vim.iter(project_configs):any(
-					function(filename) return vim.uv.fs_stat(filename) ~= nil end
-				)
+				local has_project_config = tools:find_config_file(tools.configs.selene)
 				if has_project_config then return {} end
-				return {
-					"--config",
-					vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".selene.toml"),
-				}
+				return { "--config", tools:default_config_path(".selene.toml") }
 			end)
 
 			table.insert(lint.linters.stylelint.args, function()
-				local has_project_config = vim
-					.iter({
-						".stylelintrc.js",
-						"stylelint.config.js",
-						".stylelintrc.mjs",
-						"stylelint.config.mjs",
-						".stylelintrc.cjs",
-						"stylelint.config.cjs",
-						".stylelintrc.json",
-						".stylelintrc.yml",
-						".stylelintrc.yaml",
-					})
-					:any(function(filename) return vim.uv.fs_stat(filename) ~= nil end) or require(
-					"nikero.helpers"
-				):check_json_key_exists(vim.fs.joinpath(vim.uv.cwd(), "package.json"), "stylelint")
+				local has_project_config = tools:find_config_file(tools.configs.stylelint)
+					or tools:package_json_has_key("stylelint")
 				if has_project_config then return {} end
-				return {
-					"--config",
-					vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", "stylelint.config.js"),
-				}
+				return { "--config", tools:default_config_path("stylelint.config.js") }
 			end)
 
 			table.insert(lint.linters.sqlfluff.args, slqlfluff_args)
 
-			lint.linters.yamllint.env = {
-				YAMLLINT_CONFIG_FILE = vim.fs.joinpath(
-					vim.fn.stdpath("config"),
-					"config_files",
-					".yamllint.yaml"
-				),
-			}
+			lint.linters.yamllint.env =
+				{ YAMLLINT_CONFIG_FILE = tools:default_config_path(".yamllint.yaml") }
 
-			lint.linters.dotenv_linter.env = {
-				DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ","),
-			}
+			lint.linters.dotenv_linter.env =
+				{ DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ",") }
 
 			vim.api.nvim_create_autocmd(
 				{ "BufWritePost", "BufReadPost", "InsertLeave", "TextChanged", "BufEnter" },
@@ -215,25 +183,13 @@ return {
 			opts.formatters = {
 				sqlfluff = { append_args = slqlfluff_args },
 				prettierd = {
-					env = {
-						PRETTIERD_DEFAULT_CONFIG = vim.fs.joinpath(
-							vim.fn.stdpath("config"),
-							"config_files",
-							"prettier.config.js"
-						),
-					},
+					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				stylua = {
 					append_args = function()
-						local project_configs = { ".stylua.toml", "stylua.toml", ".editorconfig" }
-						local has_project_config = vim.iter(project_configs):any(
-							function(filename) return vim.uv.fs_stat(filename) ~= nil end
-						)
+						local has_project_config = tools:find_config_file(tools.configs.stylua)
 						if has_project_config then return {} end
-						return {
-							"--config-path",
-							vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", ".stylua.toml"),
-						}
+						return { "--config-path", tools:default_config_path(".stylua.toml") }
 					end,
 				},
 				golines = {

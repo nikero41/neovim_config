@@ -82,13 +82,13 @@ return {
 				postcss = { glyph = "󰌜", hl = "MiniIconsOrange" },
 			})
 
-			local filetypes = require("filetypes")
+			local tools = require("nikero.tools")
 
-			for _, filename in ipairs(filetypes.prettier_config) do
+			for _, filename in ipairs(tools.configs.prettier) do
 				opts.file[filename] = { glyph = "", hl = "MiniIconsPurple" }
 			end
 
-			for _, filename in ipairs(filetypes.eslint_config) do
+			for _, filename in ipairs(tools.configs.eslint) do
 				opts.file[filename] = { glyph = "󰱺", hl = "MiniIconsYellow" }
 			end
 
