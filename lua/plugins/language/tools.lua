@@ -176,13 +176,60 @@ return {
 
 			for _, language in ipairs(require("filetypes").javascript) do
 				opts.formatters_by_ft[language] = function(buffer)
-					return { "eslint_d", first(buffer, "prettierd", "prettier") }
+					local formatters = {}
+
+					local has_eslint = tools:find_config_file(tools.configs.eslint, { bufnr = buffer }) ~= nil
+					local has_oxlint = tools:find_config_file(tools.configs.oxlint, { bufnr = buffer }) ~= nil
+					local has_prettier = tools:find_config_file(tools.configs.prettier, { bufnr = buffer })
+						~= nil
+					local has_oxfmt = tools:find_config_file(tools.configs.oxfmt, { bufnr = buffer }) ~= nil
+
+					if has_eslint or not has_oxlint then table.insert(formatters, "eslint_d") end
+					if has_oxlint then table.insert(formatters, "oxlint") end
+
+					if has_oxfmt then table.insert(formatters, "oxfmt") end
+					if has_prettier or not has_oxfmt then
+						table.insert(formatters, first(buffer, "prettierd", "prettier"))
+					end
+
+					return formatters
 				end
 			end
 
 			opts.formatters = {
 				sqlfluff = { append_args = slqlfluff_args },
+				oxlint = {
+					condition = function(_, ctx)
+						return tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) ~= nil
+					end,
+				},
+				oxfmt = {
+					condition = function(_, ctx)
+						return tools:find_config_file(tools.configs.oxfmt, { bufnr = ctx.buf }) ~= nil
+					end,
+				},
+				eslint_d = {
+					condition = function(_, ctx)
+						local has_config = tools:find_config_file(tools.configs.eslint, { bufnr = ctx.buf })
+							~= nil
+						return has_config
+							or tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) == nil
+					end,
+				},
 				prettierd = {
+					condition = function(_, ctx)
+						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
+							~= nil
+						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
+					end,
+					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
+				},
+				prettier = {
+					condition = function(_, ctx)
+						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
+							~= nil
+						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
+					end,
 					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				stylua = {

@@ -61,6 +61,16 @@ local Tools = {
 			".selene.toml",
 			"selene.toml",
 		},
+		oxlint = {
+			".oxlintrc.json",
+			".oxlintrc.jsonc",
+			"oxlint.config.ts",
+		},
+		oxfmt = {
+			".oxfmtrc.json",
+			".oxfmtrc.jsonc",
+			"oxfmt.config.ts",
+		},
 		sqlfluff = {
 			"setup.cfg",
 			"tox.ini",

@@ -176,6 +176,8 @@ return {
 				"tsgo",
 				"eslint_d",
 				"prettierd",
+				"oxfmt",
+				"oxlint",
 				"prisma-language-server",
 
 				-- XML
