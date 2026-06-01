@@ -184,6 +184,7 @@ return {
 				{ "<leader>TW", group = require("icons").tools.watch .. " Watch" },
 				{ "<leader>a", group = require("icons").tools.robot .. " AI", mode = { "n", "v" } },
 				{ "<leader>S", group = require("icons").tools.session .. " Session" },
+				{ "<leader>R", group = require("icons").tools.network .. " Kulala" },
 
 				-- Naming
 				{ "gra", desc = "Code Actions", mode = { "n", "x" } },

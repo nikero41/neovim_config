@@ -81,6 +81,7 @@ return {
 		macro_recording = "",
 		package = "󰏖",
 		session = "󱂬",
+		network = "",
 		terminal = "",
 		open_code = "",
 		robot = "󰚩",

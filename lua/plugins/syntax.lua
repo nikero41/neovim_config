@@ -29,6 +29,7 @@ return {
 				"templ",
 
 				"html",
+				"http",
 
 				-- CSS
 				"css",
