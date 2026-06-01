@@ -261,8 +261,17 @@ return {
 					}
 				end
 
+				local format_opts = {
+					bufnr = buffer,
+					range = range,
+					filter = function(client)
+						vim.notify(vim.inspect(client), nil, { title = "🪚 client", ft = "lua" })
+						return client.name ~= "tsgo"
+					end,
+				}
+
 				if not vim.bo[buffer].modified then
-					require("conform").format({ async = true, bufnr = buffer, range = range })
+					require("conform").format(vim.tbl_extend("force", format_opts, { async = true }))
 					return
 				end
 
@@ -270,7 +279,7 @@ return {
 					group = vim.api.nvim_create_augroup("conform-" .. buffer, { clear = true }),
 					buffer = buffer,
 					callback = function()
-						require("conform").format({ async = false, bufnr = buffer, range = range })
+						require("conform").format(vim.tbl_extend("force", format_opts, { async = false }))
 					end,
 					once = true,
 				})
