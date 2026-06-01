@@ -1,28 +1,21 @@
+---@type lsp.ts_ls
+local settings = {
+	updateImportsOnFileMove = { enabled = "always" },
+	inlayHints = {
+		enumMemberValues = { enabled = true },
+		functionLikeReturnTypes = { enabled = true },
+		parameterNames = { enabled = "all" },
+		parameterTypes = { enabled = true },
+		propertyDeclarationTypes = { enabled = true },
+		variableTypes = { enabled = true },
+	},
+}
+
 ---@type vim.lsp.Config | { settings?: lsp.ts_ls }
 return {
 	settings = {
-		typescript = {
-			updateImportsOnFileMove = { enabled = "always" },
-			inlayHints = {
-				enumMemberValues = { enabled = true },
-				functionLikeReturnTypes = { enabled = true },
-				parameterNames = { enabled = "all" },
-				parameterTypes = { enabled = true },
-				propertyDeclarationTypes = { enabled = true },
-				variableTypes = { enabled = true },
-			},
-		},
-		javascript = {
-			updateImportsOnFileMove = { enabled = "always" },
-			inlayHints = {
-				enumMemberValues = { enabled = true },
-				functionLikeReturnTypes = { enabled = true },
-				parameterNames = { enabled = "literals" },
-				parameterTypes = { enabled = true },
-				propertyDeclarationTypes = { enabled = true },
-				variableTypes = { enabled = true },
-			},
-		},
+		typescript = settings,
+		javascript = settings,
 	},
 	handlers = {
 		["textDocument/inlayHint"] = function(error, result, ctx)
