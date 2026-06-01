@@ -150,10 +150,6 @@ return {
 			})
 
 			for _, filetype in ipairs({
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
 				"vue",
 				"css",
 				"scss",
