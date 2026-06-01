@@ -36,6 +36,7 @@ return {
 			local lint = require("lint")
 
 			lint.linters_by_ft = {
+				astro = { "eslint_d" },
 				bash = { "shellcheck" },
 				sh = { "shellcheck" },
 				zsh = { "shellcheck", "zsh" },
