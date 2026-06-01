@@ -264,10 +264,7 @@ return {
 				local format_opts = {
 					bufnr = buffer,
 					range = range,
-					filter = function(client)
-						vim.notify(vim.inspect(client), nil, { title = "🪚 client", ft = "lua" })
-						return client.name ~= "tsgo"
-					end,
+					filter = function(client) return client.name ~= "tsgo" end,
 				}
 
 				if not vim.bo[buffer].modified then
