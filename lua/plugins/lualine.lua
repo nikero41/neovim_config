@@ -79,7 +79,6 @@ return {
 						},
 					},
 					lualine_x = {
-						{ function() return require("wtf").get_status() end },
 						{
 							function()
 								local linters = require("lint").get_running()
