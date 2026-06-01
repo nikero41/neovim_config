@@ -52,8 +52,9 @@ return {
 	},
 	{
 		"supermaven-inc/supermaven-nvim",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		opts = {
+			log_level = "off",
 			keymaps = {
 				accept_suggestion = "<M-r>",
 				clear_suggestion = "<C-h>",
@@ -64,6 +65,14 @@ return {
 				"DressingInput",
 				"bigfile",
 				"snacks_input",
+				"neo-tree",
+				"noice",
+				"qf",
+				"help",
+				"snacks_dashboard",
+				"AgenticChat",
+				"AgenticInput",
+				"AgenticFiles",
 			},
 		},
 		init = function()
