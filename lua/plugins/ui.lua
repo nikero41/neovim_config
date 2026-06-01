@@ -302,7 +302,7 @@ return {
 			},
 		},
 		opts = {
-			backend = "delta",
+			backend = "vim",
 			picker = {
 				"buffer",
 				opts = {
