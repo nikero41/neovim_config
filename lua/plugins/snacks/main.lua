@@ -54,7 +54,7 @@ return {
 		scroll = { enabled = false },
 		statuscolumn = { folds = { open = true, git_hl = true } },
 		indent = {
-			indent = { char = "▏" },
+			indent = { enabled = false },
 			scope = { char = "▏" },
 			animate = { enabled = false },
 		},
