@@ -48,6 +48,7 @@ function Highlights:get()
 		SnacksPickerInputBorder = { fg = colors.peach },
 		SnacksInputTitle = { fg = colors.peach },
 		SnacksInputIcon = { fg = colors.mauve },
+		SnacksIndentScope = { fg = colors.lavender },
 
 		-- Plugins
 		NeoTreeRootName = { fg = colors.mauve },
