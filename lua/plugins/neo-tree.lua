@@ -43,7 +43,7 @@ return {
 						vim.cmd.Neotree("focus")
 					end
 				end,
-				desc = "Toggle Explorer Focus",
+				desc = "Toggle and Focus Explorer",
 			},
 			{
 				"<leader>ue",
@@ -60,9 +60,11 @@ return {
 			popup_border_style = "", -- "" to use 'winborder'
 			use_popups_for_input = true,
 			auto_clean_after_session_restore = true,
+			git_status_scope_to_path = false,
 			source_selector = {
 				winbar = true,
 				content_layout = "center",
+				statusline = false,
 				show_scrolled_off_parent_node = true,
 				truncation_character = "…",
 			},
@@ -219,15 +221,27 @@ return {
 				filtered_items = {
 					force_visible_in_empty_folder = true,
 					show_hidden_count = true,
-					hide_by_name = { ".DS_Store", "thumbs.db", "node_modules" },
+					hide_by_name = {
+						".DS_Store",
+						"thumbs.db",
+						"node_modules",
+						".next/.turbo/dist/build",
+						".git",
+						".next",
+						".turbo",
+						"node_modules",
+						"dist",
+						"build",
+						"coverage",
+					},
 					always_show_by_pattern = { ".env*" },
 				},
 				follow_current_file = {
 					enabled = true,
-					leave_dirs_open = true,
+					leave_dirs_open = false,
 				},
 				hijack_netrw_behavior = "open_current",
-				use_libuv_file_watcher = true,
+				use_libuv_file_watcher = false,
 			},
 		},
 		init = function()
