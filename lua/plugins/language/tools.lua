@@ -264,7 +264,7 @@ return {
 				local format_opts = {
 					bufnr = buffer,
 					range = range,
-					filter = function(client) return client.name ~= "tsgo" end,
+					filter = function(client) return client.name ~= "tsgo" or client.name ~= "jsonls" end,
 				}
 
 				if not vim.bo[buffer].modified then
