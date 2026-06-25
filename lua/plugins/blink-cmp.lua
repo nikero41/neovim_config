@@ -4,7 +4,6 @@ return {
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "v2.*",
-		build = function() require("blink.cmp").build():pwait() end,
 		opts = {
 			history = true,
 			delete_check_events = "TextChanged",
@@ -32,7 +31,7 @@ return {
 		"saghen/blink.cmp",
 		dependencies = { "saghen/blink.lib", "L3MON4D3/LuaSnip" },
 		event = { "VeryLazy", "InsertEnter", "CmdlineEnter" },
-		build = function() require("blink.cmp").build():wait(60000) end,
+		build = function() require("blink.cmp").build():pwait() end,
 		---@module "blink.cmp"
 		---@type blink.cmp.Config
 		opts = {
