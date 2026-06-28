@@ -317,18 +317,4 @@ return {
 			},
 		},
 	},
-	{
-		"SmiteshP/nvim-navic",
-		---@module "nvim-navic"
-		---@type Options
-		opts = {
-			highlight = true,
-			click = true,
-			lsp = {
-				auto_attach = true,
-				preference = { "tsgo" },
-			},
-			safe_output = true,
-		},
-	},
 }

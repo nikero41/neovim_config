@@ -167,7 +167,23 @@ return {
 	},
 	{
 		"hasansujon786/nvim-navbuddy",
-		dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
+		dependencies = {
+			{
+				"SmiteshP/nvim-navic",
+				---@module "nvim-navic"
+				---@type Options
+				opts = {
+					highlight = true,
+					click = true,
+					lsp = {
+						auto_attach = true,
+						preference = { "tsgo" },
+					},
+					safe_output = true,
+				},
+			},
+			"MunifTanjim/nui.nvim",
+		},
 		keys = {
 			{ "<leader>fs", function() require("nvim-navbuddy").open() end, desc = "Breadcrumb search" },
 		},

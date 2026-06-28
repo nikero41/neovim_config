@@ -54,8 +54,6 @@ function Highlights:get()
 		NeoTreeRootName = { fg = colors.mauve },
 		BlinkCmpMenu = { bg = colors.base, fg = helpers:blend(colors.mauve, "#000000", 0.7) },
 		HlSearchLensNear = { bg = helpers:blend(colors.mauve, "#000000", 0.85), fg = colors.surface2 },
-		NavicText = { link = "lualine_c_inactive" },
-		NavicSeparator = { link = "lualine_c_inactive" },
 		AgenticTitle = { fg = colors.peach },
 
 		-- Statusline
