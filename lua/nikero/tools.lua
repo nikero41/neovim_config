@@ -162,7 +162,7 @@ function Tools:find_config_file(names, opts)
 		limit = 1,
 	})[1]
 
-	if config_path ~= nil then
+	if not config_path then
 		config_path = vim
 			.iter(names)
 			:map(function(name) return vim.fs.joinpath(stop_path, name) end)
