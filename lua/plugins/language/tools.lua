@@ -153,27 +153,26 @@ return {
 
 			for _, filetype in ipairs({
 				"vue",
-				"css",
-				"scss",
-				"less",
-				"html",
-				"json",
-				"jsonc",
-				"yaml",
-				"markdown",
-				"markdown.mdx",
-				"graphql",
-				"handlebars",
-				"svelte",
 				"astro",
-				"htmlangular",
 			}) do
 				opts.formatters_by_ft[filetype] = function(buffer)
 					return { first(buffer, "prettierd", "prettier") }
 				end
 			end
 
-			for _, language in ipairs(require("filetypes").javascript) do
+			for _, language in
+				ipairs(vim.list_extend(vim.deepcopy(require("filetypes").javascript), {
+					"json",
+					"jsonc",
+					"css",
+					"scss",
+					"html",
+					"graphql",
+					"markdown",
+					"markdown.mdx",
+					"yaml",
+				}))
+			do
 				opts.formatters_by_ft[language] = {
 					"eslint_d",
 					"prettierd",
