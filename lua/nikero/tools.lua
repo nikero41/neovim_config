@@ -131,20 +131,20 @@ function Tools:default_config_path(filename)
 end
 
 function Tools:get_js_tools(buffer)
-	local linter = "oxlint"
-	local formatter = "oxfmt"
+	local linter = {}
+	local formatter = {}
 
 	local has_oxlint = self:find_config_file(self.configs.oxlint, { bufnr = buffer }) ~= nil
-	if not has_oxlint then
-		local has_eslint = self:find_config_file(self.configs.eslint, { bufnr = buffer }) ~= nil
-		if has_eslint then linter = "eslint" end
-	end
+	local has_eslint = self:find_config_file(self.configs.eslint, { bufnr = buffer }) ~= nil
+
+	if has_oxlint or not has_eslint then linter = { "oxlint" } end
+	if has_eslint then vim.list_extend(linter, { "eslint_d" }) end
 
 	local has_oxfmt = self:find_config_file(self.configs.oxfmt, { bufnr = buffer }) ~= nil
-	if not has_oxfmt then
-		local has_prettier = self:find_config_file(self.configs.prettier, { bufnr = buffer }) ~= nil
-		if has_prettier then formatter = "prettier" end
-	end
+	local has_prettier = self:find_config_file(self.configs.prettier, { bufnr = buffer }) ~= nil
+
+	if has_oxfmt or not has_prettier then formatter = { "oxfmt" } end
+	if not has_oxfmt and has_prettier then vim.list_extend(formatter, { "prettier" }) end
 
 	return { linter = linter, formatter = formatter }
 end
