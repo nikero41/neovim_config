@@ -76,7 +76,8 @@ return {
 				function() return default_config_args("sqlfluff") end
 			)
 
-			lint.linters.yamllint.env = { YAMLLINT_CONFIG_FILE = tools:get_default_config("yamllint") }
+			lint.linters.yamllint.env =
+				{ YAMLLINT_CONFIG_FILE = tools.configs.yamllint.default_config_path }
 
 			lint.linters.dotenv_linter.env =
 				{ DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ",") }
@@ -164,7 +165,11 @@ return {
 			end
 
 			opts.formatters = {
-				sqlfluff = { append_args = default_config_args("sqlfluff") },
+				sqlfluff = {
+					append_args = function(_, ctx)
+						return default_config_args("sqlfluff", { bufnr = ctx.buf })
+					end,
+				},
 				oxlint = {
 					condition = function(_, ctx)
 						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "oxlint")
@@ -188,7 +193,9 @@ return {
 					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				stylua = {
-					append_args = default_config_args("stylua", { arg = "--config-path" }),
+					append_args = function(_, ctx)
+						return default_config_args("stylua", { arg = "--config-path", bufnr = ctx.buf })
+					end,
 				},
 				golines = {
 					condition = function() return vim.g.enable_golines end,
