@@ -38,12 +38,11 @@ end
 
 ---@class Tools
 ---@field configs table<ToolConfigName, ToolConfig>
----@field default_config_path fun(self: Tools, filename: string): string
 ---@field package_json_has_key fun(self: Tools, key: string): boolean
 ---@field find_config_file fun(self: Tools, names: string[], opts?: { bufnr?: integer, stop?: string }): string|nil
 ---@field get_default_config fun(self: Tools, name: string): string|nil
 ---@field get_js_tools fun(self: Tools, buffer: integer): { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }
----@field _js_tools_cache table<string, { linter: ("oxlint"|"eslint_d")[], formatter: ("oxfmt"|"prettier")[] }>
+---@field _js_tools_cache table<string, { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }>
 local Tools = {
 	_js_tools_cache = {},
 	configs = {
