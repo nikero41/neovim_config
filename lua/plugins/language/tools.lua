@@ -198,17 +198,25 @@ return {
 			opts.formatters = {
 				sqlfluff = { append_args = slqlfluff_args },
 				oxlint = {
-					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).linter == "oxlint" end,
+					condition = function(_, ctx)
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "oxlint")
+					end,
 				},
 				eslint_d = {
-					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).linter == "eslint" end,
+					condition = function(_, ctx)
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "eslint")
+					end,
 				},
 				prettierd = {
-					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).formatter == "prettier" end,
+					condition = function(_, ctx)
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
+					end,
 					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				prettier = {
-					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).formatter == "prettier" end,
+					condition = function(_, ctx)
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
+					end,
 					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				stylua = {
