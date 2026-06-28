@@ -40,7 +40,6 @@ end
 ---@field configs table<ToolConfigName, ToolConfig>
 ---@field package_json_has_key fun(self: Tools, key: string): boolean
 ---@field find_config_file fun(self: Tools, names: string[], opts?: { bufnr?: integer, stop?: string }): string|nil
----@field get_default_config fun(self: Tools, name: string): string|nil
 ---@field get_js_tools fun(self: Tools, buffer: integer): { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }
 ---@field _js_tools_cache table<string, { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }>
 local Tools = {
@@ -170,13 +169,6 @@ function Tools:find_config_file(names, opts)
 	end
 
 	return config_path
-end
-
-function Tools:get_default_config(tool_name)
-	local config = self.configs[tool_name]
-	local has_project_config = self:find_config_file(config)
-	if has_project_config or not config.default_config_path then return nil end
-	return config.default_config_path
 end
 
 function Tools:get_js_tools(buffer)
