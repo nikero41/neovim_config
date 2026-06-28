@@ -165,12 +165,8 @@ return {
 					"yaml",
 				}))
 			do
-				opts.formatters_by_ft[language] = {
-					"eslint_d",
-					"prettierd",
-					"oxlint",
-					lsp_format = "first",
-				}
+				opts.formatters_by_ft[language] =
+					{ "eslint_d", "prettierd", "oxlint", lsp_format = "first" }
 			end
 
 			opts.formatters = {
