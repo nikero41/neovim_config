@@ -1,12 +1,15 @@
 local tools = require("nikero.tools")
 
 ---@param config_name ToolConfigName
+---@param opts? { arg?: string, bufnr?: integer }
 ---@return string[]
-local function default_config_args(config_name, arg)
+local function default_config_args(config_name, opts)
+	local opts = opts or {}
+
 	local config = tools.configs[config_name]
-	local has_project_config = tools:find_config_file(config)
+	local has_project_config = tools:find_config_file(config, { bufnr = opts.bufnr })
 	if has_project_config then return {} end
-	return { arg or "--config", config.default_config_path }
+	return { opts.args or "--config", config.default_config_path }
 end
 
 ---@type LazySpec
@@ -185,7 +188,7 @@ return {
 					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				stylua = {
-					append_args = default_config_args("stylua", "--config-path"),
+					append_args = default_config_args("stylua", { arg = "--config-path" }),
 				},
 				golines = {
 					condition = function() return vim.g.enable_golines end,
