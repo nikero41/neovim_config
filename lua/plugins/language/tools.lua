@@ -174,25 +174,12 @@ return {
 			end
 
 			for _, language in ipairs(require("filetypes").javascript) do
-				opts.formatters_by_ft[language] = function(buffer)
-					local formatters = {}
-
-					local has_eslint = tools:find_config_file(tools.configs.eslint, { bufnr = buffer }) ~= nil
-					local has_oxlint = tools:find_config_file(tools.configs.oxlint, { bufnr = buffer }) ~= nil
-					local has_prettier = tools:find_config_file(tools.configs.prettier, { bufnr = buffer })
-						~= nil
-					local has_oxfmt = tools:find_config_file(tools.configs.oxfmt, { bufnr = buffer }) ~= nil
-
-					if has_eslint or not has_oxlint then table.insert(formatters, "eslint_d") end
-					if has_oxlint then table.insert(formatters, "oxlint") end
-
-					if has_oxfmt then table.insert(formatters, "oxfmt") end
-					if has_prettier or not has_oxfmt then
-						table.insert(formatters, first(buffer, "prettierd", "prettier"))
-					end
-
-					return formatters
-				end
+				opts.formatters_by_ft[language] = {
+					"eslint_d",
+					"prettierd",
+					"oxlint",
+					lsp_format = "first",
+				}
 			end
 
 			opts.formatters = {
