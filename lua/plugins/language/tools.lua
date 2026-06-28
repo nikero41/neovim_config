@@ -120,18 +120,6 @@ return {
 		---@param opts conform.setupOpts
 		---@return conform.setupOpts
 		opts = function(_, opts)
-			---@param buffer integer
-			---@param ... string
-			---@return string
-			local function first(buffer, ...)
-				local conform = require("conform")
-				for i = 1, select("#", ...) do
-					local formatter = select(i, ...)
-					if conform.get_formatter_info(formatter, buffer).available then return formatter end
-				end
-				return select(1, ...)
-			end
-
 			opts = opts or {}
 
 			opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
