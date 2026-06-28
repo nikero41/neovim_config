@@ -53,8 +53,10 @@ return {
 				yaml = { "yamllint" },
 			}
 
-			for _, language in ipairs(require("filetypes").javascript) do
-				lint.linters_by_ft[language] = { "eslint_d" }
+			if tools:get_js_tools(0).linter == "eslint" then
+				for _, language in ipairs(require("filetypes").javascript) do
+					lint.linters_by_ft[language] = { "eslint_d" }
+				end
 			end
 
 			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
@@ -196,37 +198,17 @@ return {
 			opts.formatters = {
 				sqlfluff = { append_args = slqlfluff_args },
 				oxlint = {
-					condition = function(_, ctx)
-						return tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) ~= nil
-					end,
-				},
-				oxfmt = {
-					condition = function(_, ctx)
-						return tools:find_config_file(tools.configs.oxfmt, { bufnr = ctx.buf }) ~= nil
-					end,
+					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).linter == "oxlint" end,
 				},
 				eslint_d = {
-					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.eslint, { bufnr = ctx.buf })
-							~= nil
-						return has_config
-							or tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) == nil
-					end,
+					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).linter == "eslint" end,
 				},
 				prettierd = {
-					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
-							~= nil
-						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
-					end,
+					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).formatter == "prettier" end,
 					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				prettier = {
-					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
-							~= nil
-						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
-					end,
+					condition = function(_, ctx) return tools:get_js_tools(ctx.buf).formatter == "prettier" end,
 					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
 				},
 				stylua = {
