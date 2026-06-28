@@ -53,7 +53,7 @@ return {
 				yaml = { "yamllint" },
 			}
 
-			if tools:get_js_tools(0).linter == "eslint" then
+			if vim.tbl_contains(tools:get_js_tools(0).linter, "eslint") then
 				for _, language in ipairs(require("filetypes").javascript) do
 					lint.linters_by_ft[language] = { "eslint_d" }
 				end
