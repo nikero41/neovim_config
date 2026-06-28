@@ -135,6 +135,7 @@ return {
 			opts = opts or {}
 
 			opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
+				astro = { "eslint_d", "prettierd" },
 				bash = { "shfmt", "shellcheck" },
 				sh = { "shfmt", "shellcheck" },
 				zsh = { "shfmt", "shellcheck" },
@@ -150,15 +151,6 @@ return {
 				sql = { "sqlfluff", lsp_format = "never" },
 				templ = { "templ" },
 			})
-
-			for _, filetype in ipairs({
-				"vue",
-				"astro",
-			}) do
-				opts.formatters_by_ft[filetype] = function(buffer)
-					return { first(buffer, "prettierd", "prettier") }
-				end
-			end
 
 			for _, language in
 				ipairs(vim.list_extend(vim.deepcopy(require("filetypes").javascript), {
