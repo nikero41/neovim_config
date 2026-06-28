@@ -1,8 +1,30 @@
+local function default_config_path(filename)
+	local default_config = vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", filename)
+	assert(vim.uv.fs_stat(default_config))
+	return default_config
+end
+
+---@class ToolConfig: string[]
+---@field default_config_path string?
+
+---@alias ToolConfigName
+---| "prettier"
+---| "eslint"
+---| "stylelint"
+---| "stylua"
+---| "selene"
+---| "oxlint"
+---| "oxfmt"
+---| "sqlfluff"
+---| "yamllint"
+
 ---@class Tools
----@field configs table<string, string[]>
+---@field configs table<ToolConfigName, ToolConfig>
 ---@field default_config_path fun(self: Tools, filename: string): string
 ---@field package_json_has_key fun(self: Tools, key: string): boolean
 ---@field find_config_file fun(self: Tools, names: string[], opts?: { bufnr?: integer, stop?: string }): string|nil
+---@field get_default_config fun(self: Tools, name: string): string|nil
+---@field get_js_tools fun(self: Tools, buffer: integer): { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }
 local Tools = {
 	configs = {
 		prettier = {
@@ -23,6 +45,7 @@ local Tools = {
 			"prettier.config.mjs",
 			"prettier.config.mts",
 			"prettier.config.ts",
+			default_config_path = default_config_path("prettier.config.js"),
 		},
 		eslint = {
 			-- ESLint <=8 (Deprecated)
@@ -51,15 +74,18 @@ local Tools = {
 			".stylelintrc.json",
 			".stylelintrc.yml",
 			".stylelintrc.yaml",
+			default_config_path = default_config_path("stylelint.config.js"),
 		},
 		stylua = {
 			".stylua.toml",
 			"stylua.toml",
 			".editorconfig",
+			default_config_path = default_config_path(".stylua.toml"),
 		},
 		selene = {
 			".selene.toml",
 			"selene.toml",
+			default_config_path = default_config_path(".selene.toml"),
 		},
 		oxlint = {
 			".oxlintrc.json",
@@ -70,6 +96,7 @@ local Tools = {
 			".oxfmtrc.json",
 			".oxfmtrc.jsonc",
 			"oxfmt.config.ts",
+			default_config_path = default_config_path("oxfmt.config.ts"),
 		},
 		sqlfluff = {
 			"setup.cfg",
@@ -77,6 +104,10 @@ local Tools = {
 			"pep8.ini",
 			".sqlfluff",
 			"pyproject.toml",
+			default_config_path = default_config_path(".sqlfluff"),
+		},
+		yamllint = {
+			default_config_path = default_config_path(".yamllint.yaml"),
 		},
 	},
 }
@@ -114,7 +145,7 @@ function Tools:find_config_file(names, opts)
 		limit = 1,
 	})[1]
 
-	if not config_path then
+	if config_path ~= nil then
 		config_path = vim
 			.iter(names)
 			:map(function(name) return vim.fs.joinpath(stop_path, name) end)
@@ -124,10 +155,11 @@ function Tools:find_config_file(names, opts)
 	return config_path
 end
 
-function Tools:default_config_path(filename)
-	local default_config = vim.fs.joinpath(vim.fn.stdpath("config"), "config_files", filename)
-	assert(vim.uv.fs_stat(default_config))
-	return default_config
+function Tools:get_default_config(tool_name)
+	local config = self.configs[tool_name]
+	local has_project_config = self:find_config_file(config)
+	if has_project_config or not config.default_config_path then return nil end
+	return config.default_config_path
 end
 
 function Tools:get_js_tools(buffer)

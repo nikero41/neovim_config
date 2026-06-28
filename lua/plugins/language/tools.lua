@@ -1,10 +1,12 @@
 local tools = require("nikero.tools")
 
+---@param config_name ToolConfigName
 ---@return string[]
-local function slqlfluff_args()
-	local has_project_config = tools:find_config_file(tools.configs.sqlfluff)
+local function default_config_args(config_name, arg)
+	local config = tools.configs[config_name]
+	local has_project_config = tools:find_config_file(config)
 	if has_project_config then return {} end
-	return { "--config", tools:default_config_path(".sqlfluff") }
+	return { arg or "--config", config.default_config_path }
 end
 
 ---@type LazySpec
@@ -53,31 +55,25 @@ return {
 				yaml = { "yamllint" },
 			}
 
-			if vim.tbl_contains(tools:get_js_tools(0).linter, "eslint") then
-				for _, language in ipairs(require("filetypes").javascript) do
-					lint.linters_by_ft[language] = { "eslint_d" }
-				end
+			for _, language in ipairs(require("filetypes").javascript) do
+				lint.linters_by_ft[language] = { "eslint_d" }
 			end
 
 			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
 
-			table.insert(lint.linters.selene.args, function()
-				local has_project_config = tools:find_config_file(tools.configs.selene)
-				if has_project_config then return {} end
-				return { "--config", tools:default_config_path(".selene.toml") }
-			end)
+			table.insert(lint.linters.selene.args, function() return default_config_args("selene") end)
 
-			table.insert(lint.linters.stylelint.args, function()
-				local has_project_config = tools:find_config_file(tools.configs.stylelint)
-					or tools:package_json_has_key("stylelint")
-				if has_project_config then return {} end
-				return { "--config", tools:default_config_path("stylelint.config.js") }
-			end)
+			table.insert(
+				lint.linters.stylelint.args,
+				function() return default_config_args("stylelint") end
+			)
 
-			table.insert(lint.linters.sqlfluff.args, slqlfluff_args)
+			table.insert(
+				lint.linters.sqlfluff.args,
+				function() return default_config_args("sqlfluff") end
+			)
 
-			lint.linters.yamllint.env =
-				{ YAMLLINT_CONFIG_FILE = tools:default_config_path(".yamllint.yaml") }
+			lint.linters.yamllint.env = { YAMLLINT_CONFIG_FILE = tools:get_default_config("yamllint") }
 
 			lint.linters.dotenv_linter.env =
 				{ DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ",") }
@@ -88,7 +84,14 @@ return {
 					group = vim.api.nvim_create_augroup("lint", { clear = true }),
 					callback = function()
 						if vim.bo.modifiable then
-							local ok, msg = pcall(lint.try_lint)
+							local ok, msg = pcall(lint.try_lint, nil, {
+								filter = function(linter)
+									if linter.name == "eslint_d" then
+										return vim.tbl_contains(tools:get_js_tools(0).linter, "eslint")
+									end
+									return true
+								end,
+							})
 							if not ok then
 								vim.notify(msg or "Error while linting", vim.log.levels.ERROR, { title = "Lint" })
 							end
@@ -158,7 +161,7 @@ return {
 			end
 
 			opts.formatters = {
-				sqlfluff = { append_args = slqlfluff_args },
+				sqlfluff = { append_args = default_config_args("sqlfluff") },
 				oxlint = {
 					condition = function(_, ctx)
 						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "oxlint")
@@ -173,20 +176,16 @@ return {
 					condition = function(_, ctx)
 						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
 					end,
-					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
+					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				prettier = {
 					condition = function(_, ctx)
 						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
 					end,
-					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
+					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				stylua = {
-					append_args = function()
-						local has_project_config = tools:find_config_file(tools.configs.stylua)
-						if has_project_config then return {} end
-						return { "--config-path", tools:default_config_path(".stylua.toml") }
-					end,
+					append_args = default_config_args("stylua", "--config-path"),
 				},
 				golines = {
 					condition = function() return vim.g.enable_golines end,
