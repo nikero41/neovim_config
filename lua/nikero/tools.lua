@@ -170,7 +170,7 @@ function Tools:get_js_tools(buffer)
 	local has_eslint = self:find_config_file(self.configs.eslint, { bufnr = buffer }) ~= nil
 
 	if has_oxlint or not has_eslint then linter = { "oxlint" } end
-	if has_eslint then vim.list_extend(linter, { "eslint_d" }) end
+	if has_eslint then vim.list_extend(linter, { "eslint" }) end
 
 	local has_oxfmt = self:find_config_file(self.configs.oxfmt, { bufnr = buffer }) ~= nil
 	local has_prettier = self:find_config_file(self.configs.prettier, { bufnr = buffer }) ~= nil
