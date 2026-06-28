@@ -164,8 +164,8 @@ function Tools:find_config_file(names, opts)
 
 	if not config_path then
 		config_path = vim
-			.iter(names)
-			:map(function(name) return vim.fs.joinpath(stop_path, name) end)
+			.iter(ipairs(names))
+			:map(function(_, name) return vim.fs.joinpath(stop_path, name) end)
 			:find(function(path) return vim.uv.fs_stat(path) end)
 	end
 
