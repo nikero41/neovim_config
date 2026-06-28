@@ -8,7 +8,7 @@ local function default_config_args(config_name, opts)
 
 	local config = tools.configs[config_name]
 	local has_project_config = tools:find_config_file(config, { bufnr = opts.bufnr })
-	if has_project_config then return {} end
+	if has_project_config or not config.default_config_path then return {} end
 	return { opts.arg or "--config", config.default_config_path }
 end
 
