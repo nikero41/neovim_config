@@ -4,12 +4,12 @@ local tools = require("nikero.tools")
 ---@param opts? { arg?: string, bufnr?: integer }
 ---@return string[]
 local function default_config_args(config_name, opts)
-	local opts = opts or {}
+	opts = opts or {}
 
 	local config = tools.configs[config_name]
 	local has_project_config = tools:find_config_file(config, { bufnr = opts.bufnr })
 	if has_project_config then return {} end
-	return { opts.args or "--config", config.default_config_path }
+	return { opts.arg or "--config", config.default_config_path }
 end
 
 ---@type LazySpec
