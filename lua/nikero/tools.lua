@@ -4,6 +4,24 @@ local function default_config_path(filename)
 	return default_config
 end
 
+local project_dir_cache = {}
+
+local function project_paths(buffer)
+	local filename = vim.api.nvim_buf_get_name(buffer or 0)
+	local start_path = filename ~= "" and vim.fs.dirname(filename) or vim.uv.cwd()
+	if not start_path then return nil, nil end
+
+	start_path = vim.fs.normalize(start_path)
+
+	local project_dir = project_dir_cache[start_path]
+	if not project_dir then
+		project_dir = vim.fs.normalize(vim.fs.root(start_path, ".git") or vim.uv.cwd() or start_path)
+		project_dir_cache[start_path] = project_dir
+	end
+
+	return start_path, project_dir
+end
+
 ---@class ToolConfig: string[]
 ---@field default_config_path string?
 
@@ -25,7 +43,9 @@ end
 ---@field find_config_file fun(self: Tools, names: string[], opts?: { bufnr?: integer, stop?: string }): string|nil
 ---@field get_default_config fun(self: Tools, name: string): string|nil
 ---@field get_js_tools fun(self: Tools, buffer: integer): { linter: ("oxlint"|"eslint")[], formatter: ("oxfmt"|"prettier")[] }
+---@field _js_tools_cache table<string, { linter: ("oxlint"|"eslint_d")[], formatter: ("oxfmt"|"prettier")[] }>
 local Tools = {
+	_js_tools_cache = {},
 	configs = {
 		prettier = {
 			".prettierrc",
@@ -131,14 +151,12 @@ end
 function Tools:find_config_file(names, opts)
 	opts = opts or {}
 
-	local filename = vim.api.nvim_buf_get_name(opts.bufnr or 0)
-	local start_path = filename ~= "" and vim.fs.dirname(filename) or vim.uv.cwd()
+	local start_path, project_dir = project_paths(opts.bufnr)
 	if not start_path then return nil end
-
-	local stop_path = opts.stop or vim.fs.root(start_path, ".git") or vim.uv.cwd() or start_path
+	local stop_path = opts.stop or project_dir or start_path
 
 	local config_path = vim.fs.find(names, {
-		path = vim.fs.normalize(start_path),
+		path = start_path,
 		stop = vim.fs.normalize(stop_path),
 		upward = true,
 		type = "file",
@@ -163,6 +181,12 @@ function Tools:get_default_config(tool_name)
 end
 
 function Tools:get_js_tools(buffer)
+	local _, project_dir = project_paths(buffer)
+	if not project_dir then return { linter = { "oxlint" }, formatter = { "oxfmt" } } end
+
+	local cached = self._js_tools_cache[project_dir]
+	if cached then return cached end
+
 	local linter = {}
 	local formatter = {}
 
@@ -178,7 +202,9 @@ function Tools:get_js_tools(buffer)
 	if has_oxfmt or not has_prettier then formatter = { "oxfmt" } end
 	if not has_oxfmt and has_prettier then vim.list_extend(formatter, { "prettier" }) end
 
-	return { linter = linter, formatter = formatter }
+	local result = { linter = linter, formatter = formatter }
+	self._js_tools_cache[project_dir] = result
+	return result
 end
 
 return Tools
