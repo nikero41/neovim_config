@@ -1,10 +1,15 @@
 local tools = require("nikero.tools")
 
+---@param config_name ToolConfigName
+---@param opts? { arg?: string, bufnr?: integer }
 ---@return string[]
-local function slqlfluff_args()
-	local has_project_config = tools:find_config_file(tools.configs.sqlfluff)
-	if has_project_config then return {} end
-	return { "--config", tools:default_config_path(".sqlfluff") }
+local function default_config_args(config_name, opts)
+	opts = opts or {}
+
+	local config = tools.configs[config_name]
+	local has_project_config = tools:find_config_file(config, { bufnr = opts.bufnr })
+	if has_project_config or not config.default_config_path then return {} end
+	return { opts.arg or "--config", config.default_config_path }
 end
 
 ---@type LazySpec
@@ -59,23 +64,20 @@ return {
 
 			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
 
-			table.insert(lint.linters.selene.args, function()
-				local has_project_config = tools:find_config_file(tools.configs.selene)
-				if has_project_config then return {} end
-				return { "--config", tools:default_config_path(".selene.toml") }
-			end)
+			table.insert(lint.linters.selene.args, function() return default_config_args("selene") end)
 
-			table.insert(lint.linters.stylelint.args, function()
-				local has_project_config = tools:find_config_file(tools.configs.stylelint)
-					or tools:package_json_has_key("stylelint")
-				if has_project_config then return {} end
-				return { "--config", tools:default_config_path("stylelint.config.js") }
-			end)
+			table.insert(
+				lint.linters.stylelint.args,
+				function() return default_config_args("stylelint") end
+			)
 
-			table.insert(lint.linters.sqlfluff.args, slqlfluff_args)
+			table.insert(
+				lint.linters.sqlfluff.args,
+				function() return default_config_args("sqlfluff") end
+			)
 
 			lint.linters.yamllint.env =
-				{ YAMLLINT_CONFIG_FILE = tools:default_config_path(".yamllint.yaml") }
+				{ YAMLLINT_CONFIG_FILE = tools.configs.yamllint.default_config_path }
 
 			lint.linters.dotenv_linter.env =
 				{ DOTENV_LINTER_IGNORE_CHECKS = table.concat({ "QuoteCharacter", "UnorderedKey" }, ",") }
@@ -86,7 +88,14 @@ return {
 					group = vim.api.nvim_create_augroup("lint", { clear = true }),
 					callback = function()
 						if vim.bo.modifiable then
-							local ok, msg = pcall(lint.try_lint)
+							local ok, msg = pcall(lint.try_lint, nil, {
+								filter = function(linter)
+									if linter.name == "eslint_d" then
+										return vim.tbl_contains(tools:get_js_tools(0).linter, "eslint")
+									end
+									return true
+								end,
+							})
 							if not ok then
 								vim.notify(msg or "Error while linting", vim.log.levels.ERROR, { title = "Lint" })
 							end
@@ -118,21 +127,10 @@ return {
 		---@param opts conform.setupOpts
 		---@return conform.setupOpts
 		opts = function(_, opts)
-			---@param buffer integer
-			---@param ... string
-			---@return string
-			local function first(buffer, ...)
-				local conform = require("conform")
-				for i = 1, select("#", ...) do
-					local formatter = select(i, ...)
-					if conform.get_formatter_info(formatter, buffer).available then return formatter end
-				end
-				return select(1, ...)
-			end
-
 			opts = opts or {}
 
 			opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
+				astro = { "eslint_d", "prettierd" },
 				bash = { "shfmt", "shellcheck" },
 				sh = { "shfmt", "shellcheck" },
 				zsh = { "shfmt", "shellcheck" },
@@ -149,91 +147,54 @@ return {
 				templ = { "templ" },
 			})
 
-			for _, filetype in ipairs({
-				"vue",
-				"css",
-				"scss",
-				"less",
-				"html",
-				"json",
-				"jsonc",
-				"yaml",
-				"markdown",
-				"markdown.mdx",
-				"graphql",
-				"handlebars",
-				"svelte",
-				"astro",
-				"htmlangular",
-			}) do
-				opts.formatters_by_ft[filetype] = function(buffer)
-					return { first(buffer, "prettierd", "prettier") }
-				end
-			end
-
-			for _, language in ipairs(require("filetypes").javascript) do
-				opts.formatters_by_ft[language] = function(buffer)
-					local formatters = {}
-
-					local has_eslint = tools:find_config_file(tools.configs.eslint, { bufnr = buffer }) ~= nil
-					local has_oxlint = tools:find_config_file(tools.configs.oxlint, { bufnr = buffer }) ~= nil
-					local has_prettier = tools:find_config_file(tools.configs.prettier, { bufnr = buffer })
-						~= nil
-					local has_oxfmt = tools:find_config_file(tools.configs.oxfmt, { bufnr = buffer }) ~= nil
-
-					if has_eslint or not has_oxlint then table.insert(formatters, "eslint_d") end
-					if has_oxlint then table.insert(formatters, "oxlint") end
-
-					if has_oxfmt then table.insert(formatters, "oxfmt") end
-					if has_prettier or not has_oxfmt then
-						table.insert(formatters, first(buffer, "prettierd", "prettier"))
-					end
-
-					return formatters
-				end
+			for _, language in
+				ipairs(vim.list_extend(vim.deepcopy(require("filetypes").javascript), {
+					"json",
+					"jsonc",
+					"css",
+					"scss",
+					"html",
+					"graphql",
+					"markdown",
+					"markdown.mdx",
+					"yaml",
+				}))
+			do
+				opts.formatters_by_ft[language] =
+					{ "eslint_d", "prettierd", "oxlint", lsp_format = "first" }
 			end
 
 			opts.formatters = {
-				sqlfluff = { append_args = slqlfluff_args },
-				oxlint = {
-					condition = function(_, ctx)
-						return tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) ~= nil
+				sqlfluff = {
+					append_args = function(_, ctx)
+						return default_config_args("sqlfluff", { bufnr = ctx.buf })
 					end,
 				},
-				oxfmt = {
+				oxlint = {
 					condition = function(_, ctx)
-						return tools:find_config_file(tools.configs.oxfmt, { bufnr = ctx.buf }) ~= nil
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "oxlint")
 					end,
 				},
 				eslint_d = {
 					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.eslint, { bufnr = ctx.buf })
-							~= nil
-						return has_config
-							or tools:find_config_file(tools.configs.oxlint, { bufnr = ctx.buf }) == nil
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).linter, "eslint")
 					end,
 				},
 				prettierd = {
 					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
-							~= nil
-						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
 					end,
-					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
+					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				prettier = {
 					condition = function(_, ctx)
-						local has_config = tools:find_config_file(tools.configs.prettier, { bufnr = ctx.buf })
-							~= nil
-						return has_config or tools:find_config_file(tools.configs.oxfmt) == nil
+						return vim.tbl_contains(tools:get_js_tools(ctx.buf).formatter, "prettier")
 					end,
-					env = { PRETTIERD_DEFAULT_CONFIG = tools:default_config_path("prettier.config.js") },
+					env = { PRETTIERD_DEFAULT_CONFIG = tools.configs.prettier.default_config_path },
 				},
 				stylua = {
-					append_args = function()
-						local has_project_config = tools:find_config_file(tools.configs.stylua)
-						if has_project_config then return {} end
-						return { "--config-path", tools:default_config_path(".stylua.toml") }
+					append_args = function(_, ctx)
+						return default_config_args("stylua", { arg = "--config-path", bufnr = ctx.buf })
 					end,
 				},
 				golines = {
