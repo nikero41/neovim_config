@@ -64,17 +64,24 @@ return {
 
 			lint.linters["eslint_d"].env = { ESLINT_D_PPID = vim.fn.getpid() }
 
-			table.insert(lint.linters.selene.args, function() return default_config_args("selene") end)
+			---@param config_name ToolConfigName
+			---@return (fun():string)[]
+			local function linter_args_mapper(config_name)
+				return {
+					function()
+						local config_args = default_config_args(config_name)
+						return #config_args > 0 and config_args[1] or ""
+					end,
+					function()
+						local config_args = default_config_args(config_name)
+						return #config_args > 0 and config_args[2] or ""
+					end,
+				}
+			end
 
-			table.insert(
-				lint.linters.stylelint.args,
-				function() return default_config_args("stylelint") end
-			)
-
-			table.insert(
-				lint.linters.sqlfluff.args,
-				function() return default_config_args("sqlfluff") end
-			)
+			vim.list_extend(lint.linters.selene.args, linter_args_mapper("selene"))
+			vim.list_extend(lint.linters.stylelint.args, linter_args_mapper("stylelint"))
+			vim.list_extend(lint.linters.sqlfluff.args, linter_args_mapper("sqlfluff"))
 
 			lint.linters.yamllint.env =
 				{ YAMLLINT_CONFIG_FILE = tools.configs.yamllint.default_config_path }
