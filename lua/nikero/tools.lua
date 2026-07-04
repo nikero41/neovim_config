@@ -35,6 +35,7 @@ end
 ---| "oxfmt"
 ---| "sqlfluff"
 ---| "yamllint"
+---| "markdownlint"
 
 ---@class Tools
 ---@field configs table<ToolConfigName, ToolConfig>
@@ -126,6 +127,17 @@ local Tools = {
 		},
 		yamllint = {
 			default_config_path = default_config_path(".yamllint.yaml"),
+		},
+		markdownlint = {
+			".markdownlint.json",
+			".markdownlint.jsonc",
+			".markdownlint.yaml",
+			".markdownlint.yml",
+			".markdownlintrc",
+			".markdownlintrc.json",
+			".markdownlintrc.yaml",
+			".markdownlintrc.yml",
+			default_config_path = default_config_path(".markdownlint.jsonc"),
 		},
 	},
 }
