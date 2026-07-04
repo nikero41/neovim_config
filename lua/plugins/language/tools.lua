@@ -51,7 +51,7 @@ return {
 				go = { "golangcilint" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "selene" },
-				markdown = { "markdownlint" },
+				markdown = { "markdownlint-cli2" },
 				make = { "checkmake" },
 				python = { "mypy", "basedpyright" },
 				sql = { "sqlfluff" },
