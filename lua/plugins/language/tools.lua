@@ -82,6 +82,7 @@ return {
 			vim.list_extend(lint.linters.selene.args, linter_args_mapper("selene"))
 			vim.list_extend(lint.linters.stylelint.args, linter_args_mapper("stylelint"))
 			vim.list_extend(lint.linters.sqlfluff.args, linter_args_mapper("sqlfluff"))
+			vim.list_extend(lint.linters["markdownlint-cli2"].args, linter_args_mapper("markdownlint"))
 
 			lint.linters.yamllint.env =
 				{ YAMLLINT_CONFIG_FILE = tools.configs.yamllint.default_config_path }
