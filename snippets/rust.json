@@ -1,0 +1,53 @@
+{
+  "New Struct": {
+    "prefix": "sr",
+    "body": ["#[derive(Debug)]", "struct ${1} {", "", "}"],
+    "description": "Create a new struct"
+  },
+  "New Public Struct": {
+    "prefix": "sr",
+    "body": ["#[derive(Debug)]", "pub struct ${1} {", "", "}"],
+    "description": "Create a new public struct"
+  },
+  "New Yew function component": {
+    "prefix": "ywc",
+    "body": [
+      "#[derive(PartialEq, Properties)]",
+      "pub struct ${1:ComponentName}Props {}",
+      "",
+      "#[component]",
+      "pub fn $1(props: &${1}Props) -> Html {",
+      "    let ${1}Props {} = props;",
+      "    html! {",
+      "        <${2:div}>$0</${2}>",
+      "    }",
+      "}"
+    ],
+    "description": "Create a minimal Yew function component"
+  },
+  "New Yew struct component": {
+    "prefix": "ywsc",
+    "body": [
+      "pub struct ${1:ComponentName};",
+      "",
+      "pub enum ${1}Msg {",
+      "}",
+      "",
+      "impl Component for ${1} {",
+      "    type Message = ${1}Msg;",
+      "    type Properties = ();",
+      "",
+      "    fn create(ctx: &Context<Self>) -> Self {",
+      "        Self",
+      "    }",
+      "",
+      "    fn view(&self, ctx: &Context<Self>) -> Html {",
+      "        html! {",
+      "            $0",
+      "        }",
+      "    }",
+      "}"
+    ],
+    "description": "Create a new Yew component with a message enum"
+  }
+}

@@ -1,8 +1,5 @@
 {
   "name": "user-snippets",
-  "engines": {
-    "vscode": "^1.11.0"
-  },
   "contributes": {
     "snippets": [
       {
@@ -31,7 +28,16 @@
           "typescriptreact"
         ],
         "path": "./react-native.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./rust.json"
       }
     ]
+  },
+  "engines": {
+    "vscode": "^1.11.0"
   }
 }
