@@ -1,18 +1,18 @@
----@alias SqlsDriver
+--@alias SqlsDriver
 ---| "mysql"
 ---| "postgresql"
 ---| "sqlite3"
 ---| "mssql"
 ---| "h2"
 
----@class SqlsSshConfig
+--@class SqlsSshConfig
 ---@field host? string
 ---@field port? integer
 ---@field user? string
 ---@field passwd? string
 ---@field privateKey? string
 
----@class SqlsConnection
+--@class SqlsConnection
 ---@field alias? string Connection alias name.
 ---@field driver SqlsDriver
 ---@field dataSourceName? string Data source name.
