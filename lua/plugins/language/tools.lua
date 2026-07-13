@@ -82,6 +82,16 @@ return {
 			vim.list_extend(lint.linters.selene.args, linter_args_mapper("selene"))
 			vim.list_extend(lint.linters.stylelint.args, linter_args_mapper("stylelint"))
 			vim.list_extend(lint.linters.sqlfluff.args, linter_args_mapper("sqlfluff"))
+			vim.list_extend(lint.linters.sqlfluff.args, {
+				function()
+					local config_args = default_config_args("sqlfluff")
+					return #config_args > 0 and "--dialect" or ""
+				end,
+				function()
+					local config_args = default_config_args("sqlfluff")
+					return #config_args > 0 and require("nikero.database").dialect or ""
+				end,
+			})
 			vim.list_extend(lint.linters["markdownlint-cli2"].args, linter_args_mapper("markdownlint"))
 
 			lint.linters.yamllint.env =

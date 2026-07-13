@@ -31,6 +31,15 @@ local CommandPalette = {
 			},
 		},
 		{
+			name = "Database dialect",
+			commands = {
+				{ "PostgreSQL", function() require("nikero.database"):set_dialect("postgres") end },
+				{ "SQLite", function() require("nikero.database"):set_dialect("sqlite") end },
+				{ "MySQL", function() require("nikero.database"):set_dialect("mysql") end },
+				{ "SQL Server", function() require("nikero.database"):set_dialect("tsql") end },
+			},
+		},
+		{
 			name = "Git",
 			commands = {
 				{ "View on GitHub", function() Snacks.gitbrowse() end },
