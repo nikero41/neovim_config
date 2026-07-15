@@ -163,7 +163,7 @@ return {
 
 				-- SQL
 				"sqlfluff",
-				"sqls",
+				{ "sqls", version = "v0.2.27" },
 
 				-- Swift
 				"codelldb",
