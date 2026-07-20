@@ -72,9 +72,10 @@ function Autocmds:setup()
 				function(acc, client)
 					return {
 						folding = client:supports_method("textDocument/foldingRange") or acc.folding,
-						document_color = client:supports_method("textDocument/documentColor") or acc.folding,
-						inlay_hints = client:supports_method("textDocument/inlayHint") or acc.folding,
-						code_lens = client:supports_method("textDocument/codeLens") or acc.folding,
+						document_color = client:supports_method("textDocument/documentColor")
+							or acc.document_color,
+						inlay_hints = client:supports_method("textDocument/inlayHint") or acc.inlay_hints,
+						code_lens = client:supports_method("textDocument/codeLens") or acc.code_lens,
 						semantic_token = client:supports_method("textDocument/semanticTokens/full")
 							or acc.semantic_token,
 					}
