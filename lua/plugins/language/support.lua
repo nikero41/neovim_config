@@ -53,6 +53,7 @@ return {
 		---@module "mason"
 		---@type MasonSettings
 		opts = {
+			firewall = { enabled = true },
 			ui = {
 				border = vim.o.winborder,
 				icons = {
