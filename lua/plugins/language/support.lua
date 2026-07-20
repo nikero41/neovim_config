@@ -10,7 +10,7 @@ return {
 					local extra_filetypes = {
 						html = { "templ" },
 						emmet_language_server = { "templ" },
-						tailwindcss = { "templ" },
+						tailwindcss = { "templ", "rust" },
 					}
 
 					vim
