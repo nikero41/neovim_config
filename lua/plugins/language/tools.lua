@@ -161,6 +161,7 @@ return {
 				markdown = { "markdownlint" },
 				nginx = { "nginxfmt" },
 				python = { "isort", "black" },
+				rust = { "dioxus", lsp_format = "first" },
 				sql = { "sqlfluff", lsp_format = "never" },
 				templ = { "templ" },
 			})
@@ -218,6 +219,14 @@ return {
 				golines = {
 					condition = function() return vim.g.enable_golines end,
 					append_args = { "-t", "2", "-m", "80" },
+				},
+				dioxus = {
+					command = "dx",
+					args = { "fmt", "--file", "$FILENAME" },
+					stdin = false,
+					condition = function(_, ctx)
+						return tools:find_config_file({ "dioxus.toml" }, { bufnr = ctx.buf }) ~= nil
+					end,
 				},
 			}
 
