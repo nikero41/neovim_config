@@ -2,6 +2,10 @@
 return {
 	workspace_required = false,
 	settings = { run = "onSave" },
+	before_init = function(params)
+		params.capabilities.textDocument.diagnostic = nil
+		params.capabilities.workspace.diagnostics = nil
+	end,
 	root_dir = function(buffer, on_dir)
 		local filename = vim.api.nvim_buf_get_name(buffer)
 		local start_path = filename ~= "" and vim.fs.dirname(filename) or vim.uv.cwd()
