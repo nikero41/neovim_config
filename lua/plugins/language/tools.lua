@@ -201,38 +201,36 @@ return {
 				})
 			end
 
-			opts.formatters_by_ft = vim.tbl_extend(
-				"force",
-				opts.formatters_by_ft or {},
-				{
-					astro = { "eslint_d", "prettierd" },
-					bash = { "shfmt", "shellcheck" },
-					sh = { "shfmt", "shellcheck" },
-					zsh = { "shfmt", "shellcheck" },
-					c = { "clang_format" },
-					cpp = { "clang_format" },
-					cs = { "csharpier" },
-					go = { "goimports", "golines", lsp_format = "last" },
-					groovy = { "npm-groovy-lint" },
-					lua = { "stylua" },
-					markdown = with_js_formatters({ "markdownlint" }),
-					nginx = { "nginxfmt" },
-					python = { "isort", "black" },
-					rust = { "dioxus", lsp_format = "first" },
-					sql = { "sqlfluff", lsp_format = "never" },
-					templ = { "templ" },
-					json = with_js_formatters({}),
-					jsonc = with_js_formatters({}),
-					css = with_js_formatters({}),
-					scss = with_js_formatters({}),
-					html = with_js_formatters({}),
-					graphql = with_js_formatters({}),
-					yaml = with_js_formatters({}),
-				},
-				vim
-					.iter(vim.deepcopy(require("filetypes").javascript))
-					:map(function() return with_js_formatters({}) end)
-			)
+			opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
+				astro = { "eslint_d", "prettierd" },
+				bash = { "shfmt", "shellcheck" },
+				sh = { "shfmt", "shellcheck" },
+				zsh = { "shfmt", "shellcheck" },
+				c = { "clang_format" },
+				cpp = { "clang_format" },
+				cs = { "csharpier" },
+				go = { "goimports", "golines", lsp_format = "last" },
+				groovy = { "npm-groovy-lint" },
+				lua = { "stylua" },
+				markdown = with_js_formatters({ "markdownlint" }),
+				nginx = { "nginxfmt" },
+				python = { "isort", "black" },
+				rust = { "dioxus", lsp_format = "last" },
+				sql = { "sqlfluff", lsp_format = "never" },
+				templ = { "templ" },
+				haskell = { "ormolu" },
+				json = with_js_formatters({}),
+				jsonc = with_js_formatters({}),
+				css = with_js_formatters({}),
+				scss = with_js_formatters({}),
+				html = with_js_formatters({}),
+				graphql = with_js_formatters({}),
+				yaml = with_js_formatters({}),
+			})
+
+			for _, language in ipairs(require("filetypes").javascript) do
+				opts.formatters_by_ft[language] = with_js_formatters({})
+			end
 
 			opts.formatters = {
 				sqlfluff = {
