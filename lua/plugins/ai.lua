@@ -90,20 +90,22 @@ return {
 		keys = {
 			{
 				"<leader>aa",
-				function() require("opencode").ask("@this: ", { submit = true }) end,
+				function() require("opencode").ask("@this: ") end,
 				desc = "Ask about this",
 				mode = { "n", "v" },
 			},
 			{
-				"<leader>ab",
-				function() require("opencode").prompt("@buffer", { append = true }) end,
-				desc = "Add buffer to prompt",
-				mode = { "n", "v" },
+				"go",
+				function() return require("opencode").operator("@this") end,
+				desc = "Send range to OpenCode",
+				expr = true,
+				mode = { "n", "x" },
 			},
 			{
-				"<leader>ae",
-				function() require("opencode").prompt("Explain @this and its context", { submit = true }) end,
-				desc = "Explain this code",
+				"goo",
+				function() return require("opencode").operator("@this") .. "_" end,
+				desc = "Send line to OpenCode",
+				expr = true,
 			},
 			{
 				"<leader>ap",
@@ -122,7 +124,27 @@ return {
 				opts = {
 					picker = {
 						actions = {
-							opencode_send = function(...) return require("opencode").snacks_picker_send(...) end,
+							---@module "snacks.picker"
+							---@param picker snacks.Picker
+							opencode_send = function(picker)
+								local prompt = vim
+									.iter(picker:selected({ fallback = true }))
+									:map(
+										---@param item snacks.picker.Item
+										function(item)
+											return item.file
+													and require("opencode").format({
+														path = item.file,
+														from = item.pos,
+														to = item.end_pos,
+													})
+												or item.text
+										end
+									)
+									:join(", ")
+
+								require("opencode").prompt(prompt .. " ")
+							end,
 						},
 						win = { input = { keys = { ["<M-x>"] = { "opencode_send", mode = { "n", "i" } } } } },
 					},
