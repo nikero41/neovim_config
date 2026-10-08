@@ -188,13 +188,13 @@ keymaps:add_multiple({
 		"n",
 		"<leader>lf",
 		vim.cmd.Format,
-		{ desc = "Format buffer", lsp = { method = "textDocument/formatting" } },
+		{ desc = "Format buffer" },
 	},
 	{
 		"v",
 		"<leader>lf",
-		"<CMD>Format<CR>",
-		{ desc = "Format buffer", lsp = { method = "textDocument/rangeFormatting" } },
+		":Format<CR>",
+		{ desc = "Format selection" },
 	},
 	{
 		"n",
