@@ -43,10 +43,16 @@ return {
 					},
 					{
 						icon = "󰒲 ",
-						key = "L",
+						key = "l",
 						desc = "Lazy",
-						action = ":Lazy",
+						action = function() vim.cmd.Lazy() end,
 						enabled = package.loaded.lazy ~= nil,
+					},
+					{
+						icon = "󰒲 ",
+						key = "m",
+						desc = "Mason",
+						action = function() vim.cmd.Mason() end,
 					},
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
@@ -70,12 +76,11 @@ return {
 				},
 				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
 				function()
-					local in_git = Snacks.git.get_root() ~= nil
 					local cmds = {
 						{
 							icon = " ",
-							desc = "Browse Repo",
-							key = "b",
+							desc = "Open Repo",
+							key = "R",
 							action = function() Snacks.gitbrowse() end,
 						},
 						{
@@ -109,12 +114,13 @@ return {
 							height = 10,
 						},
 					}
+
 					return vim.tbl_map(function(cmd)
 						local has_cmd = not not cmd.cmd
 						return vim.tbl_extend("force", {
 							pane = 2,
 							section = has_cmd and "terminal" or nil,
-							enabled = in_git,
+							enabled = Snacks.git.get_root() ~= nil,
 							padding = 1,
 							ttl = has_cmd and 5 * 60 or nil,
 							indent = has_cmd and 3 or nil,
