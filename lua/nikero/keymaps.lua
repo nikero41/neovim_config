@@ -71,13 +71,15 @@ end
 ---@param seted_keymaps table<KeymapModes, Keymap[]>
 ---@param keymap Keymap
 function Keymaps:apply(seted_keymaps, keymap)
+	local function normalize(key) return vim.api.nvim_replace_termcodes(key, true, true, true) end
+
 	if keymap.rhs ~= false and keymap.opts.optional ~= false then
 		keymap.modes = vim
 			.iter(keymap.modes)
 			:filter(function(mode)
-				local existing_keymap = vim
-					.iter(seted_keymaps[mode])
-					:find(function(existing) return existing.lhs == keymap.lhs end) --[[@as Keymap|nil]]
+				local existing_keymap = vim.iter(seted_keymaps[mode]):find(
+					function(existing) return normalize(existing.lhs) == normalize(keymap.lhs) end
+				) --[[@as Keymap|nil]]
 				if existing_keymap == nil then return true end
 
 				if keymap.opts.optional == nil and keymap.opts.buf == nil then
