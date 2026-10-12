@@ -7,14 +7,20 @@ return {
 			local keymaps = require("nikero.keymaps"):new({
 				{
 					"n",
+					"<leader>gB",
+					function() require("gitsigns").blame() end,
+					{ desc = "Git blame" },
+				},
+				{
+					"n",
 					"<leader>gl",
 					function() require("gitsigns").blame_line() end,
-					{ desc = "View Git blame" },
+					{ desc = "Git blame current line" },
 				},
 				{
 					"n",
 					"<leader>gp",
-					function() require("gitsigns").preview_hunk_inline() end,
+					function() require("gitsigns").preview_hunk() end,
 					{ desc = "Preview Git hunk" },
 				},
 				{
@@ -59,7 +65,6 @@ return {
 					function() require("gitsigns").diffthis() end,
 					{ desc = "View Git diff" },
 				},
-
 				{
 					"n",
 					"[G",
@@ -84,7 +89,7 @@ return {
 					function() require("gitsigns").nav_hunk("prev") end,
 					{ desc = "Previous Git hunk" },
 				},
-				{ { "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", { desc = "inside Git hunk" } },
+				{ { "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "inside Git hunk" } },
 			})
 
 			---@type Gitsigns.config
@@ -107,18 +112,6 @@ return {
 				on_attach = function(buffer) keymaps:setup({ buf = buffer }) end,
 			}
 		end,
-	},
-	{
-		"FabijanZulj/blame.nvim",
-		cmd = "BlameToggle",
-		keys = { { "<leader>gB", vim.cmd.BlameToggle, desc = "Toggle git blame" } },
-		---@module "blame"
-		---@type Config
-		---@diagnostic disable-next-line: missing-fields
-		opts = {
-			date_format = "%d/%m/%Y",
-			merge_consecutive = true,
-		},
 	},
 	{
 		"esmuellert/codediff.nvim",
