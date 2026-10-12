@@ -46,11 +46,10 @@ function Autocmds:setup()
 		group = vim.api.nvim_create_augroup("lsp-functionality", { clear = true }),
 		callback = function(args)
 			local functionality = vim.iter(vim.lsp.get_clients({ bufnr = args.buf })):fold(
-				{ folding = false, document_color = false, inlay_hints = false, code_lens = false },
+				{ document_color = false, inlay_hints = false, code_lens = false },
 				---@param client vim.lsp.Client
 				function(acc, client)
 					return {
-						folding = client:supports_method("textDocument/foldingRange") or acc.folding,
 						document_color = client:supports_method("textDocument/documentColor")
 							or acc.document_color,
 						inlay_hints = client:supports_method("textDocument/inlayHint") or acc.inlay_hints,
@@ -60,29 +59,6 @@ function Autocmds:setup()
 					}
 				end
 			)
-
-			local foldexpr = vim.b[args.buf].foldexpr or "v:lua.vim.treesitter.foldexpr()"
-			if args.event == "LspAttach" then
-				foldexpr = functionality.folding and "v:lua.vim.lsp.foldexpr()"
-					or "v:lua.vim.treesitter.foldexpr()"
-				vim.b[args.buf].foldexpr = foldexpr
-			end
-
-			local windows = args.event == "LspAttach" and vim.fn.win_findbuf(args.buf)
-				or { vim.api.nvim_get_current_win() }
-			vim
-				.iter(windows)
-				:filter(
-					function(winid)
-						return vim.api.nvim_win_is_valid(winid)
-							and vim.api.nvim_win_get_buf(winid) == args.buf
-							and vim.wo[winid].foldexpr ~= foldexpr
-					end
-				)
-				:each(function(winid)
-					vim.wo[winid].foldexpr = foldexpr
-					vim.api.nvim_win_call(winid, function() vim.cmd("normal! zx") end)
-				end)
 
 			if functionality.inlay_hints then vim.lsp.inlay_hint.enable(true, { bufnr = args.buf }) end
 

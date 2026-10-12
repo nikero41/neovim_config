@@ -95,6 +95,6 @@ return {
 		event = "VeryLazy",
 		---@module "origami"
 		---@type Origami.config
-		opts = { autoFold = { enabled = false } },
+		opts = {},
 	},
 }
