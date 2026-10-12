@@ -155,7 +155,7 @@ function Keymaps:setup(opts)
 			return keymap
 		end)
 		:map(function(keymap)
-			keymap.opts = vim.tbl_extend("force", opts, keymap.opts)
+			if opts ~= nil then keymap.opts = vim.tbl_extend("force", opts, keymap.opts) end
 			return keymap
 		end)
 		:each(function(keymap)
