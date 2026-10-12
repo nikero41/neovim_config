@@ -52,7 +52,9 @@ vim.o.grepformat = "%f:%l:%c:%m"
 -- Splits
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.splitkeep = "screen"
 vim.o.tabclose = "uselast"
+vim.opt.jumpoptions:append("view")
 
 -- Folding
 vim.o.foldenable = true
