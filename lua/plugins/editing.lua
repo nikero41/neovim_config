@@ -49,16 +49,22 @@ return {
 	{
 		"MagicDuck/grug-far.nvim",
 		keys = {
-			{ "<leader>ss", function() require("grug-far").open() end },
+			{ "<leader>ss", function() require("grug-far").open() end, desc = "Search" },
 			{
 				"<leader>sc",
 				function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
+				desc = "Search current word",
 			},
-			{ "<leader>sa", function() require("grug-far").open({ engine = "astgrep" }) end },
+			{
+				"<leader>sa",
+				function() require("grug-far").open({ engine = "astgrep" }) end,
+				desc = "Search astgrep",
+			},
 			{
 				"<leader>sf",
 				function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
 				mode = { "x", "v" },
+				desc = "Search current word in file",
 			},
 		},
 		opts = {},
