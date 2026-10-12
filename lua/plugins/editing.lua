@@ -47,28 +47,21 @@ return {
 		end,
 	},
 	{
-		"ray-x/sad.nvim",
-		dependencies = { { "ray-x/guihua.lua", build = "cd lua/fzy && make" } },
-		event = "User File",
-		cmd = { "Sad" },
+		"MagicDuck/grug-far.nvim",
+		keys = {
+			{ "<leader>ss", function() require("grug-far").open() end },
+			{
+				"<leader>sc",
+				function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
+			},
+			{ "<leader>sa", function() require("grug-far").open({ engine = "astgrep" }) end },
+			{
+				"<leader>sf",
+				function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end,
+				mode = { "x", "v" },
+			},
+		},
 		opts = {},
-		init = function()
-			vim.api.nvim_create_user_command("SearchAndReplace", function(params)
-				vim.ui.input({
-					prompt = "Search",
-					default = params.args ~= "" and params.args or vim.fn.expand("<cword>"),
-				}, function(search_word)
-					if search_word == nil then return end
-					vim.ui.input({ prompt = "Replace" }, function(replace_word)
-						if replace_word == nil then return end
-						vim.ui.input({ prompt = "Filetype" }, function(filetype)
-							if filetype == nil then return end
-							require("sad").Replace(search_word, replace_word, filetype)
-						end)
-					end)
-				end)
-			end, { nargs = "?", desc = "Search and replace" })
-		end,
 	},
 	{
 		"Wansmer/treesj",
