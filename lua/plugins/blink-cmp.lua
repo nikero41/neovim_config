@@ -112,7 +112,6 @@ return {
 						components = {
 							kind_icon = {
 								text = function(ctx)
-									vim.notify(vim.inspect(ctx), nil, { title = "🪚 ctx", ft = "lua" })
 									local icon = ctx.kind_icon
 									if ctx.item.source_id == "lsp" then
 										local color_item = require("nvim-highlight-colors").format(
