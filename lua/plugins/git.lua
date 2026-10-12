@@ -104,10 +104,7 @@ return {
 					topdelete = { text = require("icons").git.sign_line },
 					changedelete = { text = require("icons").git.sign },
 				},
-				on_attach = function(buffer)
-					keymaps:set_opts({ buf = buffer })
-					keymaps:setup()
-				end,
+				on_attach = function(buffer) keymaps:setup({ buf = buffer }) end,
 			}
 		end,
 	},

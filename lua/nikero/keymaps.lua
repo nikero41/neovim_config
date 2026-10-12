@@ -15,13 +15,11 @@
 
 ---@class Keymaps
 ---@field protected keymaps Keymap[]
----@field protected opts snacks.keymap.set.Opts
 ---@field new fun(self: Keymaps, keymaps?: KeymapInput[]): Keymaps
 ---@field add fun(self: Keymaps, keymaps: KeymapInput)
 ---@field add_multiple fun(self: Keymaps, keymaps: KeymapInput[])
----@field set_opts fun(self: Keymaps, opts: snacks.keymap.set.Opts)
----@field setup fun(self: Keymaps)
-local Keymaps = { keymaps = {}, opts = {} }
+---@field setup fun(self: Keymaps, opts?: snacks.keymap.set.Opts)
+local Keymaps = { keymaps = {} }
 
 function Keymaps:new(keymaps)
 	local k = { keymaps = {}, opts = {} }
@@ -47,8 +45,6 @@ end
 function Keymaps:add_multiple(keymaps)
 	vim.iter(keymaps):each(function(keymap) self:add(keymap) end)
 end
-
-function Keymaps:set_opts(opts) self.opts = opts end
 
 ---@param keymap vim.api.keyset.get_keymap
 local function to_keymap(keymap)
@@ -144,7 +140,7 @@ local function get_buffer_keymaps(buffer)
 	return modes
 end
 
-function Keymaps:setup()
+function Keymaps:setup(opts)
 	local global_keymaps = get_global_keymaps()
 
 	vim
@@ -159,7 +155,7 @@ function Keymaps:setup()
 			return keymap
 		end)
 		:map(function(keymap)
-			keymap.opts = vim.tbl_extend("force", self.opts, keymap.opts)
+			keymap.opts = vim.tbl_extend("force", opts, keymap.opts)
 			return keymap
 		end)
 		:each(function(keymap)
