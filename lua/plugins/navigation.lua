@@ -1,6 +1,3 @@
-local term = vim.trim((vim.env.TERM_PROGRAM or ""):lower())
-local mux = term == "tmux" or term == "wezterm" or vim.env.KITTY_LISTEN_ON
-
 ---@type LazySpec
 return {
 	{
@@ -197,8 +194,16 @@ return {
 		specs = { { "neovim/nvim-lspconfig", dependencies = { "hasansujon786/nvim-navbuddy" } } },
 	},
 	{
-		"mrjones2014/smart-splits.nvim",
-		event = mux and "VeryLazy" or nil, -- load early if mux detected
+		"smart-splits-nvim/smart-splits.nvim",
+		version = "^3.0.0",
+		lazy = false,
+		dependencies = {
+			{
+				"smart-splits-nvim/backend-tmux",
+				main = "smart-splits-backend-tmux",
+				opts = {},
+			},
+		},
 		keys = {
 			{
 				"<C-h>",
@@ -224,6 +229,7 @@ return {
 		---@type SmartSplitsConfig
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
+			mux = { backend = "smart-splits-backend-tmux", warn_if_unusable = true },
 			ignored_filetypes = { "qf" },
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 		},
