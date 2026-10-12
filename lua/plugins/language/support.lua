@@ -155,9 +155,8 @@ return {
 				-- Python
 				"debugpy",
 				"basedpyright",
+				"ruff",
 				"mypy",
-				"black",
-				"isort",
 
 				"rust-analyzer",
 				"codelldb", -- and C

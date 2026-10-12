@@ -214,7 +214,7 @@ return {
 				lua = { "stylua" },
 				markdown = with_js_formatters({ "markdownlint" }),
 				nginx = { "nginxfmt" },
-				python = { "isort", "black" },
+				python = { "ruff_organize_imports", "ruff_format" },
 				rust = { "dioxus", lsp_format = "last" },
 				sql = { "sqlfluff", lsp_format = "never" },
 				templ = { "templ" },
