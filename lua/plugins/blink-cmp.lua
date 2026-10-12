@@ -109,6 +109,47 @@ return {
 							{ "kind_icon", "label", "label_description", gap = 1 },
 							{ "kind", "source_name", gap = 1 },
 						},
+						components = {
+							kind_icon = {
+								text = function(ctx)
+									vim.notify(vim.inspect(ctx), nil, { title = "🪚 ctx", ft = "lua" })
+									local icon = ctx.kind_icon
+									if ctx.item.source_id == "lsp" then
+										local color_item = require("nvim-highlight-colors").format(
+											ctx.item.documentation,
+											{ kind = ctx.kind }
+										)
+										if color_item and color_item.abbr ~= "" then icon = color_item.abbr end
+									else
+										local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+										return kind_icon
+									end
+									return icon .. ctx.icon_gap
+								end,
+								highlight = function(ctx)
+									local highlight = "BlinkCmpKind" .. ctx.kind
+									if ctx.item.source_id == "lsp" then
+										local color_item = require("nvim-highlight-colors").format(
+											ctx.item.documentation,
+											{ kind = ctx.kind }
+										)
+										if color_item and color_item.abbr_hl_group then
+											highlight = color_item.abbr_hl_group
+										end
+									else
+										local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+										return hl
+									end
+									return highlight
+								end,
+							},
+							kind = {
+								highlight = function(ctx)
+									local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+									return hl
+								end,
+							},
+						},
 					},
 				},
 				documentation = {
@@ -140,7 +181,7 @@ return {
 				},
 			},
 			appearance = { nerd_font_variant = "mono" },
-			fuzzy = { sorts = { "exact", "score", "sort_text" } },
+			fuzzy = { implementation = "lua", sorts = { "exact", "score", "sort_text" } },
 		},
 		config = function(_, opts)
 			local cmp = require("blink.cmp")
