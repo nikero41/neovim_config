@@ -95,6 +95,11 @@ return {
 		event = "VeryLazy",
 		---@module "origami"
 		---@type Origami.config
-		opts = {},
+		opts = {
+			autoFold = {
+				---@type lsp.FoldingRangeKind[]
+				kinds = { "imports" },
+			},
+		},
 	},
 }
