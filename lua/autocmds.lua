@@ -69,7 +69,7 @@ function Autocmds:setup()
 			end
 
 			if functionality.document_color then
-				vim.lsp.document_color.enable(false, { bufnr = args.buf }, { style = "virtual" })
+				vim.lsp.document_color.enable(true, { bufnr = args.buf }, { style = "virtual" })
 			end
 
 			if functionality.semantic_token then
