@@ -180,7 +180,7 @@ return {
 				},
 			},
 			appearance = { nerd_font_variant = "mono" },
-			fuzzy = { implementation = "lua", sorts = { "exact", "score", "sort_text" } },
+			fuzzy = { sorts = { "exact", "score", "sort_text" } },
 		},
 		config = function(_, opts)
 			local cmp = require("blink.cmp")
