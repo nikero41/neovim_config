@@ -1,3 +1,4 @@
+brew "ast-grep"
 brew "cocoapods"
 brew "dotenv-linter"
 brew "fd"
