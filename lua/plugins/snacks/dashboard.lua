@@ -28,12 +28,6 @@ return {
 						desc = "Recent Files",
 						action = function() Snacks.dashboard.pick("oldfiles") end,
 					},
-					{
-						icon = " ",
-						key = "g",
-						desc = "Lazygit",
-						action = function() Snacks.lazygit() end,
-					},
 					{ icon = " ", key = "p", desc = "Select project", action = ":Project snacks" },
 					{
 						icon = " ",
