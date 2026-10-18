@@ -113,7 +113,7 @@ return {
 							kind_icon = {
 								text = function(ctx)
 									local icon = ctx.kind_icon
-									if ctx.item.source_id == "lsp" then
+									if ctx.item.source_id == "lsp" and ctx.kind == "Color" then
 										local color_item = require("nvim-highlight-colors").format(
 											ctx.item.documentation,
 											{ kind = ctx.kind }
@@ -127,7 +127,7 @@ return {
 								end,
 								highlight = function(ctx)
 									local highlight = "BlinkCmpKind" .. ctx.kind
-									if ctx.item.source_id == "lsp" then
+									if ctx.item.source_id == "lsp" and ctx.kind == "Color" then
 										local color_item = require("nvim-highlight-colors").format(
 											ctx.item.documentation,
 											{ kind = ctx.kind }
