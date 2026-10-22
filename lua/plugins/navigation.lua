@@ -203,6 +203,7 @@ return {
 				main = "smart-splits-backend-tmux",
 				opts = {},
 			},
+			{ "rawnly/smart-splits-nvim--backend-rex", opts = {} },
 		},
 		keys = {
 			{
@@ -229,7 +230,10 @@ return {
 		---@type SmartSplitsConfig
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
-			mux = { backend = "smart-splits-backend-tmux", warn_if_unusable = true },
+			mux = {
+				backend = { "smart-splits-backend-tmux", "smart-splits-backend-rex" },
+				warn_if_unusable = true,
+			},
 			ignored_filetypes = { "qf" },
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 		},
