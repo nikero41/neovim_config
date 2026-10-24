@@ -217,23 +217,22 @@ return {
 	},
 	{
 		"petertriho/nvim-scrollbar",
+		branch = "refactor/v2",
 		event = "User File",
+		---@module "scrollbar"
+		---@type ScrollbarUserConfig
 		opts = {
-			hide_if_all_visible = true,
-			excluded_buftypes = { "nofile" },
-			excluded_filetypes = {
-				"bigfile",
-				"prompt",
-				"noice",
-				"neo-tree",
-				"blink-cmp-menu",
-				"blink-cmp-documentation",
-				"blink-cmp-signature",
+			exclude = {
+				buftypes = { nofile = true },
+				filetypes = {
+					bigfile = true,
+					["neo-tree"] = true,
+					-- ["blink-cmp-documentation"] = true,
+					-- ["blink-cmp-signature"] = true,
+				},
 			},
-			handlers = {
-				gitsigns = true,
-				search = true,
-			},
+			providers = { gitsigns = true },
+			scrollbar = { hide_if_all_visible = true },
 		},
 	},
 	{
