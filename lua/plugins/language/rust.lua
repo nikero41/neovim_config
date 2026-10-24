@@ -44,32 +44,4 @@ return {
 			}
 		end,
 	},
-	{
-		"cordx56/rustowl",
-		build = "cargo install rustowl",
-		ft = "rust",
-		keys = {
-			{
-				"<leader>rl",
-				function()
-					require("rustowl").toggle()
-					vim.notify(
-						"Lifetimes " .. (require("rustowl").is_enabled() and "enabled" or "disabled"),
-						vim.log.levels.INFO,
-						{ title = "Rust" }
-					)
-				end,
-				desc = "Toggle Rust lifetimes",
-				ft = "rust",
-			},
-		},
-		---@type rustowl.Config
-		opts = {},
-		---@param opts rustowl.Config
-		config = function(_, opts)
-			local config = require("rustowl.config").client
-			vim.lsp.config("rustowl", config)
-			require("rustowl").setup(opts)
-		end,
-	},
 }
