@@ -109,8 +109,18 @@ return {
 					topdelete = { text = require("icons").git.sign_line },
 					changedelete = { text = require("icons").git.sign },
 				},
+				numhl = true,
 				on_attach = function(buffer) keymaps:setup({ buf = buffer }) end,
 			}
+		end,
+		init = function()
+			Snacks.toggle
+				.new({
+					name = "Git Word Diff",
+					get = function() return require("gitsigns.config").config.word_diff end,
+					set = function(state) require("gitsigns").toggle_word_diff(state) end,
+				})
+				:map("<leader>gw")
 		end,
 	},
 	{
