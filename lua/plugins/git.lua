@@ -114,7 +114,7 @@ return {
 			}
 		end,
 		init = function()
-			Snacks.toggle
+			require("snacks").toggle
 				.new({
 					name = "Git Word Diff",
 					get = function() return require("gitsigns.config").config.word_diff end,
