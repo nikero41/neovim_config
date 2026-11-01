@@ -54,6 +54,10 @@ return {
 		---@type MasonSettings
 		opts = {
 			firewall = { enabled = true },
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:Crashdummyy/mason-registry",
+			},
 			ui = {
 				border = vim.o.winborder,
 				icons = {
@@ -93,7 +97,7 @@ return {
 				"clang-format",
 
 				-- C#
-				"omnisharp",
+				"roslyn",
 				"csharpier",
 				"netcoredbg",
 

@@ -1,4 +1,8 @@
 ---@type LazySpec
 return {
-	{ "Hoffs/omnisharp-extended-lsp.nvim" },
+	{
+		"seblyng/roslyn.nvim",
+		ft = { "cs", "razor" },
+		opts = {},
+	},
 }
