@@ -30,6 +30,7 @@ vim.opt.fillchars = {
 	foldclose = require("icons").folds.closed,
 	foldsep = " ",
 	foldinner = " ",
+	diff = "╱",
 }
 
 -- Indentation
