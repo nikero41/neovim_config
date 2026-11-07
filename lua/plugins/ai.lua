@@ -152,20 +152,4 @@ return {
 			},
 		},
 	},
-	{
-		"ThePrimeagen/99",
-		keys = {
-			{ "<leader>as", function() require("99").search({}) end, desc = "Search" },
-			{
-				"<leader>ax",
-				function() require("99").stop_all_requests() end,
-				desc = "Stop all requests",
-			},
-			{ "<leader>ai", function() require("99").visual({}) end, desc = "Visual", mode = "v" },
-		},
-		opts = {
-			model = "opencode/gpt-5.4",
-			completion = { source = "blink" },
-		},
-	},
 }
