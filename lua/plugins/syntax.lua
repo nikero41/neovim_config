@@ -9,6 +9,7 @@ return {
 			require("nvim-treesitter").install({
 				"astro",
 				"bash",
+				"zsh",
 
 				-- C
 				"cpp",

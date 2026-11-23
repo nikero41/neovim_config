@@ -84,8 +84,8 @@ return {
 			ensure_installed = {
 				"astro-language-server",
 
-				-- Bash
-				"bash-language-server",
+				-- Shell
+				"shuck",
 				"shellcheck",
 				"shfmt",
 				"bash-debug-adapter",

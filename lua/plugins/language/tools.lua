@@ -44,7 +44,7 @@ return {
 				astro = { "eslint_d" },
 				bash = { "shellcheck" },
 				sh = { "shellcheck" },
-				zsh = { "shellcheck", "zsh" },
+				zsh = { "zsh" },
 				dockerfile = { "hadolint" },
 				dotenv = { "dotenv_linter" },
 				json = { "jsonlint" },
@@ -205,7 +205,7 @@ return {
 				astro = { "eslint_d", "prettierd" },
 				bash = { "shfmt", "shellcheck" },
 				sh = { "shfmt", "shellcheck" },
-				zsh = { "shfmt", "shellcheck" },
+				zsh = { "shfmt_zsh", lsp_format = "never" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				cs = { "csharpier" },
@@ -233,6 +233,10 @@ return {
 			end
 
 			opts.formatters = {
+				shfmt_zsh = {
+					inherit = "shfmt",
+					append_args = { "-ln=zsh" },
+				},
 				sqlfluff = {
 					append_args = function(_, ctx)
 						return default_config_args("sqlfluff", { bufnr = ctx.buf })
