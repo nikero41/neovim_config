@@ -1,7 +1,7 @@
 ---@class Config
 ---@field transparency boolean
 ---@field builtin_syntax_filetypes string[] Filetypes using Neovim's built-in syntax highlighting
----@field hide_code_lens_ft string[] Filetypes where code lens should be disabled
+---@field show_code_lens_ft string[] Filetypes where code lens should be enabled
 ---@field get_sql_connections fun(self: Config): SqlsConnection[]
 local Config = {
 	transparency = false,
