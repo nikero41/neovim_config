@@ -32,16 +32,6 @@ return {
 			end,
 			desc = "Remove current buffer from Harpoon",
 		},
-		{
-			"<leader>fh",
-			function()
-				vim.ui.input({ prompt = "Harpoon mark index: " }, function(input)
-					local num = tonumber(input)
-					if num then require("harpoon"):list():select(num) end
-				end)
-			end,
-			desc = "Goto index of mark",
-		},
 	},
 	---@type HarpoonPartialConfig
 	opts = { settings = { save_on_toggle = true } },
