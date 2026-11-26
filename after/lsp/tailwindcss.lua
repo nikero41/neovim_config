@@ -3,6 +3,7 @@ return {
 	settings = {
 		tailwindCSS = {
 			emmetCompletions = true,
+			classFunctions = { "cn", "clsx", "cva", "twMerge" },
 			includeLanguages = {
 				rust = "html",
 			},
