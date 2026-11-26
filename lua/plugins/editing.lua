@@ -153,4 +153,20 @@ return {
 			end
 		end,
 	},
+	{
+		"ThePrimeagen/refactoring.nvim",
+		lazy = false,
+		dependencies = { "lewis6991/async.nvim" },
+		keys = {
+			{
+				"<leader>rs",
+				function() require("refactoring").select_refactor() end,
+				desc = "Select refactor",
+				mode = { "n", "x" },
+			},
+		},
+		---@module "refactoring"
+		---@type refactor.UserConfig
+		opts = {},
+	},
 }
