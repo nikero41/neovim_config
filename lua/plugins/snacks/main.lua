@@ -98,7 +98,19 @@ return {
 				---@diagnostic disable-next-line: duplicate-set-field
 				vim._print = function(_, ...) Snacks.debug.inspect(...) end
 
-				Snacks.toggle.inlay_hints():map("<leader>uh")
+				Snacks.toggle
+					.inlay_hints({
+						get = function()
+							local enabled = vim.b.inlay_hints_enabled
+							if enabled == nil then return vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }) end
+							return enabled
+						end,
+						set = function(enabled)
+							vim.b.inlay_hints_enabled = enabled
+							vim.lsp.inlay_hint.enable(enabled, { bufnr = 0 })
+						end,
+					})
+					:map("<leader>uh")
 				Snacks.toggle.zen():map("<leader>uZ")
 				Snacks.toggle.zoom():map("<leader>uz")
 			end,
