@@ -36,7 +36,7 @@ vim.opt.fillchars = {
 -- Indentation
 vim.o.tabstop = 2
 vim.o.shiftwidth = 0
-vim.o.expandtab = true
+vim.o.expandtab = false
 vim.o.smartindent = true
 vim.o.copyindent = true
 vim.o.preserveindent = true
