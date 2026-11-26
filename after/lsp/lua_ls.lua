@@ -2,9 +2,14 @@
 return {
 	settings = {
 		Lua = {
+			completion = {
+				callSnippet = "Replace",
+				displayContext = 6,
+			},
 			hint = {
 				enable = true,
 				arrayIndex = "Disable",
+				paramName = "Literal",
 			},
 		},
 	},

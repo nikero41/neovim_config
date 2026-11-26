@@ -10,6 +10,7 @@ return {
 		basedpyright = {
 			analysis = {
 				typeCheckingMode = "basic",
+				diagnosticMode = "workspace",
 				autoImportCompletions = true,
 				diagnosticSeverityOverrides = {
 					reportUnusedImport = "information",

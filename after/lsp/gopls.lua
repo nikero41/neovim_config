@@ -9,11 +9,9 @@ return {
 				nilness = true,
 				nonewvars = true,
 				shadow = true,
-				undeclaredname = true,
 				unreachable = true,
 				unusedparams = true,
 				unusedwrite = true,
-				useany = true,
 			},
 			codelenses = {
 				generate = true, -- show the `go generate` lens.
@@ -29,6 +27,7 @@ return {
 				compositeLiteralTypes = true,
 				constantValues = true,
 				functionTypeParameters = true,
+				ignoredError = true,
 				parameterNames = true,
 				rangeVariableTypes = true,
 			},
@@ -41,6 +40,7 @@ return {
 			staticcheck = true,
 			symbolMatcher = "Fuzzy",
 			usePlaceholders = true,
+			vulncheck = "Imports",
 		},
 	},
 }
