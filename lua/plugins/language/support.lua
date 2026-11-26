@@ -149,8 +149,7 @@ return {
 				"checkmake",
 
 				-- Markdown
-				"marksman",
-				"markdownlint-cli2",
+				"rumdl",
 
 				-- nginx
 				"nginx-config-formatter",

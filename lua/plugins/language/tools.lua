@@ -55,7 +55,6 @@ return {
 				go = { "golangcilint" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "selene" },
-				markdown = { "markdownlint-cli2" },
 				make = { "checkmake" },
 				python = { "mypy" },
 				sql = { "sqlfluff" },
@@ -96,8 +95,6 @@ return {
 					return #config_args > 0 and require("nikero.database").dialect or ""
 				end,
 			})
-			vim.list_extend(lint.linters["markdownlint-cli2"].args, linter_args_mapper("markdownlint"))
-
 			lint.linters.yamllint.env =
 				{ YAMLLINT_CONFIG_FILE = tools.configs.yamllint.default_config_path }
 
@@ -212,7 +209,7 @@ return {
 				go = { "goimports", "golines", lsp_format = "last" },
 				groovy = { "npm-groovy-lint" },
 				lua = { "stylua" },
-				markdown = with_js_formatters({ "markdownlint" }),
+				markdown = { "oxfmt", lsp_format = "never" },
 				nginx = { "nginxfmt" },
 				python = { "ruff_organize_imports", "ruff_format" },
 				rust = { "dioxus", lsp_format = "last" },
